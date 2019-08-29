@@ -2,5 +2,5 @@
 
 Silver Steel Systems 
 
-Repositorio del proyecto Disce, para la materia ingenieria de software
+Repositorio del proyecto Eratos, para la materia ingenieria de software
 
