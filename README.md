@@ -1,6 +1,6 @@
-# disce
+# Erato
 
 Silver Steel Systems 
 
-Repositorio del proyecto Eratos, para la materia ingenieria de software
+Repositorio del proyecto Erato, para la materia ingenieria de software
 
