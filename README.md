@@ -1,6 +1,8 @@
 # Erato
 
-Silver Steel Systems 
+Silver Steel Systems
 
-Repositorio del proyecto Erato, para la materia ingenieria de software
+Erato
+
+En este branch se mantendrá la documentacion relacionada al proyecto
 
