@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Título -->
+  <title>Google Calendar API Quickstart</title>
+
+  <!-- Charset -->
+  <meta charset="utf-8" />
+
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- CSS -->
+  <style>
+    html, body {height: auto; background-image: linear-gradient(to bottom, #c06c84, #a36790, #7e6494, #58618d, #355c7d);}
+    .container, .jumbotron {margin-top: 3.5%;}
+    hr.style14 {border: 0; height: 1px; background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);}
+    #iframe {width: 90%; margin: auto;}
+    p {margin-left: 50px; margin-right: 50px;}
+  </style>
+
+</head>
+
+<body>
+  <!-- Container -->
+  <div class="container">
+    <!-- Jumbotron -->
+    <div class="jumbotron text-center shadow-lg p-3 mb-5 bg-light rounded">
+      <br>
+      <h2>Google Calendar API Quickstart</h2>
+      <hr class="style14">
+      <p>Agenda eventos mediante la implementación de la API Calendario de Google.</p>
+      <br>
+      <p>1) Ingresa a tu cuenta gmail y autoriza a Google Calendar para poder visualizar tus eventos</p>
+      <!--Botón de autorización y desconectar-->
+      <div align="center">
+        <button id="authorize_button" style="display: none;" class="btn btn-primary">Autorizar</button>
+        <button id="signout_button" style="display: none;" class="btn btn-danger">Desconectar</button>
+      </div>
+      <br>
+      <p>2) Agenda una evento en el calendario "Peluquería Duoc Sede Plaza Oeste" haciendo click en el siguiente icono</p>
+      <!-- Abrir calendario en una nueva pestaña para agregar evento -->
+      <a target="_blank" href="https://calendar.google.com/calendar?cid=Y29sa2RhYzgxcWEyM3FidWJibmVpcDk0aW9AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ"><img border="0" src="https://www.google.com/calendar/images/ext/gc_button1_es.gif"></a>
+      <br><br>
+      <p><h5>Calendario Peluquería Duoc Sede Plaza Oeste</h5>
+      </p>
+      <!-- Calendario -->
+      <div class="embed-responsive embed-responsive-21by9 shadow p-3 mb-5 bg-white rounded" id="iframe">
+        <iframe class="embed-responsive-item" src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showCalendars=0&amp;showPrint=0&amp;mode=WEEK&amp;height=500&amp;wkst=2&amp;hl=es_419&amp;bgcolor=%23ffffff&amp;src=colkdac81qa23qbubbneip94io%40group.calendar.google.com&amp;color=%238C500B&amp;ctz=America%2FSantiago" style="border-width:0" width="900" height="500" frameborder="0" scrolling="no"></iframe>
+      </div>
+      <p><i class="text-justify">Nota: En este calendario solo se mostrarán los eventos que ha agregado el propietario del calendario. Tú como usuario no invitado, podrás agendar eventos, pero solo los podrás ver tú, no el propietario del calendario. Para el caso de una peluquería no funcionaría, ya que el peluquero no se daría cuenta de ningún evento.</i></p>
+      <br>
+      <!-- Lista de eventos (eventos próximos) -->
+      <pre id="content" style="font-family: sans-serif; line-height: 1.15;"></pre>
+    </div>
+  </div>
+
+  <!-- Funciones JS -->
+  <script type="text/javascript">
+    // Client ID and API key from the Developer Console
+    var CLIENT_ID = '<YOUR_CLIENT_ID>';
+    var API_KEY = '<YOUR_API_KEY>';
+    // Array of API discovery doc URLs for APIs used by the quickstart
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+    var authorizeButton = document.getElementById('authorize_button');
+    var signoutButton = document.getElementById('signout_button');
+    /**
+     *  On load, called to load the auth2 library and API client library.
+     */
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+    /**
+     *  Initializes the API client library and sets up sign-in state
+     *  listeners.
+     */
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      }).then(function() {
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        authorizeButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
+      });
+    }
+    /**
+     *  Called when the signed in status changes, to update the UI
+     *  appropriately. After a sign-in, the API is called.
+     */
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        authorizeButton.style.display = 'none';
+        signoutButton.style.display = 'block';
+        listUpcomingEvents();
+      } else {
+        authorizeButton.style.display = 'block';
+        signoutButton.style.display = 'none';
+      }
+    }
+    /**
+     *  Sign in the user upon button click.
+     */
+    function handleAuthClick(event) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+    /**
+     *  Sign out the user upon button click.
+     */
+    function handleSignoutClick(event) {
+      gapi.auth2.getAuthInstance().signOut();
+      window.location.replace('index.html');
+    }
+    /**
+     * Append a pre element to the body containing the given message
+     * as its text node. Used to display the results of the API call.
+     *
+     * @param {string} message Text to be placed in pre element.
+     */
+    function appendPre(message) {
+      var pre = document.getElementById('content');
+      var textContent = document.createTextNode(message + '\n');
+      pre.appendChild(textContent);
+    }
+    /**
+     * Print the summary and start datetime/date of the next ten events in
+     * the authorized user's calendar. If no events are found an
+     * appropriate message is printed.
+     */
+    function listUpcomingEvents() {
+      gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+      }).then(function(response) {
+        var events = response.result.items;
+        appendPre('Lista de tus eventos creados: \n');
+        if (events.length > 0) {
+          for (i = 0; i < events.length; i++) {
+            var event = events[i];
+            var when = event.start.dateTime;
+            if (!when) {
+              when = event.start.date;
+            }
+            appendPre(event.summary + ' (' + when + ')')
+          }
+        } else {
+          appendPre('No upcoming events found.');
+        }
+      });
+    }
+  </script>
+
+  <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+
+  <!-- Bootstrap 4 JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

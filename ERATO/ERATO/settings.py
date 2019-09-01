@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'ERATO.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
+        'NAME': 'erato',
+        'USER': 'django',
+        'PASSWORD': 'django',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
