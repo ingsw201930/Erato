@@ -14,24 +14,30 @@
 <div class="container">
 	<div class="login">
 		<form class="ui form" method="post">
-			  <div class="field">
-			    <label style="color:white;">Email</label>
-			    <input type="text" name="Email" placeholder="Email">
-			  </div>
-			  <div class="field">
-			    <label style="color:white;">Password</label>
-			    <input type="text" name="Password" placeholder="Password">
+
+
+			<!-- templates/registration/login.html -->
+			<h2 style="color:white;" >Login</h2>
+
+			<form style="color:white;" method="post">
+			  {% csrf_token %}
+			  {{ form.as_p }}
+			  <button style="color:white;"type="submit">Login</button>
+			</form>
+
           <div class="reset_password">
+
+
             <a href="#" style="display: block; margin-bottom: 20px">I've forgotten my password.</a>
           </div>
 			  </div>
         <div class="button_lr">
-		  	 <button class="ui button green" type="submit" style="display: block; margin: 0 auto">Log in</button> 
+		  	 <button class="ui button green" type="submit" style="display: block; margin: 0 auto">Log in</button>
         </div>
 		  	<div class="button_lr">
 		  	 <button class="ui button" type="submit" style="display: block; margin: 0 auto">Register</button>
         </div>
-		</form>	
+		</form>
 	</div>
 </div>
 
@@ -42,7 +48,7 @@
       <div class="ui stackable inverted divided grid">
         <div class="eight wide column">
           <h4 class="ui inverted header">3S</h4>
-          <p>3S es un grupo de desarrollo de software, creador y diseñador de Erato.</p>
+          <p>3S es el grupo de desarrollo de software, creador y diseñador de Erato.</p>
         </div>
 
         <div class="eight wide column">

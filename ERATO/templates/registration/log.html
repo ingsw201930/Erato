@@ -1,0 +1,19 @@
+<!-- templates/registration/login.html -->
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
+
+
+
+			<div class="field">
+			    <label style="color:white;">Email</label>
+			    <input type="text" name="Email" placeholder="Email">
+			  </div>
+			  <div class="field">
+			    <label style="color:white;">Password</label>
+			    <input type="text" name="Password" placeholder="Password">
+          <div class="reset_password">
+
