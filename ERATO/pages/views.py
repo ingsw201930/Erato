@@ -5,7 +5,7 @@ import os
 # Create your views here.
 def login(request):
 	mypath=os.path
-	return render(request, "login.html", {'path':mypath})
+	return render(request, "registration/login.html", {'path':mypath})
 	#return render_to_response('ERATO/web/login.html')
 
 def home_sw(request):
