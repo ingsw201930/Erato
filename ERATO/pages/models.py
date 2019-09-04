@@ -15,7 +15,7 @@ def create_user_profile(sender,instance,created,**kwargs):
     if created:
         SW.objects.create(user=instance)
 
-@reciever(post_save,sender=User)
+@receiver(post_save,sender=User)
 def save_user_profile(sender,instance,created,**kwargs):
     instance.profile.save()
 
