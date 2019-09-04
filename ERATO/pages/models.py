@@ -7,17 +7,10 @@ class SW(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     picture_path=models.CharField(max_length=200)#relative to Erato/ERATO
     MC_path=models.CharField(max_length=200)#relative to Erato/ERATO
-    birthDate=models.DateTimeField('date published')
+    birthDate=models.DateTimeField('date birth')
     statue=models.CharField(max_length=20)
     eye_color=models.CharField(max_length=20)
-@receiver(post_save,sender=User)
-def create_user_profile(sender,instance,created,**kwargs):
-    if created:
-        SW.objects.create(user=instance)
 
-@receiver(post_save,sender=User)
-def save_user_profile(sender,instance,created,**kwargs):
-    instance.profile.save()
 
 class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
