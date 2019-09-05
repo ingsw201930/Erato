@@ -19,7 +19,7 @@ from pages import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-	path('home/',views.home_sw, name='home_sw'),
+	path('home/<slug:user_name>',views.home_sw, name='home_sw'),
 	path('',views.login, name='home'),
         path('admin/', admin.site.urls),
         path('accounts/', include('django.contrib.auth.urls')),
