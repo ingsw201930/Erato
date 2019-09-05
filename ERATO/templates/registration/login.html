@@ -12,31 +12,20 @@
 	<img src="/assets/images/logo/ERATO.png">
 </div>
 <div class="container">
-	<div class="login">
-		<form class="ui form" method="post">
-
-
-			<!-- templates/registration/login.html -->
-			<h2 style="color:white;" >Login</h2>
-
-			<form style="color:white;" method="post">
-			  {% csrf_token %}
-			  {{ form.as_p }}
-			  <button style="color:white;"type="submit">Login</button>
-			</form>
-
+	     <div class="login">
+		    <form class="ui form" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
           <div class="reset_password">
-
-
             <a href="#" style="display: block; margin-bottom: 20px">I've forgotten my password.</a>
           </div>
-			  </div>
         <div class="button_lr">
 		  	 <button class="ui button green" type="submit" style="display: block; margin: 0 auto">Log in</button>
         </div>
 		  	<div class="button_lr">
 		  	 <button class="ui button" type="submit" style="display: block; margin: 0 auto">Register</button>
         </div>
+			  </div>
 		</form>
 	</div>
 </div>
