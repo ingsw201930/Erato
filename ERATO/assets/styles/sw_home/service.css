@@ -1,3 +1,7 @@
+.service *{
+	display: inline-block;
+
+}
 .service_panel .header{
 	margin: 20px;
 	margin-bottom: 5px:;
@@ -8,16 +12,13 @@
 	padding: 20px;
 	margin-bottom: 20px;
 	margin-right: 10px;
-	max-width: 4
-	0%;
 	background-color: white;
 	border-radius: 10px;
 	vertical-align:top;
-	display: inline-block;
+	max-width: 70%;
 }
 
 .interested_people{
-	display: inline-block;
 	height: auto;
 	max-width: 25%;
 	margin-top: 5px;

@@ -6,7 +6,7 @@
 	margin: 10px;
 	padding: 50px;
 	display: inline-block;
-	max-width: 30%;
+	max-width: 22%;
 	background-color: white;
 	border-radius: 10px;
 	vertical-align: top;
@@ -20,7 +20,7 @@
 	margin: 10px;
 	display: inline-block;
 	vertical-align: top;
-	width: 75%;
+	max-width: 60%;
 }
 
 .agenda {

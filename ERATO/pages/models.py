@@ -12,7 +12,6 @@ class SW(models.Model):
     eye_color=models.CharField(max_length=20)
 
 
-
 class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
