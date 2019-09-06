@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pages import views
+from loginapp import views as login_views
+from swapp import views as sw_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-	path('home/',views.home_sw, name='home'),
-	path('',views.login, name='home'),
+	path('home/',sw_views.home_sw, name='home'),
+	path('',login_views.login, name='home'),
         path('admin/', admin.site.urls),
         path('accounts/', include('django.contrib.auth.urls')),
 

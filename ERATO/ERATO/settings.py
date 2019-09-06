@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Erato's apps
-    'services',
-    'pages',
+    'swapp',
+    'loginapp',
 ]
 
 MIDDLEWARE = [
