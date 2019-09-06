@@ -24,9 +24,8 @@ urlpatterns = [
 	path('sw/home/',sw_views.home_sw, name='home_sw'),
     path('cl/home/',cl_views.home_cl, name='home_cl'),
     path('redirect/home/',login_views.redirect_login,name='redirect'),
-	path('',login_views.login, name='home'),
         path('admin/', admin.site.urls),
-        path('accounts/', include('django.contrib.auth.urls')),
+        path('', include('django.contrib.auth.urls')),
 
 ]
 
