@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Erato's apps
     'swapp',
     'loginapp',
+    'clientapp',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +132,4 @@ STATICFILES_DIRS=(
     os.path.join(BASE_DIR, 'assets'),
     )
 
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/redirect/home'
