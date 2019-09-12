@@ -18,12 +18,15 @@ from django.urls import path, include
 from app_sessions import views as sessions_views
 from app_sw import views as sw_views
 from app_client import views as cl_views
+from app_date import views as date_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	path('sw/home/',sw_views.home_sw, name='home_sw'),
     path('cl/home/',cl_views.home_cl, name='home_cl'),
     path('redirect/home/',sessions_views.redirect_login,name='redirect'),
+    path('createQR/<int:date_id>',date_views.createQR),
+    path('QRcheck/<str:code>',date_views.checkQR),
         path('admin/', admin.site.urls),
         path('', include('django.contrib.auth.urls')),
 
