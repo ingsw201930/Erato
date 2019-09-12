@@ -9,6 +9,7 @@ class SW(models.Model):
     MC_path=models.CharField(max_length=200)#relative to Erato/ERATO
     birthDate=models.DateTimeField('date birth')
     description=models.CharField(max_length=500)
+    third_email=models.CharField(max_length=200)
 
 
 
