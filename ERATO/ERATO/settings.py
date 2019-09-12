@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'app_sw',
     'app_client',
     'app_emails',
+    'app_date',
 ]
 
 MIDDLEWARE = [
