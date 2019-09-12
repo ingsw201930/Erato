@@ -8,8 +8,8 @@ class SW(models.Model):
     picture_path=models.CharField(max_length=200)#relative to Erato/ERATO
     MC_path=models.CharField(max_length=200)#relative to Erato/ERATO
     birthDate=models.DateTimeField('date birth')
-    status=models.CharField(max_length=20)
-    eye_color=models.CharField(max_length=20)
+    description=models.CharField(max_length=500)
+
 
 
 class Service(models.Model):

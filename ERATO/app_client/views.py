@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Client
-from swapp.models import Service
+from app_sw.models import Service
 from django.contrib.auth.decorators import login_required
 import os
 

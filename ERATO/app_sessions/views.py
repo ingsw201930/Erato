@@ -2,8 +2,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from swapp.models import SW
-from clientapp.models import Client
+from app_sw.models import SW
+from app_client.models import Client
 from django.contrib.auth.decorators import login_required
 import os
 
