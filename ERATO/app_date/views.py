@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .QR import generateQR
+from .models import Date
 
 # Create your views here.
 def createQR(request,date_id):
@@ -26,3 +28,20 @@ def checkQR(request,code):
         'timedout':'este servicio ya quedo sin tiempo'
     }
     return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
+
+def generate_date(request):
+
+"""
+    client=models.OneToOneField(Client,on_delete=models.CASCADE)
+    service=models.OneToOneField(Service,on_delete=models.CASCADE)
+    start=models.DateTimeField('start time')
+    end=models.DateTimeField('end time')
+    place=models.CharField(max_length=200)#this mous change
+    state=models.CharField(max_length=20,choices=STATE_CHOICES,default=PREPAYMENT)
+"""
+
+    user = request.user
+    client = Client.objects.get(user=user)
+    date = Date(client = client, service=request.id )
+    service = Service(sw=sw, name=name, description=description, price=price)
+    service.save()

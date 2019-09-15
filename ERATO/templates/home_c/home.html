@@ -12,62 +12,41 @@
 	<img src="/assets/images/logo/ERATO.png">
 </div>
 <div class="container">
-	<div class="profile" align="left">
-		<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
-		<div class="profile_description">
-			<p>
-				birth date: {{sw.birthDate}}
-				<br>
-				Status:{{sw.status}}
-				<br>
-				Eyes:{{sw.eye_color}}
-				<br>
-				Description: Canta, oh diosa, la cólera del Pelida Aquiles; cólera funesta que causó infinitos males
-a los aqueos y precipitó al Hades muchas almas valerosas de héroes, a quienes hizo presa
-de perros y pasto de aves -cumplíase la voluntad de Zeus- desde que se separaron
-disputando el Atrida, rey de hombres, y el divino Aquiles.
-			</p>
+<div class="services">
+<div class="ui divided items">
+	{% for service in services%}
+	<div class="service">
+		<div class="service_panel">
+		<div class="header">{{service.name}}</div>
+		<div class="image">
+		<img src="" alt="">
 		</div>
-	</div>
-	<div class="services">
-		<div class="ui divided items">
-			{% for service in sw.service_set.all %}
-			<div class="service">
-				<div class="service_panel">
-					<div class="header">{{service.name}}</div>
-						<div class="content">
-				        	{{service.description}}
-						</div>
-						<div class="content">
-				        	price: <b>{{service.price}}</b>$
-						</div>
-				      	<div class="extra">
-				        <div class="ui label">Blowjob</div>
-				        <div class="ui label">Stripteasse</div>
-				        <div class="ui label">Events</div>
-						</div>
-						<div class="ui primary button" id="want_it">
-					          I want it
-					          <i class="right chevron icon"></i>
-					  </div>
+		<div class="content">
+			<div class="details">
+				<div class="description">
+				{{service.description}}
 				</div>
-				<div class="interested_people">
-				<img class="ui avatar image" src="/assets/images/people/man_8.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_2.jpg">
-				<img class="ui avatar image" src="/assets/images/people/woman_3.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_5.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_6.jpeg">
-				<img class="ui avatar image" src="/assets/images/people/woman_5.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_7.jpg">
-				<img class="ui avatar image" src="/assets/images/people/woman_6.jpg">
+				<div class="price">
+				price: ${{service.price}}
 				</div>
 			</div>
-			{% endfor %}
+		<div class="extra">
+			<div class="ui label">Blowjob</div>
+			<div class="ui label">Stripteasse</div>
+			<div class="ui label">Events</div>
+		</div>
+		</div>
+			<button class="ui primary button right red" id="want_it" onclick="window.location.replace('/generate_date/{{service.id}}');">
+			I want it
+			<i class="right chevron icon"></i>
+			</button>
 		</div>
 	</div>
-	<div class="agenda">
-
-	</div>
+	{% endfor %}
+</div>
+</div>
+<div class="requests">
+</div>
 </div>
 
 <footer>

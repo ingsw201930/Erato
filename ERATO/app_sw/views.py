@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from app_sw.models import SW, Service
 
 from app_sw.forms import ServiceAddForm
 
@@ -36,7 +35,7 @@ def service_add(request):
 
     service = Service(sw=sw, name=name, description=description, price=price)
     service.save()
-    
+
     return HttpResponseRedirect('/s/home')
 
 @login_required

@@ -1,0 +1,10 @@
+.container{
+	width: 100%;
+}
+
+.services {
+	margin: 10px;
+	display: inline-block;
+	vertical-align: top;
+	max-width: 70%;
+}
