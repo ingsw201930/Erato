@@ -2,8 +2,8 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/home.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/home.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/service.css">
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
@@ -16,22 +16,16 @@
 		<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
 		<div class="profile_description">
 			<p>
-				birth date: {{sw.birthDate}}
+				User name: {{client.user.username}}
 				<br>
-				Status:{{sw.status}}
+				Email: {{client.user.email}}
 				<br>
-				Eyes:{{sw.eye_color}}
-				<br>
-				Description: Canta, oh diosa, la cólera del Pelida Aquiles; cólera funesta que causó infinitos males
-a los aqueos y precipitó al Hades muchas almas valerosas de héroes, a quienes hizo presa
-de perros y pasto de aves -cumplíase la voluntad de Zeus- desde que se separaron
-disputando el Atrida, rey de hombres, y el divino Aquiles.
 			</p>
 		</div>
 	</div>
 	<div class="services">
 		<div class="ui divided items">
-			{% for service in sw.service_set.all %}
+			{% for service in services %}
 			<div class="service">
 				<div class="service_panel">
 					<div class="header">{{service.name}}</div>

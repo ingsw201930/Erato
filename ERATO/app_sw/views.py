@@ -1,3 +1,4 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -36,8 +37,8 @@ def service_add(request):
 
     service = Service(sw=sw, name=name, description=description, price=price)
     service.save()
-    
-    return HttpResponseRedirect('/s/home')
+
+    return HttpResponseRedirect('/home/s')
 
 @login_required
 def service_del(request):
