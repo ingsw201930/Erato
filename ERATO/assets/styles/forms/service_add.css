@@ -1,0 +1,19 @@
+.container{
+  padding: 50px;
+  padding-bottom: 100px;
+}
+
+.panel *{
+    margin: 20px;
+}
+
+input{
+  display: inline-block;
+  margin: 30px;
+}
+
+.panel{
+  width: 80%;
+  height: auto;
+  background-color: #ffffffAA;
+}

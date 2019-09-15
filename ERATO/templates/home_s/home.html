@@ -1,0 +1,124 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/home.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/service.css">
+	<title>Erato</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<div class="bar">
+	<img src="/assets/images/logo/ERATO.png">
+</div>
+<div class="container">
+	<div class="profile" align="left">
+		<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
+		<div class="profile_description">
+			<p>
+				birth date: {{sw.birthDate}}
+				<br>
+				Status:{{sw.status}}
+				<br>
+				Eyes:{{sw.eye_color}}
+				<br>
+				Heigth: {{sw.heigth}}
+				<br>
+				Weigth: {{sw.weigth}}
+				<br>
+				About: {{sw.about}}
+			</p>
+		</div>
+	</div>
+	<div class="services">
+		<div class="ui divided items">
+			{% for service in sw.service_set.all %}
+			<div class="service">
+				<div class="service_panel">
+					<div class="header">{{service.name}}</div>
+						<div class="content">
+				        	{{service.description}}
+						</div>
+						<div class="content">
+				        	price: <b>{{service.price}}</b>$
+						</div>
+				      	<div class="extra">
+				        <div class="ui label">Blowjob</div>
+				        <div class="ui label">Stripteasse</div>
+				        <div class="ui label">Events</div>
+						</div>
+						<div class="ui primary button" id="want_it">
+					          I want it
+					          <i class="right chevron icon"></i>
+					  </div>
+				</div>
+				<div class="interested_people">
+				<img class="ui avatar image" src="/assets/images/people/man_8.jpg">
+				<img class="ui avatar image" src="/assets/images/people/man_2.jpg">
+				<img class="ui avatar image" src="/assets/images/people/woman_3.jpg">
+				<img class="ui avatar image" src="/assets/images/people/man_5.jpg">
+				<img class="ui avatar image" src="/assets/images/people/man_6.jpeg">
+				<img class="ui avatar image" src="/assets/images/people/woman_5.jpg">
+				<img class="ui avatar image" src="/assets/images/people/man_7.jpg">
+				<img class="ui avatar image" src="/assets/images/people/woman_6.jpg">
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div>
+		<button type="button" class="ui semantic button green" name="button" onclick="window.location.replace('/service_add_request');">Add service</button>
+		</div>
+	</div>
+</div>
+
+<footer>
+
+	<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+      <div class="ui stackable inverted divided grid">
+        <div class="eight wide column">
+          <h4 class="ui inverted header">3S</h4>
+          <p>3S es un grupo de desarrollo de software, creador y diseñador de Erato.</p>
+        </div>
+
+        <div class="eight wide column">
+          <h4 class="ui inverted header">Erato</h4>
+          <p>Página de contenido adulto +18 años. Todos los miembros han declarado tener mínimo 18 años.</p>
+        </div>
+      </div>
+      <div class="ui inverted section divider"></div>
+      	<div class="social_networks">
+			<button class="ui facebook button">
+			<i class="facebook icon"></i>
+			Facebook
+			</button>
+			<button class="ui twitter button">
+			<i class="twitter icon"></i>
+			Twitter
+			</button>
+			<button class="ui linkedin button">
+			<i class="linkedin icon"></i>
+			LinkedIn
+			</button>
+			<button class="ui instagram button">
+			<i class="instagram icon"></i>
+			Instagram
+			</button>
+			<button class="ui youtube button">
+			<i class="youtube icon"></i>
+			YouTube
+			</button>
+      	</div>
+
+      <div class="ui horizontal inverted small divided link list">
+        <a class="item" href="#">Site Map</a>
+        <a class="item" href="#">Contact Us</a>
+        <a class="item" href="#">Terms and Conditions</a>
+        <a class="item" href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+</body>
+</html>

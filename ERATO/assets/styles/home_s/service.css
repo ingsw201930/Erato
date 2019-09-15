@@ -1,0 +1,43 @@
+.service *{
+	display: inline-block;
+
+}
+.service_panel .header{
+	margin: 20px;
+	margin-bottom: 5px:;
+	font-size: 30px;
+}
+
+.service_panel{
+	padding: 20px;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	background-color: white;
+	border-radius: 10px;
+	vertical-align:top;
+	max-width: 70%;
+}
+
+.interested_people{
+	height: auto;
+	max-width: 25%;
+	margin-top: 5px;
+	vertical-align: top;
+}
+
+.interested_people *{
+	margin: 5px;
+}
+
+.content{
+	padding-left: 20px;
+	margin: 10px;
+}
+
+.extra{
+	margin: 20px;
+}
+
+#want_it{
+	margin-left:auto; margin-right:0;
+}

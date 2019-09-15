@@ -1,0 +1,28 @@
+*{color:white;}
+
+.container {
+	padding: 70px;
+}
+
+.signin{
+	width: 40%;
+	padding: 40px;
+	background-color: #000000AA;
+	margin: 0 auto;
+}
+.panel_erato{
+	margin: 50px;
+	padding: 70px;
+}
+
+.panel_erato *{
+	padding-left: 20px;
+	padding-right: 10px;
+}
+
+.info *{
+	color: black;
+}
+.column{
+	padding: 30px;
+}
