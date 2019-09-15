@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .models import SW,Service
 
-from app_sw.models import SW, Service
 
 from app_sw.forms import ServiceAddForm
 

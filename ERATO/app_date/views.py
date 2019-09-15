@@ -1,4 +1,9 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from .QR import generateQR
+from .models import Date
+from app_client.models import Client
+from app_sw.models import Service
 
 # Create your views here.
 def createQR(request,date_id):
@@ -26,3 +31,19 @@ def checkQR(request,code):
         'timedout':'este servicio ya quedo sin tiempo'
     }
     return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
+
+def generate_date(request,service_id):
+
+    """
+    client=models.OneToOneField(Client,on_delete=models.CASCADE)
+    service=models.OneToOneField(Service,on_delete=models.CASCADE)
+    start=models.DateTimeField('start time')
+    end=models.DateTimeField('end time')
+    place=models.CharField(max_length=200)#this mous change
+    state=models.CharField(max_length=20,choices=STATE_CHOICES,default=PREPAYMENT)
+    """
+    user = request.user
+    client = Client.objects.get(user=user)
+    service=Service.objects.get(id=service_id)
+    date = Date(client = client, service=service )
+    return HttpResponse('esta deberia ser una pagina donde se ingresan los datos del date')

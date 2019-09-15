@@ -136,3 +136,10 @@ STATICFILES_DIRS=(
     )
 
 LOGOUT_REDIRECT_URL = '/home'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'eratoservices@gmail.com'
+EMAIL_HOST_PASSWORD = 'eratoerato2019'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True

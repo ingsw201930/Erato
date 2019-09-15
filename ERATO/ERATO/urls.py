@@ -35,9 +35,11 @@ urlpatterns = [
     path('service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
     path('service_del/', sw_views.service_del , name="service_del"),
     path('service_edit/', sw_views.service_edit_form , name="service_edit"),
+
 #   Client functionalities
     path('home/c/', client_views.home_c , name="home_c"),
 #   QR
+    path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createQR/<int:date_id>',date_views.createQR),
     path('QRcheck/<str:code>',date_views.checkQR),
 ]
