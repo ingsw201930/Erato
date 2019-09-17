@@ -4,6 +4,8 @@ from .models import Date
 from app_emails.utils import send_qr
 from django.http import HttpResponse
 import os
+from django.contrib.auth.decorators import login_required
+from app_sw.models import Service
 
 from app_client.models import Client
 # Create your views here.
@@ -45,3 +47,9 @@ def generate_date(request, service_id):
     path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
     send_qr(path, 'ruastabi@gmail.com')
     return HttpResponse("Enviado")
+
+@login_required
+def date_form( request , service_id ):
+
+    service = Service.objects.get( id = service_id )
+    return render( request, 'date/date_form.html' , {'service':service } )

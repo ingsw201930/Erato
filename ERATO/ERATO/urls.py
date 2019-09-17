@@ -33,8 +33,10 @@ urlpatterns = [
     path('home/s/', sw_views.home_s , name="home_s"),
     path('service_add_request/', sw_views.service_add_form , name="service_add"),
     path('service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
-    path('service_del/', sw_views.service_del , name="service_del"),
+    path('service_del/<int:service_id>', sw_views.service_del , name="service_del"),
     path('service_edit/', sw_views.service_edit_form , name="service_edit"),
+
+    path( 'date_form/<int:service_id>', date_views.date_form, name="form" ),
 
 #   Client functionalities
     path('home/c/', client_views.home_c , name="home_c"),
