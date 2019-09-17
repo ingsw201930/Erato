@@ -8,9 +8,10 @@ secretkey="tcrtrtgvfbmhgfbjujgmbgfc"
 def generateQR(id):
     code=encode(secretkey,id)
     baseurl='http://192.168.0.10:8000/'#cambiar localhost por tu ip en la red
+
     url = pyqrcode.create(baseurl+'QRcheck/'+code)
     url.svg('assets/QR/'+id+'.svg', scale=8)
-    return url
+    return code
 
 def encode(password,message):
     cipher = encrypt(password, message)
