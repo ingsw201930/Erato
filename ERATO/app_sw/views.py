@@ -47,3 +47,24 @@ def service_del(request):
 @login_required
 def service_edit_form(request):
     return HttpResponseRedirect('/')
+
+def signup(request):
+    if request.method == 'POST':
+        form = SWSignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            sw=SW(
+                user=user,
+                status=form.cleaned_data.get('status'),
+                birthDate=form.cleaned_data.get('birthDate'),
+                eye_color=form.cleaned_data.get('eye_color')
+            )
+            sw.save()
+            login(request, user)
+            return HttpResponseRedirect('/sw/home/')
+    else:
+        form = SWSignUpForm()
+    return render(request, 'signup_s/signup_s.html', {'form': form})
