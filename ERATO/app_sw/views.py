@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import SW,Service
+from .forms import SWSignUpForm
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 
 
 from app_sw.forms import ServiceAddForm
@@ -58,13 +61,12 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             sw=SW(
                 user=user,
-                status=form.cleaned_data.get('status'),
                 birthDate=form.cleaned_data.get('birthDate'),
-                eye_color=form.cleaned_data.get('eye_color')
+                about=form.cleaned_data.get('description')
             )
             sw.save()
             login(request, user)
-            return HttpResponseRedirect('/sw/home/')
+            return HttpResponseRedirect('/home/s/')
     else:
         form = SWSignUpForm()
     return render(request, 'signup_s/signup_s.html', {'form': form})
