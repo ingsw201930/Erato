@@ -7,8 +7,17 @@ import os
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
 
+import logging
+import threading
+import time
+
 from app_client.models import Client
 # Create your views here.
+def send_email(id, email):
+    url = generateQR(id)
+    path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
+    send_qr(path, email)
+
 def createQR(request,date_id):
     generateQR(str(date_id))
     return HttpResponse("esto deberia redirigir a una pagina donde se envia el qr")
@@ -43,10 +52,10 @@ def generate_date(request, service_id):
     #url = generateQR(date.id)
     # id= date.id
 
-    url = generateQR(id)
-    path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
-    send_qr(path, 'ruastabi@gmail.com')
-    return HttpResponse("Enviado")
+    x = threading.Thread(target=generate_date, args=(id, 'ruastabi@gmail.com'))
+    logging.info("Main    : before running thread")
+    x.start()
+    return HttpResponse("La cita ha sido creada.")
 
 @login_required
 def date_form( request , service_id ):

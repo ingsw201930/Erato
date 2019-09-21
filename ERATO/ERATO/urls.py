@@ -41,7 +41,7 @@ urlpatterns = [
 #   Client functionalities
     path('home/c/', client_views.home_c , name="home_c"),
 #   QR
-    path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
+    path('date_form/generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createQR/<int:date_id>',date_views.createQR),
     path('QRcheck/<str:code>',date_views.checkQR),
 ]
