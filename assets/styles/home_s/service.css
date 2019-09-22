@@ -1,0 +1,70 @@
+.service *{
+	display: inline-block;
+
+}
+
+.service_panel{
+	padding: 20px;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	background-color: white;
+	border-radius: 10px;
+	vertical-align:top;
+	width: 70%;
+}
+
+.interested_people{
+	height: auto;
+	max-width: 25%;
+	margin-top: 5px;
+	vertical-align: top;
+}
+
+.interested_people *{
+	margin: 5px;
+}
+
+.service_content{
+	width: 80%;
+	display: inline-block;
+	padding-left: 20px;
+	margin: 10px;
+}
+
+.service_buttons{
+	width: 10%;
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 20px;
+	margin: 10px;
+}
+
+.service_buttons .button{
+	margin: 3px;
+}
+
+.service_name{
+	display: block;
+	margin: 5px;
+	font-size: 20px;
+}
+
+.service_description{
+	margin: 5px;
+	display: block;
+}
+
+.service_price{
+	margin: 5px;
+	display: block;
+}
+
+.extra{
+	margin: 5px;
+	display: block;
+	margin: 20px;
+}
+
+#want_it{
+	margin-left:auto; margin-right:0;
+}

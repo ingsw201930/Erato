@@ -1,0 +1,20 @@
+*{color:white;}
+
+.container {
+	margin: 100px 300px 200px 300px;
+}
+
+.login{
+	width: 40%;
+	padding: 40px;
+	background-color: #000000AA;
+	margin: 0 auto;
+}
+
+.button_lr{
+	margin: 10px;
+}
+
+.reset_password a{
+	margin: 5px;
+}
