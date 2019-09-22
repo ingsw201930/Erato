@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="daab97b5-ab69-4308-bf9d-6c09204417ac" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/signup_s/signup_s.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ERATO/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ERATO/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_sessions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_sessions/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_sw/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_sw/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_sw/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_sw/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/general.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/general.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/home_c/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/home_c/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/home_c/service.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/home_c/service.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/home_s/service.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/home_s/service.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/login/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/login/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/main/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/main/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home_c/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home_c/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home_s/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home_s/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login_c/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login_c/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login_s/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login_s/login.html" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1RD8WvXntWVr6eZesJmL3Ezyjl3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="daab97b5-ab69-4308-bf9d-6c09204417ac" name="Default Changelist" comment="" />
+      <created>1569190340401</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569190340401</updated>
+      <workItem from="1569190342800" duration="3786000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
