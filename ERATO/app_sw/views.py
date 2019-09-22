@@ -48,12 +48,8 @@ def service_del(request, service_id):
      return HttpResponse("Borrando servicio")
 
 @login_required
-<<<<<<< HEAD
 def service_edit_form(request, service_id):
      return HttpResponse("Editando servicio")
-=======
-def service_edit_form(request):
-    return HttpResponseRedirect('/')
 
 def signup(request):
     if request.method == 'POST':
@@ -74,4 +70,3 @@ def signup(request):
     else:
         form = SWSignUpForm()
     return render(request, 'signup_s/signup_s.html', {'form': form})
->>>>>>> d3aeffc552fd9c44093a4aba454e216e36dbb6c5
