@@ -8,5 +8,5 @@ from app_sw.models import Service
 def home_c(request):
     user = request.user
     client=Client.objects.get(user=user)
-    services=Service.objects.all()[:5]
+    services=Service.objects.all()[:10]
     return render(request, 'home_c/home.html', {'client':client,'services':services})

@@ -1,53 +1,79 @@
 .service *{
-	display: block;
+	display: inline-block;
 
 }
-.service_panel .header{
-	margin: 20px;
-	margin-bottom: 5px:;
-	font-size: 30px;
+
+service_image{
+	vertical-align:top;
+	width: 20%;
+	display: inline-block;
 }
 
 .service_panel{
-	padding: 20px;
+	display: block;
+	padding: 40px 40px;
 	margin-bottom: 20px;
 	margin-right: 10px;
 	background-color: white;
 	border-radius: 10px;
 	vertical-align:top;
-	min-width: 100%;
+	width: 90%;
+	border-radius: 10px;
 }
 
-.service .header{
-    display: block;
+.interested_people{
+	height: auto;
+	max-width: 25%;
+	margin-top: 5px;
+	vertical-align: top;
 }
 
-.service .image{
-  width: 30%;
+.interested_people *{
+	margin: 5px;
 }
 
-.service .details{
-  width: 60%;
-  display: block;
-}
-
-#want_it{
-  margin: 10px;
-  display: block;
-}
-
-.content{
+.service_content{
+	vertical-align:top;
+	width: 60%;
+	display: inline-block;
 	padding-left: 20px;
 	margin: 10px;
 }
 
+.service_buttons{
+	width: 10%;
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 20px;
+	margin: 10px;
+}
+
+.service_buttons .button{
+	margin: 3px;
+}
+
+.service_name{
+	display: block;
+	margin: 5px;
+	font-size: 20px;
+}
+
+.service_description{
+	margin: 5px;
+	display: block;
+}
+
+.service_price{
+	margin: 5px;
+	display: block;
+}
+
 .extra{
-  margin-top: 10px;
-  margin-bottom: 15px;
-	margin-right: 20px;
-  display: block;
+	display: block;
+	margin: 10px 20px 10px 0px;
 }
 
 #want_it{
+	margin: 20px;
 	margin-left:auto; margin-right:0;
 }

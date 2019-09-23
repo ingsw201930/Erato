@@ -2,8 +2,8 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/home.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/service.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/home.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
@@ -12,7 +12,7 @@
 	<img src="/assets/images/logo/ERATO.png">
 </div>
 <div class="container">
-	<div class="profile" align="left">
+	<div class="profile blur_box" align="left">
 		<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
 		<div class="profile_description">
 			<p>
@@ -27,23 +27,30 @@
 		<div class="ui divided items">
 			{% for service in services %}
 			<div class="service">
-				<div class="service_panel">
-					<div class="header">{{service.name}}</div>
-						<div class="content">
-				        	{{service.description}}
+				<div class="service_panel blur_box">
+					<div class="service_image">
+						<img class="ui small circular image" src="https://i.imgur.com/mup84DH.jpg" alt="Profile image">
+					</div>
+					<div class="service_content">
+						<div class="service_name">
+							{{service.name}}
 						</div>
-						<div class="content">
-				        	price: <b>{{service.price}}</b>$
+						<div class="service_description">
+							{{service.description}}
 						</div>
-				      	<div class="extra">
-				        <div class="ui label">Blowjob</div>
-				        <div class="ui label">Stripteasse</div>
-				        <div class="ui label">Events</div>
+						<div class="service_price">
+							price: <b>{{service.price}}</b>$
 						</div>
-                        <button class="ui primary button right red" id="want_it" onclick="window.location.replace('/date_form/{{service.id}}');">
-						I want it
-						<i class="right chevron icon"></i>
-						</button>
+						<div class="extra">
+							<div class="ui label">Blowjob</div>
+							<div class="ui label">Stripteasse</div>
+							<div class="ui label">Events</div>
+						</div>
+					</div>
+					<button class="ui primary button right red fluid" id="want_it" onclick="window.location.replace('/date_form/{{service.id}}');">
+					I want it
+					<i class="right chevron icon"></i>
+					</button>
 			</div>
 		</div>
 
