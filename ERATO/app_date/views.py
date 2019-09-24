@@ -2,11 +2,11 @@ from django.shortcuts import render
 from .QR import generateQR
 from .models import Date
 from app_emails.utils import send_qr
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import os
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
-
+from .forms import DateAddForm
 import logging
 import threading
 import time
@@ -42,23 +42,41 @@ def checkQR(request,code):
     }
     return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
 
+@login_required
 def generate_date(request, service_id):
+    form = DateAddForm( request.POST )
 
-    user = request.user
-    client = Client.objects.get(user=user)
-    id = "myid1"
-    #date = Date(client = client, service=service_id, start='00:00:00', end='00:00:00', place="Fuego blanco", state='pre-pay')
-    #date.save()
-    #url = generateQR(date.id)
-    # id= date.id
+    if form.is_valid():
 
-    x = threading.Thread(target=generate_date, args=(id, 'ruastabi@gmail.com'))
-    logging.info("Main    : before running thread")
-    x.start()
-    return HttpResponse("La cita ha sido creada.")
+        start_time = form.cleaned_data.get('start_time')
+        finish_time = form.cleaned_data.get('finish_time')
+        place = form.cleaned_data.get('place')
+
+        try:
+            user = request.user
+            service = Service.objects.get(id=service_id)
+            client = Client.objects.get( user = user )
+
+            date = Date(
+                client = client,
+                service = service,
+                start = start_time,
+                end = finish_time,
+                place = place
+            )
+            date.save()
+            send = "La cita ha sido creada."
+        except Exception as e:
+
+            send = str(e)
+    else :
+        return HttpResponseRedirect('/date_form/'+str(service_id))
+
+    return HttpResponseRedirect( '/home/c' )
 
 @login_required
 def date_form( request , service_id ):
-
+    form=DateAddForm()
     service = Service.objects.get( id = service_id )
-    return render( request, 'date/date_form.html' , {'service':service } )
+    return render( request, 'date/date_form.html' , {'service':service,'form':form } )
+
