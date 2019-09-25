@@ -1,8 +1,11 @@
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Client
 from .forms import ClientSignUpForm
 from app_sw.models import Service
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 # Create your views here.
 # Home for clients
 @login_required
