@@ -56,9 +56,6 @@ def service_del(request, service_id):
 def service_edit_form(request, service_id):
      return HttpResponse("Editando servicio")
 
-@login_required
-def date_by_service(request, service_id):
-    return HttpResponse("Aqui se muestran las peticiones de date para: servicio "+str(service_id))
 
 def signup(request):
     if request.method == 'POST':

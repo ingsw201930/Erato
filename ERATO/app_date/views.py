@@ -80,3 +80,7 @@ def date_form( request , service_id ):
     service = Service.objects.get( id = service_id )
     return render( request, 'date/date_form.html' , {'service':service,'form':form } )
 
+
+@login_required
+def date_by_service(request, service_id):
+    return HttpResponse("Aqui se muestran las peticiones de date para: servicio "+str(service_id))
