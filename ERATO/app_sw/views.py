@@ -19,7 +19,10 @@ def home_s(request):
     print("In users")
     print(user)
     if user.is_authenticated:
-        sw = SW.objects.get(user=user)
+        try:
+            sw = SW.objects.get(user=user)
+        except:
+            return HttpResponseRedirect('/')
         return render(request, 'home_s/home.html', {'sw':sw})
     else:
         HttpResponseRedirect('/')
@@ -31,17 +34,19 @@ def service_add_form(request):
 
 @login_required
 def service_add(request):
-    name = request.POST['name']
-    description = request.POST['description']
-    price = request.POST['price']
-
-    user = request.user
-    sw = SW.objects.get(user=user)
-
-    service = Service(sw=sw, name=name, description=description, price=price)
-    service.save()
-
-    return HttpResponseRedirect('/home/s')
+    form = ServiceAddForm(request.POST)
+    if form.is_valid():
+        name = form.cleaned_data.get('name')
+        description = form.cleaned_data.get('description')
+        price = form.cleaned_data.get('price')
+        user = request.user
+        try :
+            sw = SW.objects.get(user=user)
+        except:
+            return HttpResponse('El usuario es invalido')
+        service = Service(sw=sw, name=name, description=description, price=price)
+        service.save()
+        return HttpResponseRedirect('/home/s')
 
 @login_required
 def service_del(request, service_id):
@@ -50,6 +55,7 @@ def service_del(request, service_id):
 @login_required
 def service_edit_form(request, service_id):
      return HttpResponse("Editando servicio")
+
 
 def signup(request):
     if request.method == 'POST':

@@ -35,6 +35,7 @@ urlpatterns = [
     path('service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
     path('home/s/service_del/<int:service_id>', sw_views.service_del , name="service_del"),
     path('home/s/service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
+    path('home/s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
 
     path( 'date_form/<int:service_id>', date_views.date_form, name="form" ),
 
