@@ -52,23 +52,23 @@ def generate_date(request, service_id):
         finish_time = form.cleaned_data.get('finish_time')
         place = form.cleaned_data.get('place')
 
-        try:
-            user = request.user
-            service = Service.objects.get(id=service_id)
-            client = Client.objects.get( user = user )
+        #  try:
+        user = request.user
+        service = Service.objects.get(id=service_id)
+        client = Client.objects.get( user = user )
 
-            date = Date(
-                client = client,
-                service = service,
-                start = start_time,
-                end = finish_time,
-                place = place
-            )
-            date.save()
-            send = "La cita ha sido creada."
-        except Exception as e:
+        date = Date(
+            client = client,
+            service = service,
+            start = start_time,
+            end = finish_time,
+            place = place
+        )
+        date.save()
+        send = "La cita ha sido creada."
+        #  except Exception as e:
+        #      send = str(e)
 
-            send = str(e)
     else :
         return HttpResponseRedirect('/date_form/'+str(service_id))
 
