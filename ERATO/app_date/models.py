@@ -17,8 +17,8 @@ class Date(models.Model):
         (ENDED , 'ended'),
         (TIMEDOUT , 'timed out'),
     ]
-    client=models.ForeignKey(Client,on_delete=models.CASCADE)
-    service=models.ForeignKey(Service,on_delete=models.CASCADE)
+    client=models.OneToOneField(Client,on_delete=models.CASCADE)
+    service=models.OneToOneField(Service,on_delete=models.CASCADE)
     start=models.DateTimeField('start time')
     end=models.DateTimeField('end time')
     place=models.CharField(max_length=200)#this mous change

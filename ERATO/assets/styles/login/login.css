@@ -1,7 +1,7 @@
-*{color:black;}
+*{color:white;}
 
 .container {
-	margin: 100px 300px 200px 300px;
+	padding: 70px;
 }
 
 .login{

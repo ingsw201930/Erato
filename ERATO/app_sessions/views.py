@@ -19,7 +19,6 @@ def login_managing(request):
     login(request, user)
     print("In sesssuibs")
     print(user)
-    render_=HttpResponseRedirect('/')
     if user is not None:
         if SW.objects.filter(user=user):
             render_ = HttpResponseRedirect('/home/s/')
