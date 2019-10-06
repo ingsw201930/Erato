@@ -5,13 +5,15 @@ from app_sw.models import Service
 # Create your models here.
 class Date(models.Model):
     #pre-pay,payed,started,ended,timed out
-    PREPAYMENT = 'pre-pay'
+    REQUESTED = 'requested'
+    ACCEPTED = 'accepted'
     PAYED = 'payed'
     STARTED = 'started'
     ENDED = 'ended'
     TIMEDOUT='timed out'
     STATE_CHOICES = [
-        (PREPAYMENT , 'pre-pay'),
+        (REQUESTED , 'requested'),
+        (ACCEPTED, 'accepted'),
         (PAYED , 'payed'),
         (STARTED , 'started'),
         (ENDED , 'ended'),
@@ -21,5 +23,6 @@ class Date(models.Model):
     service=models.OneToOneField(Service,on_delete=models.CASCADE)
     start=models.DateTimeField('start time')
     end=models.DateTimeField('end time')
-    place=models.CharField(max_length=200)#this mous change
-    state=models.CharField(max_length=20,choices=STATE_CHOICES,default=PREPAYMENT)
+    lat = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
+    lng = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
+    state=models.CharField(max_length=20,choices=STATE_CHOICES,default=REQUESTED)

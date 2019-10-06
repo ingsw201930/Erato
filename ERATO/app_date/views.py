@@ -34,6 +34,42 @@ def checkQR(request,code):
     return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
 
 def generate_date(request, service_id):
+<<<<<<< HEAD
+    print("Generating date...")
+    form = DateAddForm( request.POST )
+
+    if form.is_valid():
+        print("Form is valid")
+
+        start_time = form.cleaned_data.get('start_time')
+        print(start_time)
+        finish_time = form.cleaned_data.get('end_time')
+        print(finish_time)
+        lng = round(form.cleaned_data.get('lng'),8)
+        print(lng)
+        lat = round(form.cleaned_data.get('lat'),8)
+        print(lat)
+
+        try:
+            user = request.user
+            service = Service.objects.get(id=service_id)
+            client = Client.objects.get( user = user )
+            date = Date(
+                client = client,
+                service = service,
+                start = start_time,
+                end = finish_time,
+                lat = lat,
+                lng = lng
+            )
+            print("Creating date...")
+            date.save()
+            print("Date created")
+            return HttpResponseRedirect( '/home/c' )
+        except Exception as e:
+            print(e.args)
+    return render(request, 'date/date_form.html' , {'service':service_id,'form':form })
+=======
 
     user = request.user
     client = Client.objects.get(user=user)
@@ -47,6 +83,7 @@ def generate_date(request, service_id):
     path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
     send_qr(path, 'ruastabi@gmail.com')
     return HttpResponse("Enviado")
+>>>>>>> 09fc254aa83f286652a49415ab2f4430d860d35a
 
 @login_required
 def date_form( request , service_id ):
