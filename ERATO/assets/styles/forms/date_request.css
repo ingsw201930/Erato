@@ -1,0 +1,6 @@
+.form_panel {
+    padding: 50px;
+}
+ .form_panel * {
+     width: 100%;
+ }

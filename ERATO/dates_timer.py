@@ -23,7 +23,6 @@ def send_third(to):
     django.setup()
     print("Sending email...")
     print("Rendering template")
-    html = "Hey, Jude"
 
     html = render_to_string(template_name='emails/third.html',context={ 'username': "An user " })
     subject, from_email= 'Security mail', 'eratoservices@gmail.com'
@@ -69,7 +68,7 @@ while(True):
         print("date and time =", time_now)
 
         #query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='requested' ) AS seses ON app_sw_sw.user_id = seses.sid;"
-        query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='started' AND end_time = %s ) AS seses ON app_sw_sw.user_id = seses.sid;" % (time_now)
+        query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='requested' AND end_time < %s ) AS seses ON app_sw_sw.user_id = seses.sid;" % (time_now)
         cursor.execute(query)
         print("Query executed.")
 

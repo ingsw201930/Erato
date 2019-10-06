@@ -12,17 +12,6 @@
 	<img src="/assets/images/logo/ERATO.png">
 </div>
 <div class="container">
-	<div class="profile blur_box" align="left">
-		<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
-		<div class="profile_description">
-			<p>
-				User name: {{client.user.username}}
-				<br>
-				Email: {{client.user.email}}
-				<br>
-			</p>
-		</div>
-	</div>
 	<div class="services">
 		<div class="ui divided items">
 			{% for service in services %}
@@ -58,6 +47,19 @@
 	{% endfor %}
 </div>
 </div>
+
+	<div class="approved_requests blur_box" align="left">
+	<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
+	<div class="profile_description">
+		<p>
+			Solicitudes aprobadas
+			<br>
+			Email: {{client.user.email}}
+			<br>
+		</p>
+	</div>
+	</div>
+
 </div>
 </div>
 <div class="requests">

@@ -10,12 +10,16 @@ class Date(models.Model):
     STARTED = 'started'
     ENDED = 'ended'
     TIMEDOUT='timed out'
+    REQUESTED = 'requested'
+    ACCEPTED = 'accepted'
     STATE_CHOICES = [
         (PREPAYMENT , 'pre-pay'),
         (PAYED , 'payed'),
         (STARTED , 'started'),
         (ENDED , 'ended'),
         (TIMEDOUT , 'timed out'),
+        (REQUESTED , 'requested'),
+        (ACCEPTED , 'accepted'),
     ]
     client=models.ForeignKey(Client,on_delete=models.CASCADE)
     service=models.ForeignKey(Service,on_delete=models.CASCADE)
@@ -23,4 +27,4 @@ class Date(models.Model):
     end_time=models.DateTimeField('end time')
     lat = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
     lng = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
-    state=models.CharField(max_length=20,choices=STATE_CHOICES,default=PREPAYMENT)
+    state=models.CharField(max_length=20,choices=STATE_CHOICES,default=REQUESTED)
