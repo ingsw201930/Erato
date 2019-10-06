@@ -19,7 +19,8 @@ class Date(models.Model):
     ]
     client=models.ForeignKey(Client,on_delete=models.CASCADE)
     service=models.ForeignKey(Service,on_delete=models.CASCADE)
-    start=models.DateTimeField('start time')
-    end=models.DateTimeField('end time')
-    place=models.CharField(max_length=200)#this mous change
+    start_time=models.DateTimeField('start time')
+    end_time=models.DateTimeField('end time')
+    lat = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
+    lng = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
     state=models.CharField(max_length=20,choices=STATE_CHOICES,default=PREPAYMENT)

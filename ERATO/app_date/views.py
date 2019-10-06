@@ -65,8 +65,8 @@ def generate_date(request, service_id):
             date = Date(
                 client = client,
                 service = service,
-                start = start_time,
-                end = finish_time,
+                start_time = start_time,
+                end_time = finish_time,
                 lat = lat,
                 lng = lng
             )

@@ -15,6 +15,7 @@ from django.conf import settings
 import os
 import django
 
+from datetime import datetime
 
 def send_third(to):
 
@@ -55,12 +56,20 @@ while(True):
       print ( connection.get_dsn_parameters(),"\n")
 
       while(True):
-        today = date.today()
-        print("Today's date:", today)
 
         # Third_email, did, sid
         # Email de tercedo, id del date e id del sex_worker
-        query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='requested') AS seses ON app_sw_sw.user_id = seses.sid;"
+
+        # 2019 - 08 - 07 02:00:00-05
+        now = datetime.now()
+
+        print("now =", now)
+        # dd/mm/YY H:M:S
+        time_now = str(now.strftime("\'%Y-%m-%d %H:%M:%S-00\'"))
+        print("date and time =", time_now)
+
+        #query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='requested' ) AS seses ON app_sw_sw.user_id = seses.sid;"
+        query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='started' AND end_time = %s ) AS seses ON app_sw_sw.user_id = seses.sid;" % (time_now)
         cursor.execute(query)
         print("Query executed.")
 
@@ -75,6 +84,7 @@ while(True):
 
   except (Exception, psycopg2.Error) as error :
       print ("Error while connecting to PostgreSQL", error)
+      time.sleep(3)
   finally:
       #closing database connection.
           if(connection):
