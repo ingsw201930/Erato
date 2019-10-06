@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,38 +12,18 @@
 <div class="bar">
 	<img src="/assets/images/logo/ERATO.png">
 </div>
-
-<div class="container">
-    <div class="ui middle aligned center aligned grid panel">
-    <div class="column">
-    <form class="ui large form" method="post" action="/sessions_managing_login/">
-    <div class="ui stacked segment">
-    <div class="field">
-    <div class="ui left icon input">
-    <i class="user icon"></i>
-    {% csrf_token %}
-    {{ form.username }}
-    </div>
-    </div>
-    <div class="field">
-    <div class="ui left icon input">
-    <i class="lock icon"></i>
-    {% csrf_token %}
-    {{ form.password }}
-    </div>
-    </div>
-    <button class="ui fluid large teal submit button" type="submit">Login</button>
-    </div>
-
-    </form>
-
-    <div class="ui message">
-    New to us? <a href="/signup/s">Sign Up</a>
-    </div>
-    </div>
-    </div>
-
-</div>
+	     <div class="container">
+		    <form class="ui form" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="reset_password">
+            <a href="#" style="display: block; margin-bottom: 20px">I've forgotten my password.</a>
+          </div>
+        <div class="button_lr">
+		  	 <button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
+        </div>
+        </form>
+			  </div>
 
 <footer>
 

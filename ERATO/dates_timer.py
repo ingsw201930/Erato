@@ -1,4 +1,4 @@
-import time 
+import time
 import psycopg2
 from datetime import date
 from django.core.mail import EmailMessage

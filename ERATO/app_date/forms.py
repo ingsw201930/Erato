@@ -7,4 +7,3 @@ class DateAddForm(forms.Form):
     end_time = forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Finish time'}))
     lng       = forms.DecimalField(label='longitude', widget=forms.TextInput(attrs={'type': 'hidden'}))
     lat       = forms.DecimalField(label='latitude', widget=forms.TextInput(attrs={'type': 'hidden'}))
-

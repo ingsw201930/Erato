@@ -2,13 +2,22 @@ from django.shortcuts import render
 from .QR import generateQR
 from .models import Date
 from app_emails.utils import send_qr
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import os
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
+from .forms import DateAddForm
+import logging
+import threading
+import time
 
 from app_client.models import Client
 # Create your views here.
+def send_email(id, email):
+    url = generateQR(id)
+    path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
+    send_qr(path, email)
+
 def createQR(request,date_id):
     generateQR(str(date_id))
     return HttpResponse("esto deberia redirigir a una pagina donde se envia el qr")
@@ -34,7 +43,6 @@ def checkQR(request,code):
     return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
 
 def generate_date(request, service_id):
-<<<<<<< HEAD
     print("Generating date...")
     form = DateAddForm( request.POST )
 
@@ -65,28 +73,27 @@ def generate_date(request, service_id):
             print("Creating date...")
             date.save()
             print("Date created")
+
+            # Debería estar en aceptar
+            id = '3'
+            url = generateQR(id)
+            path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
+            send_qr(path, 'ruastabi@gmail.com')
+            #
+
             return HttpResponseRedirect( '/home/c' )
         except Exception as e:
             print(e.args)
     return render(request, 'date/date_form.html' , {'service':service_id,'form':form })
-=======
 
-    user = request.user
-    client = Client.objects.get(user=user)
-    id = "myid1"
-    #date = Date(client = client, service=service_id, start='00:00:00', end='00:00:00', place="Fuego blanco", state='pre-pay')
-    #date.save()
-    #url = generateQR(date.id)
-    # id= date.id
-
-    url = generateQR(id)
-    path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
-    send_qr(path, 'ruastabi@gmail.com')
-    return HttpResponse("Enviado")
->>>>>>> 09fc254aa83f286652a49415ab2f4430d860d35a
 
 @login_required
 def date_form( request , service_id ):
-
+    form=DateAddForm()
     service = Service.objects.get( id = service_id )
-    return render( request, 'date/date_form.html' , {'service':service } )
+    return render( request, 'date/date_form.html' , {'service':service,'form':form } )
+
+
+@login_required
+def date_by_service(request, service_id):
+    return HttpResponse("Aqui se muestran las peticiones de date para: servicio "+str(service_id))

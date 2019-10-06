@@ -12,7 +12,7 @@
 	<img src="/assets/images/logo/ERATO.png">
 </div>
 <div class="container">
-	<div class="profile" align="left">
+	<div class="profile blur_box" align="left">
 		<img class="ui small circular image" src="/assets/images/people/man_3.jpg">
 		<div class="profile_description">
 			<p>
@@ -30,27 +30,33 @@
 			</p>
 		</div>
 	</div>
+
 	<div class="services">
 		<div class="ui divided items">
 			{% for service in sw.service_set.all %}
 			<div class="service">
-				<div class="service_panel">
-					<div class="header">{{service.name}}</div>
-						<div class="content">
-				        	{{service.description}}
-						</div>
-						<div class="content">
-				        	price: <b>{{service.price}}</b>$
-						</div>
-				      	<div class="extra">
+				<div class="service_panel blur_box">
+					<div class="service_content">
+						<div class="service_name">{{service.name}}</div>
+						<div class="service_description">{{service.description}}</div>
+						<div class="service_price"><b>{{service.price}}</b>$</div>
+				      	<div class="tags">
 				        <div class="ui label">Blowjob</div>
 				        <div class="ui label">Stripteasse</div>
 				        <div class="ui label">Events</div>
 						</div>
-                        <button class="ui primary button right red" id="want_it" onclick="window.location.replace('/date_form/{{service.id}}');">
-						Delete
-						<i class="right chevron icon"></i>
+					</div>
+					<div class="service_buttons">
+						<button class="ui icon button" onclick="window.location.replace('service_del/{{service.id}}');">
+						  <i class="trash alternate icon"></i>
 						</button>
+						<button class="ui icon button" onclick="window.location.replace('service_edit/{{service.id}}');">
+						  <i class="edit outline icon"></i>
+						</button>
+						<button class="ui icon button" onclick="window.location.replace('date_by_service/{{service.id}}');">
+						  <i class="envelope icon"></i>
+						</button>
+					</div>
 
 				</div>
 				<div class="interested_people">
