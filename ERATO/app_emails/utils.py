@@ -18,14 +18,14 @@ def send_qr(qr, to):
 
     # This example assumes the image is in the current directory
     fp = open(qr, 'rb')
-    msgImage = MIMEImage(fp.read(), _subtype="svg")
+    msgImage = MIMEImage(fp.read(), _subtype="png")
     fp.close()
 
     msgImage.add_header('Content-ID', '<image1>')
     html_part.attach(msgImage)
 
-    msg = EmailMessage(subject, None, from_email, [to])
-    msg.attach(html_part)
+    msg = EmailMessage(subject, html, from_email, [to])
+    msg.attach_file(qr)
     msg.send()
 
 def send_third(username, to):

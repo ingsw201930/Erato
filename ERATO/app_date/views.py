@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .QR import generateQR
+from .QR import generateQR,decode,secretkey
 from .models import Date
 from app_emails.utils import send_qr
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 import os
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
@@ -18,9 +18,23 @@ def send_email(id, email):
     path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
     send_qr(path, email)
 
+@login_required
 def createQR(request,date_id):
-    generateQR(str(date_id))
-    return HttpResponse("esto deberia redirigir a una pagina donde se envia el qr")
+    try:
+        date=Date.objects.get(id=date_id)
+    except Exception as e:
+        return HttpResponse("date DoesNotExist")
+    if date.state!=Date.PAYED:
+        return HttpResponse("invalid date")
+    if date.client.user.username==request.user.username:
+        def create_and_send():
+            qr=generateQR(str(date_id),request)
+            #send_qr(qr,'gamendez98@gmail.com')
+        thr = threading.Thread(target=create_and_send)
+        thr.start()
+        return HttpResponse("esto deberia redirigir a una pagina donde se envia el qr")
+    else:
+        return HttpResponseForbidden()
 
 def checkQR(request,code):
     id=int(decode(secretkey,code))
