@@ -10,7 +10,7 @@ from .forms import DateAddForm
 import logging
 import threading
 import time
-
+from django.db.models import Q
 from app_client.models import Client
 # Create your views here.
 def send_email(id, email):
@@ -56,6 +56,7 @@ def checkQR(request,code):
     }
     return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
 
+@login_required
 def generate_date(request, service_id):
     print("Generating date...")
     form = DateAddForm( request.POST )
@@ -105,9 +106,24 @@ def generate_date(request, service_id):
 def date_form( request , service_id ):
     form=DateAddForm()
     service = Service.objects.get( id = service_id )
+    if service.sw.user.username!=request.user.username:
+        return HttpResponseForbidden()
     return render( request, 'date/date_form.html' , {'service':service,'form':form } )
 
+@login_required
+def accept_date(request, date_id):
+    return HttpResponse("aqui se acepta el date")
 
 @login_required
 def date_by_service(request, service_id):
-    return HttpResponse("Aqui se muestran las peticiones de date para: servicio "+str(service_id))
+    try:
+        service=Service.objects.get(id=service_id)
+    except:
+        return HttpResponse('servicio invalido')
+    if service.sw.user.username!=request.user.username:
+        return HttpResponseForbidden()
+    query = Q(state=Date.REQUESTED)
+    query.add(Q(state=Date.ACCEPTED), Q.OR)
+    query.add(Q(state=Date.PAYED), Q.OR)
+    dates=service.date_set.filter(query)
+    return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})

@@ -47,4 +47,5 @@ urlpatterns = [
     path('QRcheck/<str:code>',date_views.checkQR),
     path('signup/s/',sw_views.signup,name="signup_s"),
     path('signup/c/',client_views.signup,name="signup_c"),
+    path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
 ]

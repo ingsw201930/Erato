@@ -5,7 +5,6 @@ from app_sw.models import Service
 # Create your models here.
 class Date(models.Model):
     #pre-pay,payed,started,ended,timed out
-    PREPAYMENT = 'pre-pay'
     PAYED = 'payed'
     STARTED = 'started'
     ENDED = 'ended'
@@ -13,7 +12,6 @@ class Date(models.Model):
     REQUESTED = 'requested'
     ACCEPTED = 'accepted'
     STATE_CHOICES = [
-        (PREPAYMENT , 'pre-pay'),
         (PAYED , 'payed'),
         (STARTED , 'started'),
         (ENDED , 'ended'),

@@ -1,0 +1,58 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/home.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
+	<title>Erato</title>
+	<meta charset="utf-8">
+</head>
+<body>
+{% include '../general/nav.html' %}
+<div class="container">
+	<div class="services">
+    <div class="service">
+      <div class="service_panel blur_box">
+        <div class="service_content">
+          <div class="service_name">{{service.name}}</div>
+          <div class="service_description">{{service.description}}</div>
+          <div class="service_price"><b>{{service.price}}</b>$</div>
+              <div class="tags">
+              <div class="ui label">Blowjob</div>
+              <div class="ui label">Stripteasse</div>
+              <div class="ui label">Events</div>
+          </div>
+        </div>
+      </div>
+    </div>
+		<div class="ui divided items">
+			{% for date in dates %}
+			<div class="service">
+				<div class="service_panel blur_box">
+					{{date.client.user.username}}
+          <br>
+          {{date.state}}
+          <br>
+          {{date.start_time}}
+          <br>
+          {{date.end_time}}
+          <br>
+          <button type="button" class="ui semantic button green" name="button" onclick="window.location.replace('/accept_date/{{date.id}}');">ACCEPT</button>
+
+			</div>
+		</div>
+
+
+	{% endfor %}
+</div>
+</div>
+
+
+</div>
+<div class="requests">
+</div>
+
+{% include '../general/footer.html' %}
+
+</body>
+</html>
