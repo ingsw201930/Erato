@@ -2,12 +2,3 @@
   box-shadow: #222222;
 padding: 100px;
 }
-
-button {
-  height: 100px;
-  width: 800px;
-}
-
-button *{
-  font-size: 84px;
-}
