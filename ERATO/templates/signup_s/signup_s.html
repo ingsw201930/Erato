@@ -13,12 +13,12 @@
 	<img src="/assets/images/logo/ERATO.png">
 </div>
 	     <div class="container">
-		    <form class="ui form" method="post">
+		    <form class="ui form" method="post" enctype="multipart/form-data">
           {% csrf_token %}
+
+            {{ form_ul.as_p }}
+
           {{ form.as_p }}
-          <div class="reset_password">
-            <a href="#" style="display: block; margin-bottom: 20px">I've forgotten my password.</a>
-          </div>
         <div class="button_lr">
 		  	 <button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
         </div>

@@ -15,6 +15,7 @@ class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description=models.CharField(max_length=400)
+    #active = models.BooleanField()
     #TODO tags=hay que ver como hacer relacion muchos a muchos en django
     price=models.IntegerField()
 # Create your models here.

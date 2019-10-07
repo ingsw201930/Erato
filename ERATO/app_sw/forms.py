@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
+
 class ServiceAddForm(forms.Form):
     name = forms.CharField(label='Name', max_length=100)
     description = forms.CharField(label='Description', max_length=500)

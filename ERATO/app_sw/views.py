@@ -5,12 +5,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import SW,Service
 from .forms import SWSignUpForm
+from .forms import UploadFileForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 
 
 from app_sw.forms import ServiceAddForm
 
+
+erato_key= "er"
 # Create your views here.
 # Home for sexworkers
 @login_required
@@ -23,7 +26,7 @@ def home_s(request):
             sw = SW.objects.get(user=user)
         except:
             return HttpResponseRedirect('/')
-        return render(request, 'home_s/home.html', {'sw':sw})
+        return render(request, 'home_s/home.html', {'sw':sw, 'profile_pic':hash(user.username+erato_key)})
     else:
         HttpResponseRedirect('/')
 
@@ -59,6 +62,7 @@ def service_edit_form(request, service_id):
 
 def signup(request):
     if request.method == 'POST':
+
         form = SWSignUpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -69,11 +73,23 @@ def signup(request):
                 user=user,
                 birthDate=form.cleaned_data.get('birthDate'),
                 about=form.cleaned_data.get('description'),
-                third_email=form.cleaned_data.get('third_email')
+                third_email=form.cleaned_data.get('third_email'),
+                MC_path="media/%s" % hash(username+erato_key)
             )
             sw.save()
             login(request, user)
-            return HttpResponseRedirect('/home/s/')
+            form_ul = UploadFileForm(request.POST, request.FILES)
+            if form_ul.is_valid():
+                handle_uploaded_file(request.FILES['file'], username)
+                return HttpResponseRedirect('/home/s/')
+
     else:
         form = SWSignUpForm()
-    return render(request, 'signup_s/signup_s.html', {'form': form})
+        form_ul = UploadFileForm()
+    return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
+
+def handle_uploaded_file(f, username):
+    file_name = "assets/images/pro_pics/%s" % hash(username+erato_key)
+    with open(file_name, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
