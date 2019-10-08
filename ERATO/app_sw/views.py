@@ -71,7 +71,7 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             sw=SW(
                 user=user,
-                birthDate=form.cleaned_data.get('birthDate'),
+                birth_date=form.cleaned_data.get('birthDate'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
                 MC_path="media/%s" % hash(username+erato_key)
@@ -82,14 +82,29 @@ def signup(request):
             if form_ul.is_valid():
                 handle_uploaded_file(request.FILES['file'], username)
                 return HttpResponseRedirect('/home/s/')
-
     else:
         form = SWSignUpForm()
         form_ul = UploadFileForm()
-    return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
+        return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
+    #Página de registro
+    return HttpResponseRedirect('/home/s/')
 
 def handle_uploaded_file(f, username):
     file_name = "assets/images/pro_pics/%s" % hash(username+erato_key)
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+
+
+def public_profile(request, sw_id):
+
+    temp=sw_id
+    print(temp)
+    services=Service.objects.all()
+    print("Showing services")
+    print(services)
+    sw=SW.objects.get(user_id=sw_id)
+    return render(request, 'profiles/profile_s.html', {'sw': sw})
+
+    print("Couldn't show public profile.")
+    return None

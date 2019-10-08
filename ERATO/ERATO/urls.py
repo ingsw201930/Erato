@@ -25,10 +25,11 @@ from app_date import views as date_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', session_views.main_),
-#   Login
+#   SESSIONS
     path('sessions_managing_login/', session_views.login_managing),
     path('login/c/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
     path('login/s/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
+    path('logout/', session_views.logout_managing),
 #   Sw functionalities
     path('home/s/', sw_views.home_s , name="home_s"),
     path('service_add_request/', sw_views.service_add_form , name="service_add"),
@@ -36,11 +37,14 @@ urlpatterns = [
     path('home/s/service_del/<int:service_id>', sw_views.service_del , name="service_del"),
     path('home/s/service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
     path('home/s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
+    path('profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
 
     path( 'date_form/<int:service_id>', date_views.date_form, name="form" ),
 
 #   Client functionalities
     path('home/c/', client_views.home_c , name="home_c"),
+    path('profile/c/<int:client_id>',client_views.public_profile,name="client_public_profile"),
+
 #   QR
     path('date_form/generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createQR/<int:date_id>',date_views.createQR),

@@ -38,3 +38,11 @@ def signup(request):
     else:
         form = ClientSignUpForm()
     return render(request, 'signup_c/signup_c.html', {'form': form})
+
+def public_profile(request, client_id):
+    try:
+        client=Client.objects.get(user_id=client_id)
+        return render(request, 'profiles/profile_c.html', {'client': client})
+    except:
+        print("Couldn't show public profile.")
+    return HttpResponseRedirect('/')

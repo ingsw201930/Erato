@@ -1,0 +1,14 @@
+.sw_p_panel{
+
+}
+
+.main_content {
+    display: inline-block;
+    width: 30%;
+}
+
+.additional_content {
+    vertical-align: top;
+    display: inline-block;
+    width: 60%;
+}
