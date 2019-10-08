@@ -24,12 +24,13 @@ from app_date import views as date_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', session_views.main_),
+
 #   SESSIONS
-    path('sessions_managing_login/', session_views.login_managing),
+    re_path(r'sessions_managing_login/$', session_views.login_managing),
     path('login/c/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
     path('login/s/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
-    path('logout/', session_views.logout_managing),
+    re_path(r'logout/$', session_views.logout_managing),
+
 #   Sw functionalities
     path('home/s/', sw_views.home_s , name="home_s"),
     path('service_add_request/', sw_views.service_add_form , name="service_add"),
@@ -52,4 +53,6 @@ urlpatterns = [
     path('signup/s/',sw_views.signup,name="signup_s"),
     path('signup/c/',client_views.signup,name="signup_c"),
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
+
+    re_path(r'$', session_views.main_),
 ]

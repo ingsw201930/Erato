@@ -9,7 +9,7 @@ from app_client.models import Client
 
 # Main bifurcation, manu where user decides if using Erato as a client or sex worker.
 def main_(request):
-    return render_to_response('main/home.html')
+    return render(request, 'main/home.html', {'request': request})
 
 def login_managing(request):
     render_ = None;
