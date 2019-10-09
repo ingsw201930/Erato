@@ -25,7 +25,7 @@ SECRET_KEY = 'fk+c2i+1l()9(6@fpc7zn%x(4qz9$im_v$99x2ap5=8sb2qo&^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.8', 'localhost']
+ALLOWED_HOSTS = ['192.168.0.8', 'localhost','10.152.23.53','192.168.43.17']
 
 
 # Application definition
@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'ERATO.context.baseurl',
             ],
         },
     },
@@ -133,7 +134,7 @@ STATIC_URL = '/assets/'
 
 STATICFILES_DIRS=(
     os.path.join(BASE_DIR, 'assets'),
-    )
+)
 
 LOGOUT_REDIRECT_URL = '/home'
 

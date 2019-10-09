@@ -26,3 +26,4 @@ class Date(models.Model):
     lat = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
     lng = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
     state=models.CharField(max_length=20,choices=STATE_CHOICES,default=REQUESTED)
+    noise=models.IntegerField(default=None, blank=True, null=True)

@@ -26,18 +26,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 #   SESSIONS
-    re_path(r'sessions_managing_login/$', session_views.login_managing),
+    path('',session_views.main_,name='main'),
+    path('sessions_managing_login/',session_views.login_managing,name='login'),
     path('login/c/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
     path('login/s/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
-    re_path(r'logout/$', session_views.logout_managing),
+    path('logout/', session_views.logout_managing),
 
 #   Sw functionalities
     path('home/s/', sw_views.home_s , name="home_s"),
     path('service_add_request/', sw_views.service_add_form , name="service_add"),
     path('service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
-    path('home/s/service_del/<int:service_id>', sw_views.service_del , name="service_del"),
-    path('home/s/service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
-    path('home/s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
+    path('service_del/<int:service_id>', sw_views.service_del , name="service_del"),
+    path('service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
+    path('date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
 
     path( 'date_form/<int:service_id>', date_views.date_form, name="form" ),
@@ -47,12 +48,11 @@ urlpatterns = [
     path('profile/c/<int:client_id>',client_views.public_profile,name="client_public_profile"),
 
 #   QR
-    path('date_form/generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
+    path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createQR/<int:date_id>',date_views.createQR),
-    path('QRcheck/<str:code>',date_views.checkQR),
+    path('QRcheck/<int:id>/<str:code>',date_views.checkQR),
     path('signup/s/',sw_views.signup,name="signup_s"),
     path('signup/c/',client_views.signup,name="signup_c"),
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
 
-    re_path(r'$', session_views.main_),
 ]

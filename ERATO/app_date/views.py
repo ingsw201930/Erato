@@ -10,6 +10,7 @@ from .forms import DateAddForm
 import logging
 import threading
 import time
+import random
 from django.db.models import Q
 from app_client.models import Client
 # Create your views here.
@@ -27,30 +28,33 @@ def createQR(request,date_id):
     if date.state!=Date.PAYED:
         return HttpResponse("invalid date")
     if date.client.user.username==request.user.username:
+        noise=random.randrange(100000)
+        date.noise=noise
+        date.save()
         def create_and_send():
-            qr=generateQR(str(date_id),request)
+            qr=generateQR(str(date_id),str(noise),request)
             #send_qr(qr,'gamendez98@gmail.com')
         thr = threading.Thread(target=create_and_send)
         thr.start()
-        return HttpResponse("esto deberia redirigir a una pagina donde se envia el qr")
+        return HttpResponse("enviando qr")
     else:
         return HttpResponseForbidden()
 
-def checkQR(request,code):
-    id=int(decode(secretkey,code))
+def checkQR(request,id,code):
     try:
         date=Date.objects.get(id=id)
     except Date.DoesNotExist:
         raise Http404("invalid QR")
     state=date.state
-    if state=='payed':
+    noise=date.noise
+    if state=='payed' and code==str(hash(str(id)+str(noise))):
         date.state='started'
         date.save()
     #send mail to third party
     responses={
         'pre-pay':'este date no ha sido pagado aun',
-        'payed':'el codigo QR fue escaneado con exito, COMENZÓ EL SERVICIO!',
-        'started':'este codigo qr ya fue usado con exito',
+        'payed':'el codigo QR no funciono!',
+        'started':'COMENZO',
         'ended':'este date ya termino',
         'timedout':'este servicio ya quedo sin tiempo'
     }
@@ -59,55 +63,52 @@ def checkQR(request,code):
 @login_required
 def generate_date(request, service_id):
     print("Generating date...")
-    form = DateAddForm( request.POST )
+    if request.method == 'POST':
+        form = DateAddForm( request.POST )
+        print("POST")
+        if form.is_valid():
+            print("Form is valid")
 
-    if form.is_valid():
-        print("Form is valid")
+            start_time = form.cleaned_data.get('start_time')
+            print(start_time)
+            finish_time = form.cleaned_data.get('end_time')
+            print(finish_time)
+            lng = round(form.cleaned_data.get('lng'),8)
+            print(lng)
+            lat = round(form.cleaned_data.get('lat'),8)
+            print(lat)
 
-        start_time = form.cleaned_data.get('start_time')
-        print(start_time)
-        finish_time = form.cleaned_data.get('end_time')
-        print(finish_time)
-        lng = round(form.cleaned_data.get('lng'),8)
-        print(lng)
-        lat = round(form.cleaned_data.get('lat'),8)
-        print(lat)
+            try:
+                user = request.user
+                service = Service.objects.get(id=service_id)
+                client = Client.objects.get( user = user )
+                date = Date(
+                    client = client,
+                    service = service,
+                    start_time = start_time,
+                    end_time = finish_time,
+                    lat = lat,
+                    lng = lng
+                )
+                print("Creating date...")
+                date.save()
+                print("Date created")
 
-        try:
-            user = request.user
-            service = Service.objects.get(id=service_id)
-            client = Client.objects.get( user = user )
-            date = Date(
-                client = client,
-                service = service,
-                start_time = start_time,
-                end_time = finish_time,
-                lat = lat,
-                lng = lng
-            )
-            print("Creating date...")
-            date.save()
-            print("Date created")
+                # Debería estar en aceptar
+                #
 
-            # Debería estar en aceptar
-            id = '3'
-            url = generateQR(id)
-            path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
-            send_qr(path, 'ruastabi@gmail.com')
-            #
-
-            return HttpResponseRedirect( '/home/c' )
-        except Exception as e:
-            print(e.args)
-    return render(request, 'date/date_form.html' , {'service':service_id,'form':form })
+                return HttpResponseRedirect( '/home/c' )
+            except Exception as e:
+                print(e.args)
+        else:
+            form=DateAddForm()
+    return render(request, 'date/date_form.html' , {'service_id':service_id,'form':form })
 
 
 @login_required
 def date_form( request , service_id ):
     form=DateAddForm()
     service = Service.objects.get( id = service_id )
-    if service.sw.user.username!=request.user.username:
-        return HttpResponseForbidden()
     return render( request, 'date/date_form.html' , {'service':service,'form':form } )
 
 @login_required
