@@ -31,7 +31,19 @@ body {
 }
 
 .container{
-	padding: 30px;
+	padding: 20px;
+	width: 100%;
+}
+
+.main_container{
+	padding: 10px;
+	display: inline-block;
+	width: 73%;
+}
+
+.menu_services{
+	display: inline-block;
+	width: 25%;
 }
 
 .button{

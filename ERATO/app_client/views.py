@@ -34,7 +34,7 @@ def signup(request):
             )
             client.save()
             login(request, user)
-            return HttpResponseRedirect('/home/c/')
+            return HttpResponseRedirect('/c/home/')
     else:
         form = ClientSignUpForm()
     return render(request, 'signup_c/signup_c.html', {'form': form})

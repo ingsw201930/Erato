@@ -2,5 +2,5 @@
 
 def baseurl(request):
     return {
-        'BASEURL':request.META['HTTP_HOST'],
+        'BASEURL':'http://'+request.META['HTTP_HOST'],
     }

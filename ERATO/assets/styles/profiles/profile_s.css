@@ -5,10 +5,13 @@
 .main_content {
     display: inline-block;
     width: 30%;
+    height: 100%;
+    vertical-align: top;
 }
 
 .additional_content {
     vertical-align: top;
     display: inline-block;
     width: 60%;
+    height: 100%;
 }

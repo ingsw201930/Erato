@@ -28,31 +28,38 @@ urlpatterns = [
 #   SESSIONS
     path('',session_views.main_,name='main'),
     path('sessions_managing_login/',session_views.login_managing,name='login'),
-    path('login/c/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
-    path('login/s/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
+    path('c/login/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
+    path('s/login/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
     path('logout/', session_views.logout_managing),
+    path('s/signup/',sw_views.signup,name="signup_s"),
+    path('c/signup/',client_views.signup,name="signup_c"),
 
 #   Sw functionalities
-    path('home/s/', sw_views.home_s , name="home_s"),
-    path('service_add_request/', sw_views.service_add_form , name="service_add"),
-    path('service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
-    path('service_del/<int:service_id>', sw_views.service_del , name="service_del"),
-    path('service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
-    path('date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
-    path('profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
+    path('s/home/', sw_views.home_s , name="home_s"),
+    path('s/service_add_request/', sw_views.service_add_form , name="service_add"),
+    path('s/service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
+    path('s/service_del/<int:service_id>', sw_views.service_del , name="service_del"),
+    path('s/service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
+    path('s/service/<int:service_id>', sw_views.view_service , name="service_edit"),
+    path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
+    path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
+    path('s/history/', sw_views.history, name="sw_history"),
+    path('s/payments/', sw_views.payments, name="sw_payments"),
 
-    path( 'date_form/<int:service_id>', date_views.date_form, name="form" ),
+    #path('about/', da_views.about, name="about"),
+
+    path('c/profile/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
+
+    path('c/date_form/<int:service_id>', date_views.date_form, name="form" ),
 
 #   Client functionalities
-    path('home/c/', client_views.home_c , name="home_c"),
-    path('profile/c/<int:client_id>',client_views.public_profile,name="client_public_profile"),
+    path('c/home/', client_views.home_c , name="home_c"),
+    path('c/profile<int:client_id>',client_views.public_profile,name="client_public_profile"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
-    path('createQR/<int:date_id>',date_views.createQR),
-    path('QRcheck/<int:id>/<str:code>',date_views.checkQR),
-    path('signup/s/',sw_views.signup,name="signup_s"),
-    path('signup/c/',client_views.signup,name="signup_c"),
+    path('createqr/<int:date_id>',date_views.createQR),
+    path('qrcheck/<int:id>/<str:code>',date_views.checkQR),
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
 
 ]

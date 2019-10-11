@@ -49,11 +49,12 @@ def service_add(request):
             return HttpResponse('El usuario es invalido')
         service = Service(sw=sw, name=name, description=description, price=price)
         service.save()
-        return HttpResponseRedirect('/home/s')
+        return HttpResponseRedirect('/s/home')
 
 @login_required
 def service_del(request, service_id):
-     return HttpResponse("Borrando servicio")
+    Service.objects.filter(id=id).delete()
+    return HttpResponse("Borrando servicio")
 
 @login_required
 def service_edit_form(request, service_id):
@@ -62,9 +63,9 @@ def service_edit_form(request, service_id):
 
 def signup(request):
     if request.method == 'POST':
-
+        form_ul = UploadFileForm(request.POST, request.FILES)
         form = SWSignUpForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form_ul.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
@@ -74,27 +75,26 @@ def signup(request):
                 birth_date=form.cleaned_data.get('birthDate'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
+                picture_path = "assets/images/pro_pics/%s" % hash(username+erato_key),
                 MC_path="media/%s" % hash(username+erato_key)
             )
+            handle_uploaded_file(request.FILES['file'], username)
             sw.save()
             login(request, user)
-            form_ul = UploadFileForm(request.POST, request.FILES)
-            if form_ul.is_valid():
-                handle_uploaded_file(request.FILES['file'], username)
-                return HttpResponseRedirect('/home/s/')
+
+            return HttpResponseRedirect('/s/home/')
     else:
         form = SWSignUpForm()
         form_ul = UploadFileForm()
         return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
     #Página de registro
-    return HttpResponseRedirect('/home/s/')
+    return HttpResponseRedirect('/s/home/')
 
 def handle_uploaded_file(f, username):
-    file_name = "assets/images/pro_pics/%s" % hash(username+erato_key)
+    file_name = "assets/images/pro_pics/%s.png" % hash(username+erato_key)
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-
 
 def public_profile(request, sw_id):
 
@@ -104,7 +104,20 @@ def public_profile(request, sw_id):
     print("Showing services")
     print(services)
     sw=SW.objects.get(user_id=sw_id)
-    return render(request, 'profiles/profile_s.html', {'sw': sw})
+    return render(request, 'c/profiles/profile_s.html', {'sw': sw})
 
     print("Couldn't show public profile.")
     return None
+
+def view_service(request, service_id):
+    service = Service.objects.get(id=service_id)
+    return render(request, 'services_s/service_view.html', {'service':service})
+
+def my_profile(request):
+    return render(request, 'profiles/profile_s_edit.html', {})
+
+def history(request):
+    return render(request, 'services_s/history.html', {})
+
+def payments(request):
+    return render(request, 'payments/pay.html', {})

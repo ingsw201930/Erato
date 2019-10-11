@@ -21,10 +21,10 @@ def login_managing(request):
     render_=HttpResponseRedirect('/')
     if user is not None:
         if SW.objects.filter(user=user):
-            render_ = HttpResponseRedirect('/home/s/')
+            render_ = HttpResponseRedirect('/s/home/')
             return render_
         if Client.objects.filter(user=user):
-            render_ = HttpResponseRedirect('/home/c/')
+            render_ = HttpResponseRedirect('/c/home/')
             return render_
     return render_
 

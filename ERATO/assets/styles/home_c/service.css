@@ -1,6 +1,5 @@
 .service *{
 	display: inline-block;
-
 }
 
 service_image{
@@ -34,17 +33,19 @@ service_image{
 
 .service_content{
 	vertical-align:top;
-	width: 50%;
+	width: 70%;
 	display: inline-block;
 	padding-left: 20px;
 	margin: 10px;
 }
 
 .service_buttons{
+	position: absolute;
 	width: 10%;
 	display: inline-block;
 	vertical-align: top;
-	padding-left: 20px;
+	right: 0;
+	padding-left: 0px;
 	margin: 10px;
 }
 
@@ -71,9 +72,4 @@ service_image{
 .extra{
 	display: block;
 	margin: 10px 20px 10px 0px;
-}
-
-#want_it{
-	margin: 20px;
-	margin-left:auto; margin-right:0;
 }

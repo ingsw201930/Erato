@@ -4,7 +4,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
-  <link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
@@ -13,9 +13,7 @@
 <div class="container">
 	<form class="ui form" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-
 	{{ form_ul.as_p }}
-
 	{{ form.as_p }}
 	<div class="button_lr">
 	<button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>

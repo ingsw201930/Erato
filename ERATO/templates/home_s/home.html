@@ -11,69 +11,47 @@
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 <div class="container">
-	<div class="profile blur_box" align="left">
-		{% load static %}
-		<img class="ui small circular image" src="{% static "images/pro_pics/" %}{{profile_pic}}">
-		<div class="profile_description">
-			<p>
-				birth date: {{sw.birthDate}}
-				<br>
-				Status:{{sw.status}}
-				<br>
-				Eyes:{{sw.eye_color}}
-				<br>
-				Heigth: {{sw.heigth}}
-				<br>
-				Weigth: {{sw.weigth}}
-				<br>
-				About: {{sw.about}}
-			</p>
-		</div>
+	<div class="menu_services">
+		{% include '../general/menu.html' %}
+		<script>
+			document.getElementById("item_ms").setAttribute("class", "active item");
+		</script>
 	</div>
-
-	<div class="services">
-		<div class="ui divided items">
-			{% for service in sw.service_set.all %}
-			<div class="service">
-				<div class="service_panel blur_box">
-					<div class="service_content">
-						<div class="service_name">{{service.name}}</div>
-						<div class="service_description">{{service.description}}</div>
-						<div class="service_price"><b>{{service.price}}</b>$</div>
-				      	<div class="tags">
-				        <div class="ui label">Blowjob</div>
-				        <div class="ui label">Stripteasse</div>
-				        <div class="ui label">Events</div>
+	<div class="main_container">
+		<div class="services">
+			<div class="ui divided items">
+				{% for service in sw.service_set.all %}
+				<div class="service">
+					<div class="service_panel">
+						<div class="service_content">
+							<div class="service_name">{{service.name}}</div>
+							<div class="service_description">{{service.description}}</div>
+							<div class="service_price"><b>{{service.price}}</b>$</div>
+							<div class="tags">
+								<div class="ui label">Blowjob</div>
+								<div class="ui label">Stripteasse</div>
+								<div class="ui label">Events</div>
+							</div>
 						</div>
-					</div>
-					<div class="service_buttons">
-						<button class="ui icon button" onclick="window.location.href='http://{{BASEURL}}/service_del/{{service.id}}'">
-						  <i class="trash alternate icon"></i>
-						</button>
-						<button class="ui icon button" onclick="window.location.href='http://{{BASEURL}}/service_edit/{{service.id}}'">
-						  <i class="edit outline icon"></i>
-						</button>
-						<button class="ui icon button" onclick="window.location.href='http://{{BASEURL}}/date_by_service/{{service.id}}'">
-						  <i class="envelope icon"></i>
-						</button>
-					</div>
+						<div class="service_buttons">
+							<button class="circular ui icon button" onclick="window.location.href='{{BASEURL}}/s/service_del/{{service.id}}'">
+								<i class="trash alternate icon" ></i>
+							</button>
+							<button class="circular ui icon button" onclick="window.location.href='{{BASEURL}}/s/service_edit/{{service.id}}'">
+								<i class="edit outline icon" ></i>
+							</button>
+							<button class="circular ui icon button" onclick="window.location.href='{{BASEURL}}/s/date_by_service/{{service.id}}'">
+								<i class="envelope icon" ></i>
+							</button>
+						</div>
 
+					</div>
 				</div>
-				<div class="interested_people">
-				<img class="ui avatar image" src="/assets/images/people/man_8.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_2.jpg">
-				<img class="ui avatar image" src="/assets/images/people/woman_3.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_5.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_6.jpeg">
-				<img class="ui avatar image" src="/assets/images/people/woman_5.jpg">
-				<img class="ui avatar image" src="/assets/images/people/man_7.jpg">
-				<img class="ui avatar image" src="/assets/images/people/woman_6.jpg">
-				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
-		</div>
-		<div>
-		<button type="button" class="ui semantic button green" name="button" onclick="window.location.replace('/service_add_request');">Add service</button>
+			<div>
+				<button type="button" class="ui semantic button green" name="button" onclick="window.location.replace('/s/service_add_request');">Add service</button>
+			</div>
 		</div>
 	</div>
 </div>
