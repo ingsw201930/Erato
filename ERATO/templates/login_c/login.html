@@ -10,38 +10,39 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
-
+    <div class="main_container">
     <div class="ui middle aligned center aligned grid">
-    <div class="column">
-    <form class="ui large form" method="post" action="/sessions_managing_login/">
-    <i class="user icon"></i>
-    <div class="ui stacked segment">
-    <div class="field">
-    <div class="ui left icon input">
-    {% csrf_token %}
-    {{ form.username }}
-    </div>
-    </div>
-    <div class="field">
-    <div class="ui left icon input">
-    <i class="lock icon"></i>
-    {% csrf_token %}
-    {{ form.password }}
-    </div>
-    </div>
-    <button class="ui fluid large red submit button" type="submit">Login</button>
-    </div>
+        <div class="column">
+                <form class="ui large form" method="post" action="/sessions_managing_login/">
+                    <i class="user icon"></i>
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                {% csrf_token %}
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                {% csrf_token %}
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <button class="ui fluid large red submit button" type="submit">Login</button>
+                    </div>
 
-    <div class="ui error message">
+                    <div class="ui error message">
 
-    </div>
+                    </div>
 
-    </form>
+                </form>
 
-    <div class="ui message">
-    New to us? <a href="{{BASEURL}}/s/signup/">Sign Up</a>
-    </div>
-    </div>
+                <div class="ui message">
+                    New to us? <a href="{{BASEURL}}/s/signup/">Sign Up</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

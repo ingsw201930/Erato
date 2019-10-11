@@ -3,6 +3,10 @@
 
 }
 
+.service_hover .service_panel:hover{
+	background: #aaaaaa;
+}
+
 .service_panel{
 	padding: 5px;
 	margin-bottom: 20px;

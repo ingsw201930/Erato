@@ -21,7 +21,8 @@
 	margin: 10px;
 	display: inline-block;
 	vertical-align: top;
-	width: 70%;
+	width: 60%;
+	background: olive;
 }
 
 footer {

@@ -15,7 +15,7 @@
     <div class=" form_panel blur_box">
         <div class="ui middle aligned center aligned grid">
         <div class="panel">
-            <form class="ui form" action="http://{{BASEURL}}/generate_date/{{service_id}}" method="post">
+            <form class="ui form" action="{{BASEURL}}/generate_date/{{service.id}}" method="post">
             {% csrf_token %}
             <div class="ui">
                 {{form.as_p}}

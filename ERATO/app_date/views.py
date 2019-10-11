@@ -94,15 +94,13 @@ def generate_date(request, service_id):
                 date.save()
                 print("Date created")
 
-                # Debería estar en aceptar
-                #
+                return HttpResponseRedirect('/c/home/')
 
-                return HttpResponseRedirect( '/home/c' )
             except Exception as e:
                 print(e.args)
         else:
             form=DateAddForm()
-    return render(request, 'date/date_form.html' , {'service_id':service_id,'form':form })
+    return HttpResponse("We couldn't generate date")
 
 
 @login_required

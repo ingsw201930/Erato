@@ -9,7 +9,17 @@
 <body>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
-{{service.id}}
+<div class="sw_profile">
+
+</div>
+<div class="service_description">
+
+</div>
+<div class="I_want_it">
+    <button onclick="window.location.href='{{BASEURL}}/c/date_form/{{service.id}}'">
+        I want it
+    </button>
+</div>
 {% include '../general/footer.html' %}
 </body>
 </html>
