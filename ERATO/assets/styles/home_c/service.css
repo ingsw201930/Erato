@@ -20,6 +20,10 @@ service_image{
 	border-radius: 10px;
 }
 
+.service_panel_hover:hover{
+	background: #f9f9f9;
+}
+
 .interested_people{
 	height: auto;
 	max-width: 25%;

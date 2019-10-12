@@ -65,14 +65,16 @@ def generate_date(request, service_id):
     print("Generating date...")
     if request.method == 'POST':
         form = DateAddForm( request.POST )
-        print("POST")
         if form.is_valid():
             print("Form is valid")
-
             start_time = form.cleaned_data.get('start_time')
             print(start_time)
-            finish_time = form.cleaned_data.get('end_time')
-            print(finish_time)
+            end_time = form.cleaned_data.get('end_time')
+            print(end_time)
+            start_time_hms = form.cleaned_data.get('start_time_hms')
+            print(start_time_hms)
+            end_time_hms = form.cleaned_data.get('end_time_hms')
+            print(end_time_hms)
             lng = round(form.cleaned_data.get('lng'),8)
             print(lng)
             lat = round(form.cleaned_data.get('lat'),8)
@@ -85,8 +87,8 @@ def generate_date(request, service_id):
                 date = Date(
                     client = client,
                     service = service,
-                    start_time = start_time,
-                    end_time = finish_time,
+                    start_time = start_time+' '+start_time_hms,
+                    end_time = end_time+' '+end_time_hms,
                     lat = lat,
                     lng = lng
                 )
