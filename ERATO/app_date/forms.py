@@ -5,5 +5,7 @@ from django.contrib.auth.models import User
 class DateAddForm(forms.Form):
     start_time  = forms.DateTimeField( widget=forms.TextInput(attrs={'placeholder': 'Start time'}))
     end_time = forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Finish time'}))
+    #  start_time  = forms.CharField( widget=CalendarWidget )
+    #  end_time    = forms.CharField( widget=CalendarWidget )
     lng       = forms.DecimalField(label='longitude', widget=forms.TextInput(attrs={'type': 'hidden'}))
     lat       = forms.DecimalField(label='latitude', widget=forms.TextInput(attrs={'type': 'hidden'}))
