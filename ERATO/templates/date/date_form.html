@@ -7,18 +7,20 @@
 
     <title>Erato</title>
     <meta charset="utf-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery UI Datepicker - Default functionality</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-    $( function() {
-      $( "#datepicker" ).datepicker();
-    } );
-    </script>
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+      <meta charset="utf-8">
+      <title>JS Bin</title>
+
+        <script>
+        $( function() {
+             $('#example1').calendar();
+        } );
+        </script>
+
 
 </head>
 <body>
@@ -32,7 +34,14 @@
 
             {% csrf_token %}
 
-           <p>Date: <input type="text" id="datepicker"></p>
+            <h3> calendario </h3>
+              <div class="ui calendar" id="example1">
+                <div class="ui input left icon">
+                  <i class="calendar icon"></i>
+                  <input type="text" placeholder="Date/Time">
+                </div>
+              </div>
+              <br/>
 
             <div class="ui">
                 {{ form.as_p }}
