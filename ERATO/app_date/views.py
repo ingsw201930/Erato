@@ -15,10 +15,6 @@ from django.db.models import Q
 from app_client.models import Client
 
 # Create your views here.
-def send_email(id, email):
-    url = generateQR(id)
-    path=os.path.join(os.getcwd()+'/assets/QR/'+id+'.svg')
-    send_qr(path, email)
 
 @login_required
 def createQR(request,date_id):
@@ -37,9 +33,10 @@ def createQR(request,date_id):
         def create_and_send():
             print("Creating QR and sending in thread")
             qr=generateQR(str(date_id),str(noise),request)
+            print(qr)
             client = Client.objects.get(user_id=date.client_id)
             email= client.email
-            print("Sending QR to... %s with the id %d" % (email, client.id))
+            print("Sending QR to... %s with the id %d" % (email, client.user_id))
             send_qr(qr, email)
 
         thr = threading.Thread(target=create_and_send)

@@ -33,13 +33,13 @@ def send_third(to):
     html_part.attach(body)
 
     fp = open('assets/images/logo/ERATO.jpg', 'rb')
-    msgImage = MIMEImage(fp.read())
+    msgLogo = MIMEImage(fp.read())
     fp.close()
-    msgImage.add_header('Content-ID', '<logo_erato>')
+    msgLogo.add_header('Content-ID', '<logo_erato>')
 
     msg = EmailMessage(subject, None, from_email, [to])
     msg.attach(html_part)
-    msg.attach(msgImage)
+    msg.attach(msgLogo)
     
     print("Message created")
     print("Sending email to %s" % to)

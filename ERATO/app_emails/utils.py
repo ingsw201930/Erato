@@ -8,7 +8,9 @@ import mimetypes
 
 def send_qr(qr, to):
 
-    html = render_to_string(template_name='emails/QR_code.html',context={ 'qr': qr })
+    print("Sending qr to "+to)
+    print("QR saved in "+qr)
+    html = render_to_string(template_name='emails/qr_code.html',context={})
     subject, from_email= 'QR code', 'eratoservices@gmail.com'
 
     html_part = MIMEMultipart(_subtype='related')
@@ -21,6 +23,11 @@ def send_qr(qr, to):
     msgImage = MIMEImage(fp.read(), _subtype="png")
     fp.close()
 
+    fp = open('assets/images/logo/ERATO.jpg', 'rb')
+    msgLogo = MIMEImage(fp.read())
+    fp.close()
+    msgLogo.add_header('Content-ID', '<logo_erato>')
+
     """
     fp = open('assets/images/logo/ERATO.jpg', 'rb')
     msgImage = MIMEImage(fp.read())
@@ -32,22 +39,12 @@ def send_qr(qr, to):
     msg.attach(msgImage)
     """
 
-    msgImage.add_header('Content-ID', '<image1>')
+    msgImage.add_header('Content-ID', '<qr_code>')
     html_part.attach(msgImage)
 
-    msg = EmailMessage(subject, html, from_email, [to])
-    msg.attach_file(qr)
-    msg.send()
-
-def send_third(username, to):
-    html = render_to_string(template_name='emails/third.html',context={ 'username': username })
-    subject, from_email= 'Security mail', 'eratoservices@gmail.com'
-
-    html_part = MIMEMultipart(_subtype='related')
-
-    body = MIMEText(html, _subtype='html')
-    html_part.attach(body)
-
     msg = EmailMessage(subject, None, from_email, [to])
+    msg = EmailMessage(subject, None, from_email, [to])
+    msg.attach(msgLogo)
     msg.attach(html_part)
+    msg.attach(msgImage)
     msg.send()
