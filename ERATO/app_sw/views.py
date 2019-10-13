@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import SW,Service
+from app_date.models import Date
 from .forms import SWSignUpForm
 from .forms import UploadFileForm
 from django.contrib.auth import authenticate
@@ -108,6 +109,17 @@ def public_profile(request, sw_id):
 
     print("Couldn't show public profile.")
     return None
+
+@login_required
+def pending_dates(request):
+    user = request.user
+    sw = SW.objects.get(user=user)
+    services = Service.objects.filter(sw_id=sw.user_id)
+    dates = []
+    for service in services:
+        dates = Date.objects.filter(service_id=service.id)
+        # dates = dates.filter(state='started')
+    return render(request, 'pending_dates/pending_dates.html', {'dates' : dates})
 
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)

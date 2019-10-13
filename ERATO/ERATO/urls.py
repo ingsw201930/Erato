@@ -44,6 +44,7 @@ urlpatterns = [
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
     path('s/history/', sw_views.history, name="sw_history"),
+    path('s/dates/', sw_views.pending_dates, name="sw_history"),
     path('s/payments/', sw_views.payments, name="sw_payments"),
 
     #path('about/', da_views.about, name="about"),
@@ -61,5 +62,6 @@ urlpatterns = [
     path('createqr/<int:date_id>',date_views.createQR),
     path('qrcheck/<int:id>/<str:code>',date_views.checkQR),
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
+    path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
 
 ]

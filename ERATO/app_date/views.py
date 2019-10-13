@@ -123,6 +123,13 @@ def accept_date(request, date_id):
     return HttpResponse("aqui se acepta el date")
 
 @login_required
+def end_date(request, date_id):
+    date = Date.objects.get(id=date_id)
+    date.state = 'ended'
+    date.save()
+    return HttpResponse("Date ended")
+
+@login_required
 def date_by_service(request, service_id):
     try:
         service=Service.objects.get(id=service_id)
