@@ -21,6 +21,17 @@ def send_qr(qr, to):
     msgImage = MIMEImage(fp.read(), _subtype="png")
     fp.close()
 
+    """
+    fp = open('assets/images/logo/ERATO.jpg', 'rb')
+    msgImage = MIMEImage(fp.read())
+    fp.close()
+    msgImage.add_header('Content-ID', '<logo_erato>')
+
+    msg = EmailMessage(subject, None, from_email, [to])
+    msg.attach(html_part)
+    msg.attach(msgImage)
+    """
+
     msgImage.add_header('Content-ID', '<image1>')
     html_part.attach(msgImage)
 

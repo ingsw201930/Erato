@@ -30,7 +30,7 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             client=Client(
                 user=user,
-                birthDate=form.cleaned_data.get('birthDate')
+                birth_date=form.cleaned_data.get('birth_date')
             )
             client.save()
             login(request, user)

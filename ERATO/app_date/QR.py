@@ -9,8 +9,10 @@ def generateQR(id,noise,request):
     code=hash(id+noise)
     baseurl=request.META['HTTP_HOST']+'/QRcheck/'+id+'/'+str(code)
     url = pyqrcode.create(baseurl)
-    url.png('assets/QR/'+id+'.png', scale=8, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
-    return 'assets/QR/'+id+'.png'
+    result_path = 'assets/QR/'+id+'.png'
+    url.png(result_path, scale=8, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
+    print(result_path)
+    return result_path
 
 def encode(password,message):
     cipher = encrypt(password, message)

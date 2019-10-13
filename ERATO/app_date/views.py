@@ -13,6 +13,7 @@ import time
 import random
 from django.db.models import Q
 from app_client.models import Client
+
 # Create your views here.
 def send_email(id, email):
     url = generateQR(id)
@@ -28,15 +29,22 @@ def createQR(request,date_id):
     if date.state!=Date.PAYED:
         return HttpResponse("invalid date")
     if date.client.user.username==request.user.username:
+        print("Valid user")
         noise=random.randrange(100000)
         date.noise=noise
         date.save()
+        print("Before thread")
         def create_and_send():
+            print("Creating QR and sending in thread")
             qr=generateQR(str(date_id),str(noise),request)
-            #send_qr(qr,'gamendez98@gmail.com')
+            client = Client.objects.get(user_id=date.client_id)
+            email= client.email
+            print("Sending QR to... %s with the id %d" % (email, client.id))
+            send_qr(qr, email)
+
         thr = threading.Thread(target=create_and_send)
         thr.start()
-        return HttpResponse("enviando qr")
+        return HttpResponse("QR sent")
     else:
         return HttpResponseForbidden()
 
@@ -53,7 +61,7 @@ def checkQR(request,id,code):
     #send mail to third party
     responses={
         'pre-pay':'este date no ha sido pagado aun',
-        'payed':'el codigo QR no funciono!',
+        'payed':'el codigo QR no funcionó!',
         'started':'COMENZO',
         'ended':'este date ya termino',
         'timedout':'este servicio ya quedo sin tiempo'
@@ -94,6 +102,8 @@ def generate_date(request, service_id):
                 )
                 print("Creating date...")
                 date.save()
+
+
                 print("Date created")
 
                 return HttpResponseRedirect('/c/home/')

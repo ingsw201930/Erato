@@ -10,8 +10,8 @@ class SW(models.Model):
     height=models.CharField(max_length=10)
 #    eyes_color=models.CharField(max_length=10)
     about=models.CharField(max_length=500)
-    third_email=models.CharField(max_length=200)
-
+    third_email=models.CharField(max_length=50)
+    
 class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
