@@ -52,18 +52,22 @@ def checkQR(request,id,code):
         raise Http404("invalid QR")
     state=date.state
     noise=date.noise
-    if state=='payed' and code==str(hash(str(id)+str(noise))):
+    code_noise = str(hash(str(id)+str(noise)))
+    print("Code:"+code)
+    print("Code + noise "+code_noise)
+    if state=='payed' and code==code_noise:
         date.state='started'
         date.save()
+        state='started'
     #send mail to third party
     responses={
-        'pre-pay':'este date no ha sido pagado aun',
-        'payed':'el codigo QR no funcionó!',
-        'started':'COMENZO',
-        'ended':'este date ya termino',
-        'timedout':'este servicio ya quedo sin tiempo'
+        'pre-pay':'date_states/failed.html',
+        'payed':'date_states/failed.html',
+        'started':'date_states/started.html',
+        'ended':'date_states/failed.html',
+        'timedout':'date_states/failed.html'
     }
-    return HttpResponse(responses[state])#esto deberia ser una pagina bien hecha
+    return render(request, responses[state], {})
 
 @login_required
 def generate_date(request, service_id):

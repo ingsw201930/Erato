@@ -7,7 +7,7 @@ secretkey="tcrtrtgvfbmhgfbjujgmbgfc"
 
 def generateQR(id,noise,request):
     code=hash(id+noise)
-    baseurl=request.META['HTTP_HOST']+'/QRcheck/'+id+'/'+str(code)
+    baseurl=request.META['HTTP_HOST']+'/qrcheck/'+id+'/'+str(code)
     url = pyqrcode.create(baseurl)
     result_path = 'assets/QR/'+id+'.png'
     url.png(result_path, scale=8, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
