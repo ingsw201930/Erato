@@ -111,25 +111,26 @@ def public_profile(request, sw_id):
     return None
 
 @login_required
-def pending_dates(request):
+def dates(request):
     user = request.user
-    sw = SW.objects.get(user=user)
-    services = Service.objects.filter(sw_id=sw.user_id)
-    dates = []
-    for service in services:
-        dates = Date.objects.filter(service_id=service.id)
-        # dates = dates.filter(state='started')
-    return render(request, 'pending_dates/pending_dates.html', {'dates' : dates})
+    dates = Date.objects.filter(service__sw_id=user.id)
+    print(dates)
+    current_dates = dates.filter(state='started')
+    print(current_dates)
+    return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates})
 
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)
     return render(request, 'services_s/service_view.html', {'service':service})
 
 def my_profile(request):
-    return render(request, 'profiles/profile_s_edit.html', {})
+    user = request.user
+    sw = SW.objects.get(user=user)
+    services = Service.objects.filter(sw_id=sw.user_id)
+    return render(request, 'sw/profile.html', {'sw':sw, 'services':services})
 
 def history(request):
-    return render(request, 'services_s/history.html', {})
+    return render(request, 'sw/history.html', {})
 
 def payments(request):
-    return render(request, 'payments/pay.html', {})
+    return render(request, 'sw/pay.html', {})

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Client
 from .forms import ClientSignUpForm
 from app_sw.models import Service
+from app_date.models import Date
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 # Create your views here.
@@ -40,10 +41,24 @@ def signup(request):
         form = ClientSignUpForm()
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
-def public_profile(request, client_id):
+
+# Me seeing my own profile 
+@login_required
+def my_profile(request):
+    user = request.user
     try:
-        client=Client.objects.get(user_id=client_id)
-        return render(request, 'profiles/profile_c.html', {'client': client})
+        client=Client.objects.get(user=user)
+        return render(request, 'client/profile.html', {'client': client})
     except:
         print("Couldn't show public profile.")
     return HttpResponseRedirect('/')
+
+@login_required
+def dates(request):
+    user = request.user
+    client=Client.objects.get(user=user)
+    dates = Date.objects.all().filter(client_id=client.user_id)
+    accepted_dates=dates.filter(state='requested')
+    requested_dates=dates.filter(state='requested')
+    history_dates=dates
+    return render(request, 'client/dates.html', {'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'history_dates':history_dates})

@@ -43,19 +43,17 @@ urlpatterns = [
     path('s/service/<int:service_id>', sw_views.view_service , name="service_edit"),
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
-    path('s/history/', sw_views.history, name="sw_history"),
-    path('s/dates/', sw_views.pending_dates, name="sw_history"),
+    path('s/dates/', sw_views.dates, name="sw_history"),
     path('s/payments/', sw_views.payments, name="sw_payments"),
-
     #path('about/', da_views.about, name="about"),
 
-    path('c/profile/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
-
+    path('c/profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
     path('c/date_form/<int:service_id>', date_views.date_form, name="form" ),
 
 #   Client functionalities
     path('c/home/', client_views.home_c , name="home_c"),
-    path('c/profile/<int:client_id>',client_views.public_profile,name="client_public_profile"),
+    path('c/dates/', client_views.dates , name="dates"),
+    path('c/profile/',client_views.my_profile,name="client_public_profile"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),

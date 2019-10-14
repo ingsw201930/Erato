@@ -4,7 +4,7 @@
 }
 
 .service_hover .service_panel:hover{
-	background: #aaaaaa;
+	background: #f6f6f6;
 }
 
 .service_panel{
@@ -60,6 +60,7 @@
 }
 
 .service_buttons .button{
+	display: block;
 	margin: 3px;
 }
 

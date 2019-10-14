@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <meta charset="UTF-8">
+    <title>ERATO</title>
+</head>
+<body>
+{% include '../general/nav.html' %}
+{% include '../general/subbar.html' %}
+<div class="container">
+    {% include '../general/menu_c.html' %}
+    <script>
+        document.getElementById("item_ma").setAttribute("class", "active item");
+    </script>
+    <div class="main_container">
+        <h2 class="ui center aligned icon header">
+          <img class="ui medium circular image" src="{{client.picture_path}}">
+          {{client.user.username}}
+        </h2>
+        
+    </div>
+</div>
+{% include '../general/footer.html' %}
+</body>
+</html>
