@@ -61,5 +61,7 @@ urlpatterns = [
     path('qrcheck/<int:id>/<str:code>',date_views.checkQR),
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
     path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
+    path('pay_date/<int:date_id>',date_views.pay_date,name='pay_date'),
+    path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),    
 
 ]

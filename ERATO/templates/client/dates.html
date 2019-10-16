@@ -19,7 +19,7 @@
         <i class="thumbs up outline icon"></i>
         Accepted
         </h4>
-        <div class="ui cards"> 
+        <div class="ui cards">
             {% for date in accepted_dates %}
               <div class="card" style="width: 100%">
                 <div class="content">
@@ -29,7 +29,7 @@
                     {{date.end_time}}
                   </div>
                 </div>
-                <div class="ui bottom attached button">
+                <div class="ui bottom attached button" onclick="window.location.replace('{{BASEURL}}/pay_date/{{date.id}}')">
                   <i class="credit card icon"></i>
                   Pay
                 </div>
@@ -40,7 +40,7 @@
         <i class="hourglass outline icon"></i>
         Requested
         </h4>
-        <div class="ui cards"> 
+        <div class="ui cards">
             {% for date in requested_dates %}
               <div class="card" style="width: 100%">
                 <div class="content">
@@ -57,7 +57,7 @@
         <i class="clock outline icon"></i>
         History
         </h4>
-        <div class="ui cards"> 
+        <div class="ui cards">
             {% for date in history_dates %}
               <div class="card" style="width: 100%">
                 <div class="content">

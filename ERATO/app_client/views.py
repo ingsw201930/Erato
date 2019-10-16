@@ -42,7 +42,7 @@ def signup(request):
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
 
-# Me seeing my own profile 
+# Me seeing my own profile
 @login_required
 def my_profile(request):
     user = request.user
@@ -58,7 +58,7 @@ def dates(request):
     user = request.user
     client=Client.objects.get(user=user)
     dates = Date.objects.all().filter(client_id=client.user_id)
-    accepted_dates=dates.filter(state='requested')
-    requested_dates=dates.filter(state='requested')
+    accepted_dates=dates.filter(state=Date.ACCEPTED)
+    requested_dates=dates.filter(state=Date.REQUESTED)
     history_dates=dates
     return render(request, 'client/dates.html', {'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'history_dates':history_dates})

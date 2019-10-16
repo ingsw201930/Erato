@@ -146,3 +146,30 @@ def date_by_service(request, service_id):
     query.add(Q(state=Date.PAYED), Q.OR)
     dates=service.date_set.filter(query)
     return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
+
+@login_required
+def pay_date(request,date_id):
+    try:
+        date=Date.objects.get(id=date_id)
+    except:
+        return HttpResponse('date no existente')
+    if date.state!=Date.ACCEPTED:
+        return HttpResponse('date invalido')
+    if date.client.user.username!=request.user.username:
+        return HttpResponseForbidden()
+    return render(request,'pay_date/pay_date.html',{'date_id':date_id})
+
+@login_required
+def pay_date_submit(request,date_id):
+    try:
+        date=Date.objects.get(id=date_id)
+    except:
+        return HttpResponse('date no existente')
+    if date.state!=Date.ACCEPTED:
+        return HttpResponse('date invalido')
+    if date.client.user.username!=request.user.username:
+        return HttpResponseForbidden()
+    #if payment is made
+    date.state=Date.PAYED
+    date.save()
+    return HttpResponse('date is payed')
