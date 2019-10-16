@@ -40,7 +40,7 @@ def send_third(to):
     msg = EmailMessage(subject, None, from_email, [to])
     msg.attach(html_part)
     msg.attach(msgLogo)
-    
+
     print("Message created")
     print("Sending email to %s" % to)
     msg.send()
@@ -49,7 +49,7 @@ def send_third(to):
 while(True):
   try:
       connection = psycopg2.connect(user = "django",
-                                    password = "eratoerato",
+                                    password = "django",
                                     host = "localhost",
                                     port = "5432",
                                     database = "erato")
@@ -74,7 +74,7 @@ while(True):
         print("date and time =", time_now)
 
         #query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='requested' ) AS seses ON app_sw_sw.user_id = seses.sid;"
-        query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='requested' AND end_time < %s ) AS seses ON app_sw_sw.user_id = seses.sid;" % (time_now)
+        query = "SELECT third_email, did, sid FROM app_sw_sw RIGHT JOIN (SELECT app_date_date.id AS did, sw_id AS sid FROM app_date_date INNER JOIN app_sw_service ON app_sw_service.id=app_date_date.service_id WHERE state='started' AND end_time < %s ) AS seses ON app_sw_sw.user_id = seses.sid;" % (time_now)
         cursor.execute(query)
         print("Query executed.")
 
@@ -82,7 +82,7 @@ while(True):
 
         for row in mobile_records:
           send_third(row[0])
-          query = "UPDATE app_date_date SET state='timed_out' WHERE id=%s" % row[1]
+          query = "UPDATE app_date_date SET state='timed out' WHERE id=%s" % row[1]
           cursor.execute(query)
         time.sleep(10)
 

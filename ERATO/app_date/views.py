@@ -124,6 +124,16 @@ def date_form( request , service_id ):
 
 @login_required
 def accept_date(request, date_id):
+    try:
+        date=Date.objects.get(id=date_id)
+    except:
+        return HttpResponse('date no existente')
+    if date.state!=Date.REQUESTED:
+        return HttpResponse('date invalido')
+    if date.service.sw.user.username!=request.user.username:
+        return HttpResponseForbidden()
+    date.state=Date.ACCEPTED
+    date.save()
     return HttpResponse("aqui se acepta el date")
 
 @login_required
