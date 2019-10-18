@@ -3,54 +3,46 @@ from .QR import generateQR,decode,secretkey
 from .models import Date
 from app_emails.utils import send_qr
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-import os
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
 from .forms import DateAddForm
-import logging
 import threading
-import time
 import random
 from django.db.models import Q
 from app_client.models import Client
 from app_sw.decorators import *
+from .decorators import *
 
 # Create your views here.
 
-@login_required
+@client_my_date_required
 def createQR(request,date_id):
-    try:
-        date=Date.objects.get(id=date_id)
-    except Exception as e:
-        return HttpResponse("date DoesNotExist")
+    date=Date.objects.get(id=date_id)
     if date.state!=Date.PAYED:
         return HttpResponse("invalid date")
-    if date.client.user.username==request.user.username:
-        print("Valid user")
-        noise=random.randrange(100000)
-        date.noise=noise
-        date.save()
-        print("Before thread")
-        def create_and_send():
-            print("Creating QR and sending in thread")
-            qr=generateQR(str(date_id),str(noise),request)
-            print(qr)
-            client = Client.objects.get(user_id=date.client_id)
-            email= client.email
-            print("Sending QR to... %s with the id %d" % (email, client.user_id))
-            send_qr(qr, email)
+    print("Valid user")
+    noise=random.randrange(100000)
+    date.noise=noise
+    date.save()
+    print("Before thread")
+    def create_and_send():
+        print("Creating QR and sending in thread")
+        qr=generateQR(str(date_id),str(noise),request)
+        print(qr)
+        client = Client.objects.get(user_id=date.client_id)
+        email= client.email
+        print("Sending QR to... %s with the id %d" % (email, client.user_id))
+        send_qr(qr, email)
 
-        thr = threading.Thread(target=create_and_send)
-        thr.start()
-        return HttpResponse("QR sent")
-    else:
-        return HttpResponseForbidden()
+    thr = threading.Thread(target=create_and_send)
+    thr.start()
+    return HttpResponse("QR sent")
 
 def checkQR(request,id,code):
     try:
         date=Date.objects.get(id=id)
     except Date.DoesNotExist:
-        raise Http404("invalid QR")
+        return HttpResponseForbidden()
     state=date.state
     noise=date.noise
     code_noise = str(hash(str(id)+str(noise)))
@@ -70,7 +62,7 @@ def checkQR(request,id,code):
     }
     return render(request, responses[state], {})
 
-@login_required
+@login_required_client
 def generate_date(request, service_id):
     print("Generating date...")
     if request.method == 'POST':
@@ -89,11 +81,12 @@ def generate_date(request, service_id):
             print(lng)
             lat = round(form.cleaned_data.get('lat'),8)
             print(lat)
-
+            user = request.user
+            client = Client.objects.get( user = user )
             try:
-                user = request.user
+                
                 service = Service.objects.get(id=service_id)
-                client = Client.objects.get( user = user )
+                
                 date = Date(
                     client = client,
                     service = service,
@@ -117,7 +110,7 @@ def generate_date(request, service_id):
     return HttpResponse("We couldn't generate date")
 
 
-@login_required
+@login_required_client
 def date_form( request , service_id ):
     form=DateAddForm()
     service = Service.objects.get( id = service_id )
@@ -125,6 +118,7 @@ def date_form( request , service_id ):
 
 @SW_my_date_required
 def accept_date(request, date_id):
+    date=Date.objects.get(id=date_id)
     if date.state!=Date.REQUESTED:
         return HttpResponse('date invalido')
     date.state=Date.ACCEPTED
@@ -147,22 +141,18 @@ def date_by_service(request, service_id):
     dates=service.date_set.filter(query)
     return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
 
-@SW_my_date_required
+@client_my_date_required
 def pay_date(request,date_id):
+    date=Date.objects.get(id=date_id)
     if date.state!=Date.ACCEPTED:
         return HttpResponse('date invalido')
     return render(request,'pay_date/pay_date.html',{'date_id':date_id})
 
-@login_required
+@client_my_date_required
 def pay_date_submit(request,date_id):
-    try:
-        date=Date.objects.get(id=date_id)
-    except:
-        return HttpResponse('date no existente')
+    date=Date.objects.get(id=date_id)
     if date.state!=Date.ACCEPTED:
         return HttpResponse('date invalido')
-    if date.client.user.username!=request.user.username:
-        return HttpResponseForbidden()
     #if payment is made
     date.state=Date.PAYED
     date.save()
