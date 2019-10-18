@@ -8,16 +8,15 @@ from app_sw.models import Service
 from app_date.models import Date
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from .decorators import login_required_client
 # Create your views here.
 # Home for clients
-@login_required
+
+
+@login_required_client
 def home_c(request):
-    user = request.user
-    try:
-        client=Client.objects.get(user=user)
-    except:
-        return HttpResponseRedirect('/')
     services=Service.objects.all()[:10]
+    client=Client.objects.get(user=request.user)
     return render(request, 'home_c/home.html', {'client':client,'services':services})
 
 

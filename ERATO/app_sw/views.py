@@ -9,6 +9,8 @@ from .forms import SWSignUpForm
 from .forms import UploadFileForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from .decorators import *
+from app_client.decorators import *
 
 
 from app_sw.forms import ServiceAddForm
@@ -17,7 +19,7 @@ from app_sw.forms import ServiceAddForm
 erato_key= "er"
 # Create your views here.
 # Home for sexworkers
-@login_required
+@login_required_SW
 def home_s(request):
     user = request.user
     print("In users")
@@ -31,12 +33,12 @@ def home_s(request):
     else:
         HttpResponseRedirect('/')
 
-@login_required
+@login_required_SW
 def service_add_form(request):
     form = ServiceAddForm();
     return render(request, 'services_s/service_add.html', {'form':form})
 
-@login_required
+@login_required_SW
 def service_add(request):
     form = ServiceAddForm(request.POST)
     if form.is_valid():
@@ -44,20 +46,17 @@ def service_add(request):
         description = form.cleaned_data.get('description')
         price = form.cleaned_data.get('price')
         user = request.user
-        try :
-            sw = SW.objects.get(user=user)
-        except:
-            return HttpResponse('El usuario es invalido')
+        sw = SW.objects.get(user=user)
         service = Service(sw=sw, name=name, description=description, price=price)
         service.save()
         return HttpResponseRedirect('/s/home')
 
-@login_required
+@SW_my_service_required
 def service_del(request, service_id):
-    Service.objects.filter(id=id).delete()
+    Service.objects.filter(id=service_id).delete()
     return HttpResponse("Borrando servicio")
 
-@login_required
+@SW_my_service_required
 def service_edit_form(request, service_id):
      return HttpResponse("Editando servicio")
 
@@ -98,7 +97,6 @@ def handle_uploaded_file(f, username):
             destination.write(chunk)
 
 def public_profile(request, sw_id):
-
     temp=sw_id
     print(temp)
     services=Service.objects.all()
@@ -110,7 +108,7 @@ def public_profile(request, sw_id):
     print("Couldn't show public profile.")
     return None
 
-@login_required
+@login_required_SW
 def dates(request):
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
@@ -119,10 +117,12 @@ def dates(request):
     print(current_dates)
     return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates})
 
+@login_required
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)
     return render(request, 'services_s/service_view.html', {'service':service})
 
+@login_required_SW
 def my_profile(request):
     user = request.user
     sw = SW.objects.get(user=user)

@@ -13,6 +13,7 @@ import time
 import random
 from django.db.models import Q
 from app_client.models import Client
+from app_sw.decorators import *
 
 # Create your views here.
 
@@ -122,51 +123,34 @@ def date_form( request , service_id ):
     service = Service.objects.get( id = service_id )
     return render( request, 'date/date_form.html' , {'service':service,'form':form } )
 
-@login_required
+@SW_my_date_required
 def accept_date(request, date_id):
-    try:
-        date=Date.objects.get(id=date_id)
-    except:
-        return HttpResponse('date no existente')
     if date.state!=Date.REQUESTED:
         return HttpResponse('date invalido')
-    if date.service.sw.user.username!=request.user.username:
-        return HttpResponseForbidden()
     date.state=Date.ACCEPTED
     date.save()
     return HttpResponse("aqui se acepta el date")
 
-@login_required
+@SW_my_date_required
 def end_date(request, date_id):
     date = Date.objects.get(id=date_id)
     date.state = 'ended'
     date.save()
     return HttpResponse("Date ended")
 
-@login_required
+@SW_my_service_required
 def date_by_service(request, service_id):
-    try:
-        service=Service.objects.get(id=service_id)
-    except:
-        return HttpResponse('servicio invalido')
-    if service.sw.user.username!=request.user.username:
-        return HttpResponseForbidden()
+    service=Service.objects.get(id=service_id)
     query = Q(state=Date.REQUESTED)
     query.add(Q(state=Date.ACCEPTED), Q.OR)
     query.add(Q(state=Date.PAYED), Q.OR)
     dates=service.date_set.filter(query)
     return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
 
-@login_required
+@SW_my_date_required
 def pay_date(request,date_id):
-    try:
-        date=Date.objects.get(id=date_id)
-    except:
-        return HttpResponse('date no existente')
     if date.state!=Date.ACCEPTED:
         return HttpResponse('date invalido')
-    if date.client.user.username!=request.user.username:
-        return HttpResponseForbidden()
     return render(request,'pay_date/pay_date.html',{'date_id':date_id})
 
 @login_required
