@@ -6,6 +6,35 @@ from django.template.loader import render_to_string
 from email.utils import make_msgid
 import mimetypes
 
+def send_third(to):
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ERATO.settings')
+    django.setup()
+    print("Sending email...")
+    print("Rendering template")
+
+    html = render_to_string(template_name='emails/third_email.html',context={ 'username': "An user " })
+    subject, from_email= 'Security mail', 'eratoservices@gmail.com'
+    html_part = MIMEMultipart(_subtype='related')
+
+    print("Adding MIME")
+    body = MIMEText(html, _subtype='html')
+    html_part.attach(body)
+
+    fp = open('assets/images/logo/ERATO.jpg', 'rb')
+    msgLogo = MIMEImage(fp.read())
+    fp.close()
+    msgLogo.add_header('Content-ID', '<logo_erato>')
+
+    msg = EmailMessage(subject, None, from_email, [to])
+    msg.attach(html_part)
+    msg.attach(msgLogo)
+
+    print("Message created")
+    print("Sending email to %s" % to)
+    msg.send()
+    print("Message sent")
+
 def send_qr(qr, to):
 
     print("Sending qr to "+to)

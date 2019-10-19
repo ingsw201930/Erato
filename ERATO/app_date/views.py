@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .QR import generateQR,decode,secretkey
 from .models import Date
 from app_emails.utils import send_qr
+from app_emails.utils import send_third
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
@@ -12,6 +13,7 @@ from django.db.models import Q
 from app_client.models import Client
 from app_sw.decorators import *
 from .decorators import *
+import datetime
 
 # Create your views here.
 
@@ -52,6 +54,18 @@ def checkQR(request,id,code):
         date.state='started'
         date.save()
         state='started'
+
+        def date_timer():
+            fmt = "%YYYY%MM%DD"
+            date_start  = datetime.strptime( date.start_time, fmt ).timestamp()
+            date_end    = datetime.strptime( date.end_time  , fmt ).timestamp()
+            sleep( (date_end - date_start).seconds )
+            if date.state != date.ENDED:
+                send_third( date.service.sw.third_email )
+                date.state = date.TIMEDOUT
+
+        ( threading.Thread( target= date_timer )).start()
+
     #send mail to third party
     responses={
         'pre-pay':'date_states/failed.html',
@@ -84,9 +98,9 @@ def generate_date(request, service_id):
             user = request.user
             client = Client.objects.get( user = user )
             try:
-                
+
                 service = Service.objects.get(id=service_id)
-                
+
                 date = Date(
                     client = client,
                     service = service,
