@@ -11,7 +11,7 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
-	<form class="ui form" method="post" enctype="multipart/form-data">
+	<form class="ui form" method="post" enctype="multipart/form-data" action="{{BASEURL}}/s/signup/">
 	{% csrf_token %}
 	{{ form_ul.as_p }}
 	{{ form.as_p }}

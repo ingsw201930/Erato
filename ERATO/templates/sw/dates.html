@@ -22,13 +22,13 @@
     {% for date in current_dates %}
         <div class="ui card" style="width: 100%">
         <div class="content">
-        <div class="header">{{date.id}}</div>
+        <div class="header">A date with {{date.client.user.username}}</div>
         </div>
         <div class="content">
         <h4 class="ui sub header">
-            {{date.start_time}}
+            Start time: {{date.start_time}}
             <br>
-            {{date.end_time}}
+            End time: {{date.end_time}}
         </h4>
         <div class="ui small feed">
         <div class="event">
@@ -45,19 +45,50 @@
         </div>
     {% endfor %}
     <h4 class="ui horizontal divider header">
+    <i class="clock outline icon"></i>
+    Pending dates
+    </h4>
+    {% for date in requested_dates %}
+        <div class="ui card" style="width: 100%">
+        <div class="content">
+        <div class="header">A date with {{date.client.user.username}}</div>
+        </div>
+        <div class="content">
+        <h4 class="ui sub header">
+            Start time: {{date.start_time}}
+            <br>
+            End time: {{date.end_time}}
+        </h4>
+        <div class="ui small feed">
+        <div class="event">
+        <div class="content">
+          <div class="summary">
+              {{date.client.user.username}} Has requested a date. 
+          </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="ui buttons">
+        <button class="ui left attached button green" style="width: 45%;" onclick="window.location.replace('{{BASEURL}}/accept_date/{{date.id}}')" > Accept</button>
+        <button class="right attached ui button red" style="width: 45%;" onclick="window.location.replace('{{BASEURL}}/reject_date/{{date.id}}')" > Reject </button>
+        </div>
+        </div>
+    {% endfor %}
+    <h4 class="ui horizontal divider header">
     <i class="calendar alternate outline icon"></i>
     All dates
     </h4>
     {% for date in dates %}
         <div class="ui card" style="width: 100%">
         <div class="content">
-        <div class="header">{{date.id}}</div>
+        <div class="header">A date with {{date.client.user.username}}</div>
         </div>
         <div class="content">
         <h4 class="ui sub header">
-            {{date.start_time}}
+            Start time: {{date.start_time}}
             <br>
-            {{date.end_time}}
+            End time: {{date.end_time}}
         </h4>
         <div class="ui small feed">
         <div class="event">

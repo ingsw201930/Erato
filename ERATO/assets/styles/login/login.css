@@ -1,16 +1,8 @@
 *{color:black;}
 
-.main_container{
-	margin: 0 auto;
-	width: 50%;
-	padding: 10px;
-}
-
 .login{
-	width: 40%;
 	padding: 40px;
 	background-color: #000000AA;
-	margin: 0 auto;
 }
 
 .button_lr{

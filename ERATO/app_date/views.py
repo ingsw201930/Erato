@@ -13,7 +13,10 @@ from django.db.models import Q
 from app_client.models import Client
 from app_sw.decorators import *
 from .decorators import *
-import datetime
+from datetime import datetime
+import time
+
+fmt = '%Y-%m-%d %H:%M:%S+00:00'
 
 # Create your views here.
 
@@ -51,20 +54,23 @@ def checkQR(request,id,code):
     print("Code:"+code)
     print("Code + noise "+code_noise)
     if state=='payed' and code==code_noise:
+ #   if True:
         date.state='started'
         date.save()
         state='started'
 
         def date_timer():
-            fmt = "%YYYY%MM%DD"
-            date_start  = datetime.strptime( date.start_time, fmt ).timestamp()
-            date_end    = datetime.strptime( date.end_time  , fmt ).timestamp()
-            sleep( (date_end - date_start).seconds )
+            date_start  = datetime.strptime( str(date.start_time), fmt ).timestamp()
+            date_end    = datetime.strptime( str(date.end_time)  , fmt ).timestamp()
+            sleep_time =  date_end - date_start
+            print("Sleeping %f" % sleep_time)
+            time.sleep( sleep_time )
             if date.state != date.ENDED:
                 send_third( date.service.sw.third_email )
                 date.state = date.TIMEDOUT
 
-        ( threading.Thread( target= date_timer )).start()
+        thr = threading.Thread( target= date_timer )
+        thr.start()
 
     #send mail to third party
     responses={
@@ -138,6 +144,16 @@ def accept_date(request, date_id):
     date.state=Date.ACCEPTED
     date.save()
     return HttpResponse("aqui se acepta el date")
+
+@SW_my_date_required
+def reject_date(request, date_id):
+    date=Date.objects.get(id=date_id)
+    if date.state!=Date.REQUESTED:
+        return HttpResponse('date invalido')
+    date.state=Date.REJECTED
+    date.save()
+    return HttpResponse("aqui se acepta el date")
+
 
 @SW_my_date_required
 def end_date(request, date_id):

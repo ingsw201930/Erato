@@ -1,6 +1,5 @@
 .service *{
 	display: inline-block;
-
 }
 
 .service_hover .service_panel:hover{
@@ -10,7 +9,6 @@
 .service_panel{
 	padding: 5px;
 	margin-bottom: 20px;
-	margin-right: 10px;
 	background-color: white;
 	border-radius: 10px;
 	vertical-align:top;
@@ -18,7 +16,7 @@
 }
 
 .service_content{
-	width: 70%;
+	width: 90%;
 	display: inline-block;
 	padding-left: 20px;
 	margin: 10px;
@@ -45,7 +43,7 @@
 }
 
 .service_buttons{
-	width: 10%;
+	width: 5%;
 	vertical-align: top;
 	position: relative;
 	right: 0;
@@ -61,7 +59,7 @@
 
 .service_buttons .button{
 	display: block;
-	margin: 3px;
+	margin-top: 3px;
 }
 
 .service_name{

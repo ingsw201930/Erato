@@ -31,6 +31,8 @@ urlpatterns = [
     path('c/login/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
     path('s/login/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
     path('logout/', session_views.logout_managing),
+    path('s/signupform/',sw_views.signupform,name="signup_s"),
+    path('c/signupform/',client_views.signupform,name="signup_c"),
     path('s/signup/',sw_views.signup,name="signup_s"),
     path('c/signup/',client_views.signup,name="signup_c"),
 
@@ -59,7 +61,10 @@ urlpatterns = [
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createqr/<int:date_id>',date_views.createQR),
     path('qrcheck/<int:id>/<str:code>',date_views.checkQR),
+
+#    Date states
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
+    path('reject_date/<int:date_id>',date_views.reject_date,name='reject_date'),
     path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
     path('pay_date/<int:date_id>',date_views.pay_date,name='pay_date'),
     path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),

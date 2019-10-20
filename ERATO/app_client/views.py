@@ -19,7 +19,11 @@ def home_c(request):
     client=Client.objects.get(user=request.user)
     return render(request, 'home_c/home.html', {'client':client,'services':services})
 
+def signupform(request):
+    form = ClientSignUpForm()
+    return render(request, 'signup_c/signup_c.html', {'form': form})
 
+    
 def signup(request):
     if request.method == 'POST':
         form = ClientSignUpForm(request.POST)

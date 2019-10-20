@@ -8,16 +8,12 @@ import mimetypes
 
 def send_third(to):
 
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ERATO.settings')
-    django.setup()
-    print("Sending email...")
-    print("Rendering template")
+    print("Sending security email to "+to)
+    html = render_to_string(template_name='emails/third_email.html',context={})
+    subject, from_email= 'Security email', 'eratoservices@gmail.com'
 
-    html = render_to_string(template_name='emails/third_email.html',context={ 'username': "An user " })
-    subject, from_email= 'Security mail', 'eratoservices@gmail.com'
     html_part = MIMEMultipart(_subtype='related')
 
-    print("Adding MIME")
     body = MIMEText(html, _subtype='html')
     html_part.attach(body)
 
@@ -27,13 +23,10 @@ def send_third(to):
     msgLogo.add_header('Content-ID', '<logo_erato>')
 
     msg = EmailMessage(subject, None, from_email, [to])
-    msg.attach(html_part)
     msg.attach(msgLogo)
-
-    print("Message created")
-    print("Sending email to %s" % to)
+    msg.attach(html_part)
+    msg.attach(msgImage)
     msg.send()
-    print("Message sent")
 
 def send_qr(qr, to):
 
@@ -57,21 +50,9 @@ def send_qr(qr, to):
     fp.close()
     msgLogo.add_header('Content-ID', '<logo_erato>')
 
-    """
-    fp = open('assets/images/logo/ERATO.jpg', 'rb')
-    msgImage = MIMEImage(fp.read())
-    fp.close()
-    msgImage.add_header('Content-ID', '<logo_erato>')
-
-    msg = EmailMessage(subject, None, from_email, [to])
-    msg.attach(html_part)
-    msg.attach(msgImage)
-    """
-
     msgImage.add_header('Content-ID', '<qr_code>')
     html_part.attach(msgImage)
 
-    msg = EmailMessage(subject, None, from_email, [to])
     msg = EmailMessage(subject, None, from_email, [to])
     msg.attach(msgLogo)
     msg.attach(html_part)

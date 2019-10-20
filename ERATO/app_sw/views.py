@@ -17,6 +17,7 @@ from app_sw.forms import ServiceAddForm
 
 
 erato_key= "er"
+
 # Create your views here.
 # Home for sexworkers
 @login_required_SW
@@ -60,6 +61,10 @@ def service_del(request, service_id):
 def service_edit_form(request, service_id):
      return HttpResponse("Editando servicio")
 
+def signupform(request):
+    form = SWSignUpForm()
+    form_ul = UploadFileForm()
+    return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
 
 def signup(request):
     if request.method == 'POST':
@@ -75,8 +80,8 @@ def signup(request):
                 birth_date=form.cleaned_data.get('birthDate'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
-                picture_path = "assets/images/pro_pics/%s" % hash(username+erato_key),
-                MC_path="media/%s" % hash(username+erato_key)
+                picture_path = "assets/images/pro_pics/%s.png" % hash(username+erato_key),
+                MC_path="media/%s.pdf" % hash(username+erato_key)
             )
             handle_uploaded_file(request.FILES['file'], username)
             sw.save()
@@ -112,10 +117,9 @@ def public_profile(request, sw_id):
 def dates(request):
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
-    print(dates)
-    current_dates = dates.filter(state='started')
-    print(current_dates)
-    return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates})
+    current_dates = dates.filter(state=Date.STARTED)
+    requested_dates = dates.filter(state=Date.REQUESTED)
+    return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates, 'requested_dates':requested_dates})
 
 @login_required
 def view_service(request, service_id):
