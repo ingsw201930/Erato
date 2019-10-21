@@ -2,11 +2,12 @@ from simplecrypt import encrypt, decrypt
 from base64 import b64encode, b64decode
 import pyqrcode
 import urllib.parse
+import hashlib
 
 secretkey="tcrtrtgvfbmhgfbjujgmbgfc"
 
 def generateQR(id,noise,request):
-    code=hash(id+noise)
+    code=hashlib.sha256(bytes(id+noise,'utf-8')).hexdigest()
     baseurl=request.META['HTTP_HOST']+'/qrcheck/'+id+'/'+str(code)
     url = pyqrcode.create(baseurl)
     result_path = 'assets/QR/'+id+'.png'

@@ -15,6 +15,7 @@ from app_sw.decorators import *
 from .decorators import *
 from datetime import datetime
 import time
+import hashlib
 
 fmt = '%Y-%m-%d %H:%M:%S+00:00'
 
@@ -49,8 +50,8 @@ def checkQR(request,date_id,code):
     except Date.DoesNotExist:
         return HttpResponseForbidden()
     state=date.state
-    noise=date.noise
-    code_noise = str(hash(str(date_id)+str(noise)))
+    noise=str(date.noise)
+    code_noise = hashlib.sha256(bytes(str(date_id)+noise,'utf-8')).hexdigest()
     print("Code:"+code)
     print("Code + noise "+code_noise)
     print("noise,id",noise,date_id)
