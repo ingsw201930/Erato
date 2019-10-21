@@ -60,7 +60,7 @@ urlpatterns = [
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createqr/<int:date_id>',date_views.createQR),
-    path('qrcheck/<int:id>/<str:code>',date_views.checkQR),
+    path('qrcheck/<int:date_id>/<str:code>',date_views.checkQR),
 
 #    Date states
     path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),

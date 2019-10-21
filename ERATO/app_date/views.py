@@ -43,21 +43,22 @@ def createQR(request,date_id):
     thr.start()
     return HttpResponse("QR sent")
 
-def checkQR(request,id,code):
+def checkQR(request,date_id,code):
     try:
-        date=Date.objects.get(id=id)
+        date=Date.objects.get(id=date_id)
     except Date.DoesNotExist:
         return HttpResponseForbidden()
     state=date.state
     noise=date.noise
-    code_noise = str(hash(str(id)+str(noise)))
+    code_noise = str(hash(str(date_id)+str(noise)))
     print("Code:"+code)
     print("Code + noise "+code_noise)
-    if state=='payed' and code==code_noise:
+    print("noise,id",noise,date_id)
+    if state==Date.PAYED and code==code_noise:
  #   if True:
-        date.state='started'
+        date.state=Date.STARTED
         date.save()
-        state='started'
+        state=Date.STARTED
 
         def date_timer():
             date_start  = datetime.strptime( str(date.start_time), fmt ).timestamp()
@@ -65,20 +66,23 @@ def checkQR(request,id,code):
             sleep_time =  date_end - date_start
             print("Sleeping %f" % sleep_time)
             time.sleep( sleep_time )
-            if date.state != date.ENDED:
+            date=Date.objects.get(id=date_id)
+            if date.state != Date.ENDED:
                 send_third( date.service.sw.third_email )
-                date.state = date.TIMEDOUT
+                date.state = Date.TIMEDOUT
+                date.save()
 
         thr = threading.Thread( target= date_timer )
         thr.start()
 
     #send mail to third party
     responses={
-        'pre-pay':'date_states/failed.html',
-        'payed':'date_states/failed.html',
-        'started':'date_states/started.html',
-        'ended':'date_states/failed.html',
-        'timedout':'date_states/failed.html'
+        Date.REQUESTED:'date_states/failed.html',
+        Date.ACCEPTED:'date_states/failed.html',
+        Date.PAYED:'date_states/failed.html',
+        Date.STARTED:'date_states/started.html',
+        Date.ENDED:'date_states/failed.html',
+        Date.TIMEDOUT:'date_states/failed.html'
     }
     return render(request, responses[state], {})
 
