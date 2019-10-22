@@ -66,10 +66,10 @@ def checkQR(request,date_id,code):
             date_end    = datetime.strptime( str(date.end_time)  , fmt ).timestamp()
             sleep_time =  date_end - date_start
             print("Sleeping %f" % sleep_time)
-            time.sleep( sleep_time )
-            date=Date.objects.get(id=date_id)
+            # time.sleep( sleep_time )
             if date.state != Date.ENDED:
-                send_third( date.service.sw.third_email )
+                send_third( date.service.sw.user.username , date.service.sw.third_email )
+                print( date.service.sw.third_email  )
                 date.state = Date.TIMEDOUT
                 date.save()
 

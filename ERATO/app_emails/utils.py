@@ -6,10 +6,10 @@ from django.template.loader import render_to_string
 from email.utils import make_msgid
 import mimetypes
 
-def send_third(to):
+def send_third(username, to):
 
     print("Sending security email to "+to)
-    html = render_to_string(template_name='emails/third_email.html',context={})
+    html = render_to_string(template_name='emails/third_email.html',context={'username':username})
     subject, from_email= 'Security email', 'eratoservices@gmail.com'
 
     html_part = MIMEMultipart(_subtype='related')
@@ -25,7 +25,6 @@ def send_third(to):
     msg = EmailMessage(subject, None, from_email, [to])
     msg.attach(msgLogo)
     msg.attach(html_part)
-    msg.attach(msgImage)
     msg.send()
 
 def send_qr(qr, to):
