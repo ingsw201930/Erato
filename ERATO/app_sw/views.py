@@ -51,6 +51,7 @@ def service_add(request):
         service = Service(sw=sw, name=name, description=description, price=price)
         service.save()
         return HttpResponseRedirect('/s/home')
+    return HttpResponseRedirect('/s/service_add_request/')
 
 @SW_my_service_required
 def service_del(request, service_id):
