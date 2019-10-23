@@ -6,6 +6,7 @@ pip3 install psycopg2 --user
 pip3 install simple-crypt --user
 pip3 install PyQRCode --user
 pip3 install pypng --user
+pip3 install stripe --user
 sudo apt-get install postgresql
 sudo service postgresql start
 sudo -iu postgres

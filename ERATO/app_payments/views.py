@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden,JsonResponse
 import stripe
+STRIPE_SECRET_KEY = 'pk_test_TJ2OVSToevGScWJgSpKiAhsm00lXDiVFap'
+STRIPE_PUBLISHABLE_KEY = 'sk_test_5gjI6b94pzCgj1P31u9tQMXT00DXHdREmV'
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+stripe.api_key = STRIPE_SECRET_KEY
 # Create your views here.
 def charge(request):
 	#existing_order = get_order(request)
