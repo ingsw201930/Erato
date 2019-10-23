@@ -3,7 +3,7 @@ from .QR import generateQR,decode,secretkey
 from .models import Date
 from app_emails.utils import send_qr
 from app_emails.utils import send_third
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden,JsonResponse
 from django.contrib.auth.decorators import login_required
 from app_sw.models import Service
 from .forms import DateAddForm
@@ -145,19 +145,19 @@ def date_form( request , service_id ):
 def accept_date(request, date_id):
     date=Date.objects.get(id=date_id)
     if date.state!=Date.REQUESTED:
-        return HttpResponse('date invalido')
+        return JsonResponse({"state":"failed"})
     date.state=Date.ACCEPTED
     date.save()
-    return HttpResponse("aqui se acepta el date")
+    return JsonResponse({"state":"accepted"})
 
 @SW_my_date_required
 def reject_date(request, date_id):
     date=Date.objects.get(id=date_id)
     if date.state!=Date.REQUESTED:
-        return HttpResponse('date invalido')
+        return JsonResponse({"state":"failed"})
     date.state=Date.REJECTED
     date.save()
-    return HttpResponse("aqui se acepta el date")
+    return HttpResponse({"state":"rejected"})
 
 
 @SW_my_date_required

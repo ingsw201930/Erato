@@ -11,6 +11,7 @@ class Date(models.Model):
     TIMEDOUT='timed out'
     REQUESTED = 'requested'
     ACCEPTED = 'accepted'
+    REJECTED= 'rejected'
     STATE_CHOICES = [
         (PAYED , 'payed'),
         (STARTED , 'started'),
@@ -18,6 +19,7 @@ class Date(models.Model):
         (TIMEDOUT , 'timed out'),
         (REQUESTED , 'requested'),
         (ACCEPTED , 'accepted'),
+        (REJECTED , 'rejected'),
     ]
     client=models.ForeignKey(Client,on_delete=models.CASCADE)
     service=models.ForeignKey(Service,on_delete=models.CASCADE)
