@@ -47,6 +47,7 @@ urlpatterns = [
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
     path('s/dates/', sw_views.dates, name="sw_history"),
     path('s/payments/', sw_views.payments, name="sw_payments"),
+    path('s/get_date_list/<int:index>',sw_views.get_date_list,name="s_get_date_list"),
     #path('about/', da_views.about, name="about"),
 
     path('c/profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),

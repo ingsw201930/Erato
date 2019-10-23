@@ -10,7 +10,7 @@
         {% include './dates.js' %}
     </script>
 </head>
-<body>
+<body onload="get_date_list(0)">
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 <div class="container">
@@ -85,25 +85,16 @@
     <i class="calendar alternate outline icon"></i>
     All dates
     </h4>
-    {% for date in dates %}
-        <div class="ui card" style="width: 100%">
-        <div class="content">
-        <div class="header">A date with {{date.client.user.username}}</div>
-        </div>
-        <div class="content">
-        <h4 class="ui sub header">
-            Start time: {{date.start_time}}
-            <br>
-            End time: {{date.end_time}}
-        </h4>
-        <div class="ui small feed">
-        <div class="event">
-        </div>
-        </div>
-        </div>
-        </div>
-    {% endfor %}
+    <div id="date_list">
+
     </div>
+    <div class="ui buttons">
+            <button class="ui left attached button grey" style="width: 45%;" onclick="back()" > back </button>
+            <button id="current_index" class="ui center attached button grey" style="width: 45%;" onclick="" > 1 </button>
+            <button class="right attached ui button grey" style="width: 45%;" onclick="next()" > next </button>
+    </div>
+    </div>
+    
 </div>
 {% include '../general/footer.html' %}
 </body>

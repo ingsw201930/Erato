@@ -122,6 +122,13 @@ def dates(request):
     requested_dates = dates.filter(state=Date.REQUESTED)
     return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates, 'requested_dates':requested_dates})
 
+@login_required_SW
+def get_date_list(request,index):
+    n=5
+    user = request.user
+    dates = Date.objects.filter(service__sw_id=user.id)[index*n:(index+1)*n]
+    return render(request, 'sw/date_list.html',{"dates":dates})
+
 @login_required
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)
