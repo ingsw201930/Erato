@@ -56,6 +56,7 @@ urlpatterns = [
     path('c/home/', client_views.home_c , name="home_c"),
     path('c/dates/', client_views.dates , name="dates"),
     path('c/profile/',client_views.my_profile,name="client_public_profile"),
+    path('c/get_service_list/<int:index>',client_views.get_service_list,name="c_get_service_list"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),

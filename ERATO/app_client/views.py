@@ -19,6 +19,13 @@ def home_c(request):
     client=Client.objects.get(user=request.user)
     return render(request, 'home_c/home.html', {'client':client,'services':services})
 
+
+@login_required_client
+def get_service_list(request,index):
+    n=5
+    services=Service.objects.all()[index*n:(index+1)*n]
+    return render(request,'home_c/services.html',{'services':services})
+
 def signupform(request):
     form = ClientSignUpForm()
     return render(request, 'signup_c/signup_c.html', {'form': form})
