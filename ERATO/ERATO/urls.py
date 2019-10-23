@@ -21,6 +21,7 @@ from app_sessions import views as session_views
 from app_sw import views as sw_views
 from app_client import views as client_views
 from app_date import views as date_views
+from app_payments import views as pays_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -72,4 +73,6 @@ urlpatterns = [
     path('pay_date/<int:date_id>',date_views.pay_date,name='pay_date'),
     path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),
 
+#   Payments
+    path('c/charge', pays_views.charge, name='charge')
 ]

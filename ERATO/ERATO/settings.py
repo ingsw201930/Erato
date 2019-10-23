@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app_emails',
     'app_sessions',
     'app_sw',
+    'app_payments'
 ]
 
 MIDDLEWARE = [
