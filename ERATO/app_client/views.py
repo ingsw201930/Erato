@@ -53,17 +53,13 @@ def signup(request):
 
 
 # Me seeing my own profile
-@login_required
+@login_required_client
 def my_profile(request):
     user = request.user
-    try:
-        client=Client.objects.get(user=user)
-        return render(request, 'client/profile.html', {'client': client})
-    except:
-        print("Couldn't show public profile.")
-    return HttpResponseRedirect('/')
+    client=Client.objects.get(user=user)
+    return render(request, 'client/profile.html', {'client': client})
 
-@login_required
+@login_required_client
 def dates(request):
     user = request.user
     client=Client.objects.get(user=user)
@@ -72,3 +68,11 @@ def dates(request):
     requested_dates=dates.filter(state=Date.REQUESTED)
     history_dates=dates
     return render(request, 'client/dates.html', {'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'history_dates':history_dates})
+
+@login_required_client
+def get_date_list(request,index):
+    n=5
+    user = request.user
+    client=Client.objects.get(user=user)
+    dates = Date.objects.filter(client=client)[index*n:(index+1)*n]
+    return render(request, 'sw/date_list.html',{"dates":dates})

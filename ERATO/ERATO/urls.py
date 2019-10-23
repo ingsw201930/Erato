@@ -58,6 +58,7 @@ urlpatterns = [
     path('c/dates/', client_views.dates , name="dates"),
     path('c/profile/',client_views.my_profile,name="client_public_profile"),
     path('c/get_service_list/<int:index>',client_views.get_service_list,name="c_get_service_list"),
+    path('c/get_date_list/<int:index>',client_views.get_date_list,name="c_get_date_list"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
