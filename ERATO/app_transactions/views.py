@@ -61,4 +61,4 @@ def c_payments(request):
 def s_payments(request):
 	user = request.user
 	transactions = Transaction.objects.filter(sw_id=user.id)
-	return render(request, 'sw/payments.html', {transactions})
+	return render(request, 'sw/payments.html', {'transactions':transactions})

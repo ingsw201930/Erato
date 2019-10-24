@@ -19,18 +19,22 @@
     <div class="main_container">
     <div class="profile">
     <h2 class="ui center aligned icon header">
-    <img class="ui medium circular image" src="{{sw.picture_path}}">
-    {{sw.user.username}}
-    </h2>
+      <div class="image_profile">
+        <img class="ui medium circular image" src="{{BASEURL}}/{{sw.picture_path}}">
+      </div>
+      <div class="sw_p_panel">
+        {{sw.user.username}}
+      </div>
+  </h2>
     </div>
     <div class="more_info">
         Id : {{sw.user_id}}
+        <br>
         Birth date : {{sw.birth_date}}
-        Bla bla bla
+        <br>
     </div>
     </div>
     </div>
 </div>
 {% include '../general/footer.html' %}
 </body>
-

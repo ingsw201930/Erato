@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Client
 from .forms import ClientSignUpForm
+from .forms import UploadFileForm
 from app_sw.models import Service
 from app_date.models import Date
 from django.contrib.auth import authenticate
@@ -34,7 +35,8 @@ def signupform(request):
 def signup(request):
     if request.method == 'POST':
         form = ClientSignUpForm(request.POST)
-        if form.is_valid():
+        form_ul = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid() and form_ul.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
@@ -44,6 +46,7 @@ def signup(request):
                 birth_date=form.cleaned_data.get('birth_date'),
                 email=form.cleaned_data.get('email')
             )
+            handle_uploaded_file(request.FILES['file'], username)
             client.save()
             login(request, user)
             return HttpResponseRedirect('/c/home/')

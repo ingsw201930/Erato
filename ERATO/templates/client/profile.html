@@ -16,10 +16,13 @@
     </script>
     <div class="main_container">
         <h2 class="ui center aligned icon header">
-          <img class="ui medium circular image" src="{{client.picture_path}}">
+          <div class="">
+            <img class="ui medium circular image" src="{{BASEURL}}{{client.picture_path}}">
+
+          </div>
           {{client.user.username}}
         </h2>
-        
+
     </div>
 </div>
 {% include '../general/footer.html' %}

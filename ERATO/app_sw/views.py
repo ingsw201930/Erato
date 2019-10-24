@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .decorators import *
 from app_client.decorators import *
-
+import hashlib
 
 from app_sw.forms import ServiceAddForm
 
@@ -69,8 +69,8 @@ def signupform(request):
 
 def signup(request):
     if request.method == 'POST':
-        form_ul = UploadFileForm(request.POST, request.FILES)
         form = SWSignUpForm(request.POST)
+        form_ul = UploadFileForm(request.POST, request.FILES)
         if form.is_valid() and form_ul.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -81,8 +81,8 @@ def signup(request):
                 birth_date=form.cleaned_data.get('birthDate'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
-                picture_path = "assets/images/pro_pics/%s.png" % hash(username+erato_key),
-                MC_path="media/%s.pdf" % hash(username+erato_key)
+                picture_path = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
+                MC_path="media/%s.pdf" % "IDK"
             )
             handle_uploaded_file(request.FILES['file'], username)
             sw.save()
@@ -97,7 +97,7 @@ def signup(request):
     return HttpResponseRedirect('/s/home/')
 
 def handle_uploaded_file(f, username):
-    file_name = "assets/images/pro_pics/%s.png" % hash(username+erato_key)
+    file_name = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
