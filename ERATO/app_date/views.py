@@ -111,16 +111,24 @@ def generate_date(request, service_id):
             try:
 
                 service = Service.objects.get(id=service_id)
-
+                start_time = start_time+' '+start_time_hms+'+00:00'
+                end_time = end_time+' '+end_time_hms+'+00:00'
+                date_start  = datetime.strptime( str(start_time), fmt ).timestamp()
+                date_end    = datetime.strptime( str(end_time)  , fmt ).timestamp()
+                total_duration =  date_end - date_start
+                total_hours = total_duration//3600
+                print(total_hours)
+                price = round(total_hours*float(service.price),2)
+                print(price)
                 date = Date(
                     client = client,
                     service = service,
-                    start_time = start_time+' '+start_time_hms,
-                    end_time = end_time+' '+end_time_hms,
+                    start_time = start_time,
+                    end_time = end_time,
                     lat = lat,
-                    lng = lng
+                    lng = lng,
+                    price = price
                 )
-                print("Creating date...")
                 date.save()
 
 
@@ -181,7 +189,7 @@ def pay_date(request,date_id):
     date=Date.objects.get(id=date_id)
     if date.state!=Date.ACCEPTED:
         return HttpResponse('date invalido')
-    return render(request,'pay_date/pay_date.html',{'date_id':date_id})
+    return render(request,'pay_date/pay_date.html',{'date':date})
 
 @client_my_date_required
 def pay_date_submit(request,date_id):

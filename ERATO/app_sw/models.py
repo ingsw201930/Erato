@@ -18,5 +18,5 @@ class Service(models.Model):
     description=models.CharField(max_length=400)
     active = models.BooleanField(default=True)
     #TODO tags=hay que ver como hacer relacion muchos a muchos en django
-    price=models.IntegerField()
+    price=models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 # Create your models here.

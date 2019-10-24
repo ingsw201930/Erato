@@ -21,7 +21,7 @@ from app_sessions import views as session_views
 from app_sw import views as sw_views
 from app_client import views as client_views
 from app_date import views as date_views
-from app_payments import views as pays_views
+from app_transactions import views as ts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -47,7 +47,7 @@ urlpatterns = [
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
     path('s/dates/', sw_views.dates, name="sw_history"),
-    path('s/payments/', sw_views.payments, name="sw_payments"),
+    path('s/payments/', ts_views.s_payments, name="sw_payments"),
     path('s/get_date_list/<int:index>',sw_views.get_date_list,name="s_get_date_list"),
     #path('about/', da_views.about, name="about"),
 
@@ -60,6 +60,7 @@ urlpatterns = [
     path('c/profile/',client_views.my_profile,name="client_public_profile"),
     path('c/get_service_list/<int:index>',client_views.get_service_list,name="c_get_service_list"),
     path('c/get_date_list/<int:index>',client_views.get_date_list,name="c_get_date_list"),
+    path('c/payments/', ts_views.c_payments, name="sw_payments"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
@@ -74,5 +75,5 @@ urlpatterns = [
     path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),
 
 #   Payments
-    path('c/charge', pays_views.charge, name='charge')
+    path('c/charge/<int:date_id>', ts_views.charge, name='charge')
 ]

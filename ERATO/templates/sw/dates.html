@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
     <meta charset="UTF-8">
     <title>ERATO</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         {% include './dates.js' %}
     </script>
 </head>
-<body onload="get_date_list(0)">
+<body id="body" onload="get_date_list(0)">
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 <div class="container">
@@ -30,9 +32,11 @@
         </div>
         <div class="content">
         <h4 class="ui sub header">
-            Start time: {{date.start_time}}
-            <br>
-            End time: {{date.end_time}}
+          Start time: {{date.start_time}}
+          <br>
+          End time: {{date.end_time}}
+          <br>
+          Price: {{date.price}}
         </h4>
         <div class="ui small feed">
         <div class="event">
@@ -59,15 +63,17 @@
         </div>
         <div class="content">
         <h4 class="ui sub header">
-            Start time: {{date.start_time}}
-            <br>
-            End time: {{date.end_time}}
+          Start time: {{date.start_time}}
+          <br>
+          End time: {{date.end_time}}
+          <br>
+          Price: {{date.price}}
         </h4>
         <div class="ui small feed">
         <div class="event">
         <div class="content">
           <div class="summary">
-              {{date.client.user.username}} Has requested a date. 
+              {{date.client.user.username}} Has requested a date.
           </div>
         </div>
         </div>
@@ -98,7 +104,7 @@
             </button>
     </div>
     </div>
-    
+
 </div>
 {% include '../general/footer.html' %}
 </body>

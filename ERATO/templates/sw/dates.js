@@ -27,7 +27,7 @@ function reject(date_id){
 }
 
 function get_date_list(index){
-    $.ajax({url: "{{BASEURL}}/s/get_date_list/"+index, 
+    $.ajax({url: "{{BASEURL}}/s/get_date_list/"+index,
     success: function(result){
         container=document.getElementById("date_list")
         container.innerHTML = result;

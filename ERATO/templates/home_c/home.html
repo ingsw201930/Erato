@@ -24,41 +24,9 @@
 	<script>
 		document.getElementById("item_h").setAttribute("class", "active item");
 	</script>
-	<script>
-		$('#imagelabels').dropdown({
-  className: {
-    label: 'ui image label',
-    icon: 'flag'
-  },
-  placeholder: 'Select some users',
-  values:[{
-    "name": "Jenny",
-    "value": "jenny",
-    "selected" : true,
-    "image": "https://fomantic-ui.com/images/avatar/small/jenny.jpg",
-    "icon": "de"
-  },
-  {
-    "name": "Elliot",
-    "value": "elliot",
-    "selected" : true,
-    "image": "https://fomantic-ui.com/images/avatar/small/elliot.jpg",
-    "icon" : "us"
-  },
-  {
-    "name": "Stevie",
-    "value": "stevie",
-    "selected" : true,
-    "image": "https://fomantic-ui.com/images/avatar/small/stevie.jpg",
-    "icon" : "fr"
-  }]
-})
-;
-
-	</script>
 	<div class="services">
 		<div id="service_container" ><!--services--></div>
-		
+
 <div class="ui buttons">
     <button class="ui left attached button grey" style="width: 45%;" onclick="back()" >
       <i class="arrow left icon"></i>
@@ -74,7 +42,7 @@
 	Filtro por :
 	Precio
 	Tags
-	
+
 	<form action="">
 <div class="ui fluid multiple selection dropdown" id="imagelabels" tabindex="0">
               <input type="hidden" class="noselection" value="">

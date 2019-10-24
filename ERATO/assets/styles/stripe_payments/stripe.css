@@ -1,17 +1,13 @@
 form {
   padding: 30px;
-  height: 120px;
 }
 
 label {
-  font-weight: 500;
-  font-size: 14px;
   display: block;
   margin-bottom: 8px;
 }
 
 #card-errors {
-  height: 20px;
   padding: 4px 0;
   color: #fa755a;
 }
@@ -19,12 +15,7 @@ label {
 .form-row {
   width: 70%;
   float: left;
-}
-
-.token {
-  color: #32325d;
-  font-family: 'Source Code Pro', monospace;
-  font-weight: 500;
+  margin-bottom: 20px;
 }
 
 .wrapper {

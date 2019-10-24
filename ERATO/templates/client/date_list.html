@@ -1,10 +1,13 @@
 {% for date in history_dates %}
               <div class="card" style="width: 100%">
                 <div class="content">
-                  <div class="header">Your date with {{date.service.id}}</div>
+                  <div class="header">Your date with {{date.service.sw.user.username}}</div>
                   <div class="description">
-                    {{date.start_time}}
-                    {{date.end_time}}
+                    Start time: {{date.start_time}}
+                    <br>
+                    End time: {{date.end_time}}
+                    <br>
+                    Price: {{date.price}}
                   </div>
                 </div>
               </div>

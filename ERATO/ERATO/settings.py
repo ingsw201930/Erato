@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'app_emails',
     'app_sessions',
     'app_sw',
-    'app_payments'
+    'app_transactions'
 ]
 
 MIDDLEWARE = [
@@ -150,5 +150,5 @@ EMAIL_HOST_PASSWORD = 'eratoerato2019'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-STRIPE_SECRET_KEY = 'pk_test_TJ2OVSToevGScWJgSpKiAhsm00lXDiVFap'
-STRIPE_PUBLISHABLE_KEY = 'sk_test_5gjI6b94pzCgj1P31u9tQMXT00DXHdREmV'
+STRIPE_SECRET_KEY = 'sk_test_5gjI6b94pzCgj1P31u9tQMXT00DXHdREmV'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_TJ2OVSToevGScWJgSpKiAhsm00lXDiVFap'
