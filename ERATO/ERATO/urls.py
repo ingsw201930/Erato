@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 from app_sessions import views as session_views
 from app_sw import views as sw_views
@@ -76,4 +79,4 @@ urlpatterns = [
 
 #   Payments
     path('c/charge/<int:date_id>', ts_views.charge, name='charge')
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
