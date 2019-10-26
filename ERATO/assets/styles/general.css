@@ -62,3 +62,7 @@ footer{
 	width: 100%;
 	background-color: #222;
 }
+
+.b_spaced{
+	margin-bottom: 10px;
+}

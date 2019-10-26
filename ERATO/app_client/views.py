@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Client
 from .forms import ClientSignUpForm
 from .forms import UploadFileForm
+from .forms import UploadMCForm
 from app_sw.models import Service
 from app_date.models import Date
 from django.contrib.auth import authenticate
@@ -29,7 +30,9 @@ def get_service_list(request,index):
 
 def signupform(request):
     form = ClientSignUpForm()
-    return render(request, 'signup_c/signup_c.html', {'form': form})
+    form_ul = UploadFileForm()
+    form_mc = UploadMCForm()
+    return render(request, 'signup_c/signup_c.html', {'form': form, 'form_ul': form_ul, 'form_mc':form_mc})
 
 
 def signup(request):
@@ -43,7 +46,6 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             client=Client(
                 user=user,
-                birth_date=form.cleaned_data.get('birth_date'),
                 email=form.cleaned_data.get('email')
             )
             handle_uploaded_file(request.FILES['file'], username)
