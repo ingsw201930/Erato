@@ -2,9 +2,7 @@ from django.db import models
 from app_client.models import Client
 from app_sw.models import Service
 
-# Create your models here.
 class Date(models.Model):
-    #pre-pay,payed,started,ended,timed out
     PAYED = 'payed'
     STARTED = 'started'
     ENDED = 'ended'
@@ -12,6 +10,8 @@ class Date(models.Model):
     REQUESTED = 'requested'
     ACCEPTED = 'accepted'
     REJECTED= 'rejected'
+    RATED='rated'
+
     STATE_CHOICES = [
         (PAYED , 'payed'),
         (STARTED , 'started'),
@@ -20,6 +20,7 @@ class Date(models.Model):
         (REQUESTED , 'requested'),
         (ACCEPTED , 'accepted'),
         (REJECTED , 'rejected'),
+        (RATED, 'rated')
     ]
     client=models.ForeignKey(Client,on_delete=models.CASCADE)
     service=models.ForeignKey(Service,on_delete=models.CASCADE)

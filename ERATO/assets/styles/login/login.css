@@ -12,3 +12,7 @@
 .reset_password a{
 	margin: 5px;
 }
+ .centered_login{
+	 width: 60%;
+	 min-width: 300px;
+ }

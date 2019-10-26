@@ -7,6 +7,7 @@ from .models import SW,Service
 from app_date.models import Date
 from .forms import SWSignUpForm
 from .forms import UploadFileForm
+from .forms import UploadMCForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .decorators import *
@@ -65,39 +66,47 @@ def service_edit_form(request, service_id):
 def signupform(request):
     form = SWSignUpForm()
     form_ul = UploadFileForm()
-    return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
+    form_mc = UploadMCForm()
+    return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul, 'form_mc' : form_mc})
 
 def signup(request):
     if request.method == 'POST':
         form = SWSignUpForm(request.POST)
         form_ul = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid() and form_ul.is_valid():
-            form.save()
+        form_mc = UploadMCForm(request.POST, request.FILES)
+        if form.is_valid() and request.FILES['file'] and request.FILES['mc']:
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            email = form.cleaned_data.get('email')
+            user = User.objects.create_user(username, email, raw_password)
+            user.save()
+            print("User created")
             sw=SW(
                 user=user,
-                birth_date=form.cleaned_data.get('birthDate'),
+                birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
                 picture_path = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
-                MC_path="media/%s.pdf" % "IDK"
+                MC_path="assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
             )
-            handle_uploaded_file(request.FILES['file'], username)
             sw.save()
+            handle_uploaded_file(request.FILES['file'], username, 'PPSW')
+            print("Profile picture saved")
+            handle_uploaded_file(request.FILES['mc'], username, 'MC')
+            print("Medical certification saved")
+            user = authenticate(username=username, password=raw_password)
             login(request, user)
-
             return HttpResponseRedirect('/s/home/')
     else:
-        form = SWSignUpForm()
-        form_ul = UploadFileForm()
-        return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul})
-    #Página de registro
-    return HttpResponseRedirect('/s/home/')
+        return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/')
 
-def handle_uploaded_file(f, username):
-    file_name = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+def handle_uploaded_file(f, username, code):
+    file_name=''
+    if code == 'PPSW':
+        file_name = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+    if code == 'MC':
+        file_name = "assets/mcs/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -132,7 +141,8 @@ def get_date_list(request,index):
 @login_required
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)
-    return render(request, 'services_s/service_view.html', {'service':service})
+    sw = service.sw
+    return render(request, 'services_s/service_view.html', {'service':service, 'sw':sw})
 
 @login_required_SW
 def my_profile(request):

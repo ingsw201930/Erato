@@ -44,7 +44,8 @@ body {
 
 .menu_services{
 	display: inline-block;
-	width: 17%;
+	width: 20%;
+	min-width: 300px;
 }
 
 .button{

@@ -4,7 +4,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
+	<link rel="stylesheet" type="text/css" href="/assets/styles/forms/signup.css">
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
@@ -13,10 +13,52 @@
 <div class="container">
 	<form class="ui form" method="post" enctype="multipart/form-data" action="{{BASEURL}}/s/signup/">
 	{% csrf_token %}
-	{{ form_ul.as_p }}
-	{{ form.as_p }}
+	{{ form.username }}
+	{{ form.email }}
+	{{ form.password1 }}
+	{{ form.password2 }}
+	<h4 class="ui horizontal divider header">
+  Profile
+	</h4>
+	<div class="ui placeholder segment">
+	<div class="ui icon header">
+		<i class="icon image"></i>
+	</div>
+	<div class="ui basic button">
+	  <i class="icon user"></i>
+		<label for="id_file">
+		Upload your picture</label>
+		{{ form_ul.file }}
+	</div>
+	</div>
+	<div class="profile_form">
+		{{ form.first_name }}
+		{{ form.last_name }}
+		{{ form.birth_date }}
+		{{ form.description }}
+	</div>
+	<h4 class="ui horizontal divider header">
+  Security
+	</h4>
+	<div class="profile_form">
+		{{ form.third_email }}
+	</div>
+	<h4 class="ui horizontal divider header">
+  Medical certification
+	</h4>
+	<div class="ui placeholder segment">
+	<div class="ui icon header">
+		<i class="pdf file outline icon"></i>
+	</div>
+	<div class="ui basic button">
+		<i class="icon user"></i>
+		<label for="id_mc">
+		Upload your PDF</label>
+		{{ form_mc.mc }}
+	</div>
+	</div>
 	<div class="button_lr">
-	<button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
+	<button class="ui fluid button teal" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
 	</div>
 	</form>
 </div>
