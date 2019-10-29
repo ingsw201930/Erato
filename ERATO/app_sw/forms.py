@@ -33,7 +33,8 @@ class SWSignUpForm(UserCreationForm):
         'first_name',
         'last_name',
         'email',
-        'description' )
+        'description'
+        )
 
 class ServiceFilterForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
