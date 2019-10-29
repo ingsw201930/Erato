@@ -1,0 +1,29 @@
+<div class="ui divided items">
+        {% for service in services %}
+        <div class="service service_hover" onclick="window.location.href='{{BASEURL}}/s/service/{{service.id}}'">
+            <div class="service_panel service_panel_hover">
+                <div class="service_image">
+                    <img class="ui small circular image" src="{{BASEURL}}/{{service.sw.picture_path}}" alt="Profile image">
+                </div>
+                <div class="service_content">
+                    <div class="service_name">
+                        {{service.name}}
+                    </div>
+                    <div class="service_description">
+                        {{service.description}}
+                    </div>
+                    <div class="service_price">
+                        <b>{{service.price}}</b>$
+                    </div>
+                    <div class="extra">
+                        <div class="ui label">Blowjob</div>
+                        <div class="ui label">Stripteasse</div>
+                        <div class="ui label">Events</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+{% endfor %}
+</div>

@@ -11,10 +11,16 @@ local_settings.py
 db.sqlite3
 media
 **/migrations/
+<<<<<<< HEAD
 **/pro_pics/
 **/QR/
 **/.vscode
 
+=======
+ERATO/assets/QR/
+ERATO/assets/images/pro_pics/
+.vscode/
+>>>>>>> dev
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -402,4 +408,3 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.gitignore.io/api/venv,django
-

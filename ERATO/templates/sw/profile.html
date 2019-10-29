@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_s.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
+    <title>Erato</title>
+    <meta charset="utf-8">
+</head>
+<body>
+{% include '../general/nav.html' %}
+{% include '../general/subbar.html' %}
+<div class="container">
+    {% include '../general/menu.html' %}
+    <script>
+        document.getElementById("item_ma").setAttribute("class", "active item");
+    </script>
+    <div class="main_container">
+    <div class="profile">
+    <h2 class="ui center aligned icon header">
+      <div class="image_profile">
+        <img class="ui medium circular image" src="{{BASEURL}}/{{sw.picture_path}}">
+      </div>
+      <div class="sw_p_panel">
+        {{sw.user.username}}
+      </div>
+  </h2>
+    </div>
+    <div class="more_info">
+        Id : {{sw.user_id}}
+        <br>
+        Birth date : {{sw.birth_date}}
+        <br>
+    </div>
+    </div>
+    </div>
+</div>
+{% include '../general/footer.html' %}
+</body>

@@ -3,22 +3,46 @@
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/client/service_view.css">
     <meta charset="UTF-8">
     <title>ERATO</title>
 </head>
 <body>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
-<div class="sw_profile">
-
-</div>
-<div class="service_description">
-
-</div>
-<div class="I_want_it">
-    <button onclick="window.location.href='{{BASEURL}}/c/date_form/{{service.id}}'">
-        I want it
-    </button>
+<div class="container">
+  {% include '../general/menu_c.html' %}
+  <div class="main_container">
+    <div class="I_want_it">
+          <div class="images">
+          <div class="album">
+            <img class="ui medium image" src="{{BASEURL}}/{{sw.picture_path}}">
+          </div>
+          <div class="ui small images">
+          <img src="/images/wireframe/image.png">
+          <img src="/images/wireframe/image.png">
+          <img src="/images/wireframe/image.png">
+          </div>
+        </div>
+          <h2>
+            {{sw.user.username}}
+          </h2>
+          <div class="description">
+            About me
+            Age
+          </div>
+          <div class="profile">
+        </div>
+        <div class="service">
+          Nombre del servicio
+          Descripción
+          Precio
+        </div>
+        <button onclick="window.location.href='{{BASEURL}}/c/date_form/{{service.id}}'">
+            I want it
+        </button>
+    </div>
+  </div>
 </div>
 {% include '../general/footer.html' %}
 </body>

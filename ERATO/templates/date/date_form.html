@@ -125,6 +125,13 @@
                     var mapProp = {
                         center:new google.maps.LatLng(4.6,-74.08333),
                         zoom:10,
+                        mapTypeControl: true,
+                        mapTypeControlOptions: {
+                          mapTypeIds: [
+                            google.maps.MapTypeId.ROADMAP,
+                            google.maps.MapTypeId.SATELLITE
+                          ]
+                        }
                     };
 
                     var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
@@ -148,6 +155,8 @@
                     google.maps.event.addListener(map, 'click', function(event) {
                       placeMarker(event.latLng);
                     });
+
+                    map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
 
 
                 }

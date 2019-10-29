@@ -1,16 +1,8 @@
 *{color:black;}
 
-.main_container{
-	margin: 0 auto;
-	width: 50%;
-	padding: 10px;
-}
-
 .login{
-	width: 40%;
 	padding: 40px;
 	background-color: #000000AA;
-	margin: 0 auto;
 }
 
 .button_lr{
@@ -20,3 +12,7 @@
 .reset_password a{
 	margin: 5px;
 }
+ .centered_login{
+	 width: 60%;
+	 min-width: 300px;
+ }

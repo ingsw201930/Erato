@@ -1,0 +1,24 @@
+git clone https://github.com/ingsw201930/Erato
+sudo passwd $USER
+sudo apt install python3
+pip3 install django --user
+pip3 install psycopg2 --user
+pip3 install simple-crypt --user
+pip3 install PyQRCode --user
+pip3 install pypng --user
+pip3 install stripe --user
+sudo apt-get install postgresql
+sudo service postgresql start
+sudo -iu postgres
+psql
+create database erato;
+create user django with encrypted password 'django';
+grant all privileges on database erato to django;
+\q
+exit
+cd Erato/ERATO
+python3 manage.py makemigrations app_client
+python3 manage.py makemigrations app_date
+python3 manage.py makemigrations app_sw
+python3 manage.py migrate
+python3 manage.py runserver

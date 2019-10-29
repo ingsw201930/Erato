@@ -10,14 +10,14 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
-    <div class="main_container">
+    <div class="main_container" style="margin: 0 auto; width: 100%;">
     <div class="ui middle aligned center aligned grid">
-        <div class="column">
+        <div class="centered_login">
                 <form class="ui large form" method="post" action="/sessions_managing_login/">
-                    <i class="user icon"></i>
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon input">
+                                <i class="user icon"></i>
                                 {% csrf_token %}
                                 {{ form.username }}
                             </div>
@@ -39,7 +39,7 @@
                 </form>
 
                 <div class="ui message">
-                    New to us? <a href="{{BASEURL}}/c/signup/">Sign Up</a>
+                    New to us? <a href="{{BASEURL}}/c/signupform/">Sign Up</a>
                 </div>
             </div>
         </div>

@@ -2,15 +2,16 @@ from django.db import models
 from app_client.models import Client
 from app_sw.models import Service
 
-# Create your models here.
 class Date(models.Model):
-    #pre-pay,payed,started,ended,timed out
     PAYED = 'payed'
     STARTED = 'started'
     ENDED = 'ended'
     TIMEDOUT='timed out'
     REQUESTED = 'requested'
     ACCEPTED = 'accepted'
+    REJECTED= 'rejected'
+    RATED='rated'
+
     STATE_CHOICES = [
         (PAYED , 'payed'),
         (STARTED , 'started'),
@@ -18,6 +19,8 @@ class Date(models.Model):
         (TIMEDOUT , 'timed out'),
         (REQUESTED , 'requested'),
         (ACCEPTED , 'accepted'),
+        (REJECTED , 'rejected'),
+        (RATED, 'rated')
     ]
     client=models.ForeignKey(Client,on_delete=models.CASCADE)
     service=models.ForeignKey(Service,on_delete=models.CASCADE)
@@ -26,4 +29,5 @@ class Date(models.Model):
     lat = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
     lng = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)
     state=models.CharField(max_length=20,choices=STATE_CHOICES,default=REQUESTED)
+    price=models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     noise=models.IntegerField(default=None, blank=True, null=True)

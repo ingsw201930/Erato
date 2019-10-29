@@ -1,0 +1,15 @@
+.profile {
+  width: 30%;
+}
+.images{
+  display: block;
+}
+.images * {
+  display: inline;
+}
+.album {
+  display: inline-block;
+}
+.service{
+ width: 60%;
+}

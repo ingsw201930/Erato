@@ -10,8 +10,8 @@
 <body>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
-<div class="container">
-	<div class="menu_services">
+<div class="container" >
+	<div class="menu_services" >
 		{% include '../general/menu.html' %}
 		<script>
 			document.getElementById("item_ms").setAttribute("class", "active item");
@@ -21,7 +21,7 @@
 		<div class="services">
 			<div class="ui divided items">
 				{% for service in sw.service_set.all %}
-				<div class="service">
+				<div class="service service_hover">
 					<div class="service_panel">
 						<div class="service_content">
 							<div class="service_name">{{service.name}}</div>
@@ -49,8 +49,9 @@
 				</div>
 				{% endfor %}
 			</div>
-			<div>
-				<button type="button" class="ui semantic button green" name="button" onclick="window.location.replace('/s/service_add_request');">Add service</button>
+			<div class="ui teal fluid labeled icon button" onclick="window.location.replace('/s/service_add_request');">
+				Add service
+				<i class="add icon"></i>
 			</div>
 		</div>
 	</div>

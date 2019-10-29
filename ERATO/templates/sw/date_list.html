@@ -1,0 +1,20 @@
+{% for date in dates %}
+<div class="ui card" style="width: 100%">
+<div class="content">
+<div class="header">A date with {{date.client.user.username}}</div>
+</div>
+<div class="content">
+<h4 class="ui sub header">
+  Start time: {{date.start_time}}
+  <br>
+  End time: {{date.end_time}}
+  <br>
+  Price: {{date.price}}
+</h4>
+<div class="ui small feed">
+<div class="event">
+</div>
+</div>
+</div>
+</div>
+{% endfor %}

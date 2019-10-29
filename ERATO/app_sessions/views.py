@@ -16,6 +16,9 @@ def login_managing(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
+    if user is None:
+        ## Aquí debería fallar bonito
+        return HttpResponseRedirect('/')
     login(request, user)
     print(user)
     render_=HttpResponseRedirect('/')

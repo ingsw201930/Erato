@@ -14,13 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 from app_sessions import views as session_views
 from app_sw import views as sw_views
 from app_client import views as client_views
 from app_date import views as date_views
+from app_transactions import views as ts_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +35,8 @@ urlpatterns = [
     path('c/login/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
     path('s/login/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
     path('logout/', session_views.logout_managing),
+    path('s/signupform/',sw_views.signupform,name="signup_s"),
+    path('c/signupform/',client_views.signupform,name="signup_c"),
     path('s/signup/',sw_views.signup,name="signup_s"),
     path('c/signup/',client_views.signup,name="signup_c"),
 
@@ -43,25 +49,34 @@ urlpatterns = [
     path('s/service/<int:service_id>', sw_views.view_service , name="service_edit"),
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
-    path('s/history/', sw_views.history, name="sw_history"),
-    path('s/dates/', sw_views.pending_dates, name="sw_history"),
-    path('s/payments/', sw_views.payments, name="sw_payments"),
-
+    path('s/dates/', sw_views.dates, name="sw_history"),
+    path('s/payments/', ts_views.s_payments, name="sw_payments"),
+    path('s/get_date_list/<int:index>',sw_views.get_date_list,name="s_get_date_list"),
     #path('about/', da_views.about, name="about"),
 
-    path('c/profile/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
-
+    path('c/profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
     path('c/date_form/<int:service_id>', date_views.date_form, name="form" ),
 
 #   Client functionalities
     path('c/home/', client_views.home_c , name="home_c"),
-    path('c/profile/<int:client_id>',client_views.public_profile,name="client_public_profile"),
+    path('c/dates/', client_views.dates , name="dates"),
+    path('c/profile/',client_views.my_profile,name="client_public_profile"),
+    path('c/get_service_list/<int:index>',client_views.get_service_list,name="c_get_service_list"),
+    path('c/get_date_list/<int:index>',client_views.get_date_list,name="c_get_date_list"),
+    path('c/payments/', ts_views.c_payments, name="sw_payments"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),
     path('createqr/<int:date_id>',date_views.createQR),
-    path('qrcheck/<int:id>/<str:code>',date_views.checkQR),
-    path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
-    path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
+    path('qrcheck/<int:date_id>/<str:code>',date_views.checkQR),
 
-]
+#    Date states
+    path('accept_date/<int:date_id>',date_views.accept_date,name='accept_date'),
+    path('reject_date/<int:date_id>',date_views.reject_date,name='reject_date'),
+    path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
+    path('pay_date/<int:date_id>',date_views.pay_date,name='pay_date'),
+    path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),
+
+#   Payments
+    path('c/charge/<int:date_id>', ts_views.charge, name='charge')
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

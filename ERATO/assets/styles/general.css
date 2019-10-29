@@ -4,7 +4,7 @@
 }
 
 body {
-    margin: 0px;
+  margin: 0px;
 	background: white;
     /*background:url("/assets/images/background/blur_3.jpg");*/
     background-repeat: no-repeat;
@@ -32,7 +32,7 @@ body {
 }
 
 .container{
-	padding: 20px;
+	padding: 50px;
 	width: 100%;
 }
 
@@ -44,7 +44,8 @@ body {
 
 .menu_services{
 	display: inline-block;
-	width: 25%;
+	width: 20%;
+	min-width: 300px;
 }
 
 .button{
@@ -60,4 +61,8 @@ body {
 footer{
 	width: 100%;
 	background-color: #222;
+}
+
+.b_spaced{
+	margin-bottom: 10px;
 }

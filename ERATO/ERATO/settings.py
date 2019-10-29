@@ -25,7 +25,7 @@ SECRET_KEY = 'fk+c2i+1l()9(6@fpc7zn%x(4qz9$im_v$99x2ap5=8sb2qo&^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '127.0.0.1' , '192.168.0.8', 'localhost','10.152.23.53','192.168.43.17']
+ALLOWED_HOSTS = [ '127.0.0.1' , '192.168.0.8', 'localhost','10.152.23.53','192.168.43.17', '*']
 
 
 # Application definition
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #stolen
+    'stripe',
+
     #own
 
     'app_client',
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'app_emails',
     'app_sessions',
     'app_sw',
+    'app_transactions'
 ]
 
 MIDDLEWARE = [
@@ -130,6 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT= '/var/www/Erato/ERATO/assets/'
+
 STATIC_URL = '/assets/'
 
 STATICFILES_DIRS=(
@@ -145,3 +151,6 @@ EMAIL_HOST_USER = 'eratoservices@gmail.com'
 EMAIL_HOST_PASSWORD = 'eratoerato2019'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+STRIPE_SECRET_KEY = 'sk_test_5gjI6b94pzCgj1P31u9tQMXT00DXHdREmV'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_TJ2OVSToevGScWJgSpKiAhsm00lXDiVFap'

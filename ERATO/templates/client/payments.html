@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <meta charset="UTF-8">
+    <title>ERATO</title>
+</head>
+<body>
+{% include '../general/nav.html' %}
+{% include '../general/subbar.html' %}
+<div class="container">
+    {% include '../general/menu_c.html' %}
+    <script>
+        document.getElementById("item_p").setAttribute("class", "active item");
+    </script>
+    <div class="main_container">
+      <table class="ui fixed table">
+        <thead>
+          <tr><th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody>
+          {% for transaction in transactions %}
+          <tr>
+            <td>{{transaction.date}}</td>
+            <td>{{transaction.amount}}</td>
+            <td>{{transaction.state}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+{% include '../general/footer.html' %}
+</body>
+</html>
