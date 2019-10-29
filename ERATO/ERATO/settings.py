@@ -138,10 +138,6 @@ STATIC_ROOT= '/var/www/Erato/ERATO/assets/'
 
 STATIC_URL = '/assets/'
 
-STATICFILES_DIRS=(
-    os.path.join(BASE_DIR, 'assets'),
-)
-
 LOGOUT_REDIRECT_URL = '/home'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
