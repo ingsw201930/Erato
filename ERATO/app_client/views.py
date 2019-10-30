@@ -11,9 +11,11 @@ from app_date.models import Date
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .decorators import login_required_client
+import hashlib
+from ERATO.settings import BASE_DIR
 # Create your views here.
 # Home for clients
-
+erato_key= "er"
 
 @login_required_client
 def home_c(request):
@@ -39,6 +41,7 @@ def signup(request):
     if request.method == 'POST':
         form = ClientSignUpForm(request.POST)
         form_ul = UploadFileForm(request.POST, request.FILES)
+        print(form.errors)
         if form.is_valid() and request.FILES['file']:
             form.save()
             username = form.cleaned_data.get('username')
@@ -46,7 +49,9 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             client=Client(
                 user=user,
-                email=form.cleaned_data.get('email')
+                birth_date=form.cleaned_data.get('birth_date'),
+                email=form.cleaned_data.get('email'),
+                picture_path=BASE_DIR+"/assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
             )
             handle_uploaded_file(request.FILES['file'], username)
             client.save()
@@ -57,8 +62,7 @@ def signup(request):
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
 def handle_uploaded_file(f, username):
-    file_name = "assets/images/pro_pics/%s.png" % hash(username+erato_key)
-    file_name = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+    file_name = BASE_DIR+"/assets/images/pro_pics/%s.png" % hashlib.md5((username+erato_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
