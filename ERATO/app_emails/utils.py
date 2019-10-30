@@ -45,7 +45,7 @@ def send_qr(qr, to):
     msgImage = MIMEImage(fp.read(), _subtype="png")
     fp.close()
 
-    fp = open('assets/images/logo/ERATO.jpg', 'rb')#this must be absolute
+    fp = open(BASE_DIR+'/assets/images/logo/ERATO.jpg', 'rb')#this must be absolute
     msgLogo = MIMEImage(fp.read())
     fp.close()
     msgLogo.add_header('Content-ID', '<logo_erato>')
