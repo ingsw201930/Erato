@@ -38,7 +38,7 @@ def home_s(request):
 
 @login_required_SW
 def service_add_form(request):
-    form = ServiceAddForm();
+    form = ServiceAddForm()
     return render(request, 'services_s/service_add.html', {'form':form})
 
 @login_required_SW
