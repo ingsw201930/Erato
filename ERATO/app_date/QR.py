@@ -3,14 +3,15 @@ from base64 import b64encode, b64decode
 import pyqrcode
 import urllib.parse
 import hashlib
+from ERATO.settings import BASE_DIR
 
 secretkey="tcrtrtgvfbmhgfbjujgmbgfc"
 
 def generateQR(id,noise,request):
     code=hashlib.sha256(bytes(id+noise,'utf-8')).hexdigest()
-    baseurl=request.META['HTTP_HOST']+'/qrcheck/'+id+'/'+str(code)
+    baseurl='http://'+request.META['HTTP_HOST']+'/qrcheck/'+id+'/'+str(code)
     url = pyqrcode.create(baseurl)
-    result_path = 'assets/QR/'+id+'.png'
+    result_path = BASE_DIR+'/assets/QR/'+id+'.png'
     url.png(result_path, scale=8, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xff])
     print(result_path)
     return result_path

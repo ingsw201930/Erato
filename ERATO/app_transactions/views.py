@@ -21,6 +21,8 @@ def charge(request, date_id):
 	date = Date.objects.get(id=date_id)
 	#existing_order = get_order(request)
 	context = {}
+	if date.state!=Date.ACCEPTED:
+		return HttpResponse('date invalido')
 	if request.method == 'POST':
 		token = request.POST.get('stripeToken', False)
 		now = datetime.now()
@@ -39,17 +41,21 @@ def charge(request, date_id):
 		transaction.save()
 		print("Transaction saved")
 		print("Creando cargos")
+		''' PAGO
 		charge = stripe.Charge.create(
 		amount = price,
 		currency='cop',
 		card="tok_visa",
 		description='exampleCharge'
 		)
+		'''
 		print("Cuenta cobrada")
 		transaction.state= transaction.ACCEPTED
 		transaction.save()
+		date.state=Date.PAYED
+		date.save()
 
-	return HttpResponseRedirect('/home/s')
+	return HttpResponseRedirect('/createqr/'+str(date_id))
 
 @login_required_client
 def c_payments(request):

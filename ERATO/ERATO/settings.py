@@ -25,7 +25,7 @@ SECRET_KEY = 'fk+c2i+1l()9(6@fpc7zn%x(4qz9$im_v$99x2ap5=8sb2qo&^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '127.0.0.1' , '192.168.0.8', 'localhost','10.152.23.53','192.168.43.17', '*']
+ALLOWED_HOSTS = [ '127.0.0.1' , '192.168.0.8', 'localhost','10.152.23.53','192.168.43.17','34.70.108.237' ,'*']
 
 
 # Application definition
@@ -134,7 +134,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_ROOT= '/var/www/Erato/ERATO/assets/'
+STATIC_ROOT= BASE_DIR+'/static/'
+print(STATIC_ROOT)
 
 STATIC_URL = '/assets/'
 

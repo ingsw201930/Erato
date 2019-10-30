@@ -39,7 +39,7 @@ def signup(request):
     if request.method == 'POST':
         form = ClientSignUpForm(request.POST)
         form_ul = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid() and form_ul.is_valid():
+        if form.is_valid() and request.FILES['file']:
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
@@ -56,6 +56,12 @@ def signup(request):
         form = ClientSignUpForm()
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
+def handle_uploaded_file(f, username):
+    file_name = "assets/images/pro_pics/%s.png" % hash(username+erato_key)
+    file_name = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+    with open(file_name, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
 
 # Me seeing my own profile
 @login_required_client
