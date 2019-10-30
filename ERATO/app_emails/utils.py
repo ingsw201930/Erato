@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from django.template.loader import render_to_string
 from email.utils import make_msgid
 import mimetypes
+from ERATO.settings import BASE_DIR
 
 def send_third(username, to):
 
@@ -17,7 +18,7 @@ def send_third(username, to):
     body = MIMEText(html, _subtype='html')
     html_part.attach(body)
 
-    fp = open('assets/images/logo/ERATO.jpg', 'rb')
+    fp = open(BASE_DIR+'/assets/images/logo/ERATO.jpg', 'rb')
     msgLogo = MIMEImage(fp.read())
     fp.close()
     msgLogo.add_header('Content-ID', '<logo_erato>')
