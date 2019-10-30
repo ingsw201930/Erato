@@ -13,6 +13,7 @@ from django.contrib.auth import login
 from .decorators import *
 from app_client.decorators import *
 import hashlib
+from ERATO.settings import BASE_DIR
 
 from app_sw.forms import ServiceAddForm
 
@@ -86,8 +87,8 @@ def signup(request):
                 birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
-                picture_path = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
-                MC_path="assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
+                picture_path = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
+                MC_path=BASE_DIR+"/assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
             )
             sw.save()
             handle_uploaded_file(request.FILES['file'], username, 'PPSW')
@@ -106,9 +107,9 @@ def signup(request):
 def handle_uploaded_file(f, username, code):
     file_name=''
     if code == 'PPSW':
-        file_name = "assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+        file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
     if code == 'MC':
-        file_name = "assets/mcs/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+        file_name =BASE_DIR+ "/assets/mcs/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
