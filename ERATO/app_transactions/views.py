@@ -41,12 +41,14 @@ def charge(request, date_id):
 		transaction.save()
 		print("Transaction saved")
 		print("Creando cargos")
+		''' PAGO
 		charge = stripe.Charge.create(
 		amount = price,
 		currency='cop',
 		card="tok_visa",
 		description='exampleCharge'
 		)
+		'''
 		print("Cuenta cobrada")
 		transaction.state= transaction.ACCEPTED
 		transaction.save()
