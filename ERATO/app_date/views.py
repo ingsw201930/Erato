@@ -171,18 +171,28 @@ def reject_date(request, date_id):
 @SW_my_date_required
 def end_date(request, date_id):
     date = Date.objects.get(id=date_id)
-    date.state = 'ended'
+    date.state = Date.ENDED
     date.save()
     return HttpResponse("Date ended")
 
+@SW_my_date_required
+def date_by_service(request, date_id, rate):
+    date = Date.objects.get(id=date_id)
+    date.state = Date.RATED
+    ## Después vemos cómo calculamos el rate
+    date.client.rating+=rate*0.2
+    date.save()
+    return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
+
 @SW_my_service_required
-def date_by_service(request, service_id):
+def rate(request, date_id):
     service=Service.objects.get(id=service_id)
     query = Q(state=Date.REQUESTED)
     query.add(Q(state=Date.ACCEPTED), Q.OR)
     query.add(Q(state=Date.PAYED), Q.OR)
     dates=service.date_set.filter(query)
     return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
+
 
 @client_my_date_required
 def pay_date(request,date_id):

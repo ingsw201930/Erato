@@ -3,10 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class UploadFileForm(forms.Form):
-    file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: block', 'onchange':'loadImage(event)'}))
+    file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadImage(event)'}))
 
 class UploadMCForm(forms.Form):
-    mc = forms.FileField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: block', 'onchange':'loadFile(event)'}))
+    mc = forms.FileField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadFile(event)'}))
 
 class ServiceAddForm(forms.Form):
     name = forms.CharField(label='Name', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Name'}))

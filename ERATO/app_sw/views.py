@@ -75,13 +75,13 @@ def signup(request):
         form = SWSignUpForm(request.POST)
         form_ul = UploadFileForm(request.POST, request.FILES)
         form_mc = UploadMCForm(request.POST, request.FILES)
+        print(form.errors)
         if form.is_valid() and request.FILES['file'] and request.FILES['mc']:
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = User.objects.create_user(username, email, raw_password)
             user.save()
-            print("User created")
             sw=SW(
                 user=user,
                 birth_date=form.cleaned_data.get('birth_date'),
@@ -100,8 +100,8 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return HttpResponseRedirect('/s/home/')
-    else:
-        return HttpResponseRedirect('/')
+        else:
+            return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul, 'form_mc': form_mc})
     return HttpResponseRedirect('/')
 
 def handle_uploaded_file(f, username, code):
@@ -130,16 +130,19 @@ def public_profile(request, sw_id):
 def dates(request):
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
-    current_dates = dates.filter(state=Date.STARTED)
+    non_rated_dates = dates.filter(state=Date.ENDED)
+    current_date = dates.filter(state=Date.STARTED)
     requested_dates = dates.filter(state=Date.REQUESTED)
-    return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates, 'requested_dates':requested_dates})
+    all_dates = dates.filter(state=Date.RATED)
+    return render(request, 'sw/dates.html', {'current_dates' : current_date, 'non_rated_dates': non_rated_dates, 'requested_dates' : requested_dates, 'all_dates' : all_dates})
 
 @login_required_SW
 def get_date_list(request,index):
     n=5
     user = request.user
-    dates = Date.objects.filter(service__sw_id=user.id)[index*n:(index+1)*n]
-    return render(request, 'sw/date_list.html',{"dates":dates})
+    dates = Date.objects.filter(service__sw_id=user.id)
+    non_rated_dates = dates.filter(state=Date.ENDED)[index*n:(index+1)*n]
+    return render(request, 'sw/date_list.html',{'non_rated_dates' : non_rated_dates})
 
 @login_required
 def view_service(request, service_id):
