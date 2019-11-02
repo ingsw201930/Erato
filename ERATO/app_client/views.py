@@ -62,7 +62,7 @@ def signup(request):
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
 def handle_uploaded_file(f, username):
-    file_name = BASE_DIR+"/assets/images/pro_pics/%s.png" % hashlib.md5((username+erato_key).encode()).hexdigest()
+    file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)

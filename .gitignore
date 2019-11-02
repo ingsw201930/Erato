@@ -11,16 +11,10 @@ local_settings.py
 db.sqlite3
 media
 **/migrations/
-<<<<<<< HEAD
-**/pro_pics/
-**/QR/
-**/.vscode
-
-=======
-ERATO/assets/QR/
-ERATO/assets/images/pro_pics/
+ERATO/assets/QR/*
+ERATO/assets/images/pro_pics/*
+ERATO/assets/mcs/*
 .vscode/
->>>>>>> dev
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -210,7 +204,6 @@ dmypy.json
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
-[Ss]cripts
 pyvenv.cfg
 pip-selfcheck.json
 
@@ -403,7 +396,6 @@ dmypy.json
 [Ll]ib
 [Ll]ib64
 [Ll]ocal
-[Ss]cripts
 pyvenv.cfg
 pip-selfcheck.json
 

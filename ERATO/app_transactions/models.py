@@ -14,6 +14,9 @@ class Transaction(models.Model):
     ]
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    name = models.CharField(max_length=20, default='')
+    last_name = models.CharField(max_length=20, default='')
+    address = models.CharField(max_length=20, default='')
     amount=models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     date = models.DateTimeField('date')
     state=models.CharField(max_length=20,choices=STATE_CHOICES,default=WAITING)

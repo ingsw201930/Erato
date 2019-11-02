@@ -11,6 +11,7 @@ import threading
 import random
 from django.db.models import Q
 from app_client.models import Client
+from app_transactions.forms import TransactionForm
 from app_sw.decorators import *
 from .decorators import *
 from datetime import datetime
@@ -197,9 +198,10 @@ def rate(request, date_id):
 @client_my_date_required
 def pay_date(request,date_id):
     date=Date.objects.get(id=date_id)
+    form = TransactionForm()
     if date.state!=Date.ACCEPTED:
         return HttpResponse('date invalido')
-    return render(request,'pay_date/pay_date.html',{'date':date})
+    return render(request,'pay_date/pay_date.html', {'date':date, 'form':form})
 
 @client_my_date_required
 def pay_date_submit(request,date_id):
