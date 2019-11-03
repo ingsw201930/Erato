@@ -89,6 +89,7 @@ def signup(request):
                 third_email=form.cleaned_data.get('third_email'),
                 picture_path = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
                 MC_path=BASE_DIR+"/assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
+                gender=form.cleaned_data.get('gender'),
             )
             sw.save()
             handle_uploaded_file(request.FILES['file'], username, 'PPSW')

@@ -14,6 +14,25 @@ class ServiceAddForm(forms.Form):
     price = forms.IntegerField(label='Price',max_value=100000, widget=forms.TextInput(attrs={'placeholder': 'Price'}))
 
 class SWSignUpForm(UserCreationForm):
+    EYES = (
+        ("blue", "BLUE"),
+        ("brown", "BOWN"),
+        )
+    HAIR = (
+        ("brown","BROWN"),
+        ("blonde","BLONDE"),
+        )
+    FEMALE = 'Female'
+    MALE = 'Male'
+    FTM = 'Ftm'
+    MTF = 'Mtf'
+    GENDER_CHOICES = [
+        (FEMALE , 'Female'),
+        (MALE , 'Male'),
+        (FTM, 'FTM'),
+        (MTF, 'MTF')
+    ]
+
     email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Username'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Type your password'}))
@@ -23,7 +42,11 @@ class SWSignUpForm(UserCreationForm):
     third_email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Third email'}))
     birth_date=forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
     description=forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
-
+    weight =forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
+    height =forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
+    eyes = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=EYES)
+    hair = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=HAIR)
+    gender = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=GENDER_CHOICES)
     class Meta:
         model = User
         fields = (

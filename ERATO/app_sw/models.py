@@ -6,20 +6,29 @@ class SW(models.Model):
     picture_path=models.CharField(max_length=200)
     album_path = models.CharField(max_length=200, default='path')
     MC_path=models.CharField(max_length=200)
-    FEMALE = 'female'
-    MALE = 'male'
+    FEMALE = 'Female'
+    MALE = 'Male'
+    FTM = 'Ftm'
+    MTF = 'Mtf'
+    OTHER = 'Other'
     GENDER_CHOICES = [
-        (FEMALE , 'female'),
-        (MALE , 'male'),
+        (FEMALE , 'Female'),
+        (MALE , 'Male'),
+        (FTM, 'FTM'),
+        (MTF, 'MTF'),
+        (OTHER, 'Other')
     ]
     birth_date=models.DateTimeField('date birth')
-    weight=models.CharField(max_length=10)
-    height=models.CharField(max_length=10)
     about=models.CharField(max_length=500)
     third_email=models.CharField(max_length=50)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=OTHER)
 
 class Appearance(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
+    eyes = models.CharField(max_length=10, default='eyes')
+    hair = models.CharField(max_length=10, default='hair')
+    weight = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    height = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 
 class Tag(models.Model):
     name = models.CharField(max_length=10, default='name')

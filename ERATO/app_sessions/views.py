@@ -3,6 +3,8 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 
+from django.http import JsonResponse
+
 # Models import
 from app_sw.models import SW
 from app_client.models import Client
@@ -30,6 +32,18 @@ def login_managing(request):
             render_ = HttpResponseRedirect('/c/home/')
             return render_
     return render_
+
+def user_exists(request):
+    exists = False
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        exists = True
+    data = {
+        'exists': exists
+    }
+    return JsonResponse(data)
 
 def logout_managing(request):
     logout(request)

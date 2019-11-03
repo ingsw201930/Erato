@@ -79,5 +79,8 @@ urlpatterns = [
     path('rate/<int:date_id>/<int:rate>',date_views.rate,name='rate_date'),
 
 #   Payments
-    path('c/charge/<int:date_id>', ts_views.charge, name='charge')
+    path('c/charge/<int:date_id>', ts_views.charge, name='charge'),
+
+    # Ajax
+    path('ajax/user_exists', session_views.user_exists, name='user_exists'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
