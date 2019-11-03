@@ -17,7 +17,9 @@
 <div class="container">
   <div class="wrapper" style="display: block;" style="margin: 0px;">
   <form action="{{BASEURL}}/c/charge/{{date.id}}" method="post" id="payment-form" style="margin: 0px;">
+    <div class="" style="margin-bottom: 20px;">
         <div class="ui card fluid" style="margin: 0px;">
+
     <div class="ui equal width center aligned padded grid">
   <div class="row">
     <div class="column">
@@ -30,7 +32,7 @@
     {{form.last_name}}
     </div>
     </div>
-  </div> 
+  </div>
   <div class="row">
     <div class="column">
     <div class="ui fluid input">
@@ -39,8 +41,9 @@
     </div>
   </div>
     </div>
-      
+
     </div>
+  </div>
 
     {% csrf_token %}
     <div class="form-row" style="width:100%;">

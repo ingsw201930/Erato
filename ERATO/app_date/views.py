@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from .QR import generateQR,decode,secretkey
 from .models import Date
 from app_emails.utils import send_qr
@@ -39,11 +39,11 @@ def createQR(request,date_id):
         client = Client.objects.get(user_id=date.client_id)
         email= client.email
         print("Sending QR to... %s with the id %d" % (email, client.user_id))
-        send_qr(qr, email)
+        send_qr(date.id, qr, email)
 
     thr = threading.Thread(target=create_and_send)
     thr.start()
-    return HttpResponse("QR sent")
+    return render_to_response('date_states/qr_sent.html')
 
 def checkQR(request,date_id,code):
     try:
