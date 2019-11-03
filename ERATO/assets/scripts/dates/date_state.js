@@ -11,15 +11,6 @@ function accept(date_id, baseurl){
     }});
 }
 
-function rate(date_id, rate, baseurl){
-  $.ajax({url: baseurl+"/rate/"+date_id+"/"+rate, success: function(result){
-      if(result.state=="failed"){
-          return;
-      }
-  }});
-  alert("rated");
-}
-
 function reject(date_id, baseurl){
     $.ajax({url: baseurl+"/reject_date/"+date_id, success: function(result){
         if(result.state=="failed"){

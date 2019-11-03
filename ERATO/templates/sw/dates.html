@@ -58,7 +58,7 @@
               </div>
               <button class="ui button fluid" onclick="window.location.replace('{{BASEURL}}/end_date/{{date.id}}')">Confirm date ending</button>
             </div>
-            {% endfor %}           
+            {% endfor %}
           </div>
         </div>
       <div class="ui bottom attached tab" data-tab="pending_dates">
@@ -135,6 +135,9 @@
 </div>
 {% include '../general/footer.html' %}
 <script type="text/javascript">
+
+var date_id = 0;
+
 function get_date_list(index){
   $.ajax({url: "{{BASEURL}}/s/get_date_list/"+index,
   success: function(result){
@@ -145,13 +148,31 @@ function get_date_list(index){
           initialRating: 0,
           maxRating: 5,
           onRate: function (rating) {
-            console.log(rating)
+          rate(rating);
           }
       });
 
 
   }});
 }
+
+function rate(rate){
+  $.ajax({url: "{{BASEURL}}/rate_date/"+date_id+"/"+rate,
+  success: function(result){
+      if(result.state=="failed"){
+          return;
+      }
+      $('body').toast({
+      class: 'success',
+      message: "Your date was rated"});
+  }});
+}
+
+function set_starts_id(id){
+  rate()
+  date_id = id;
+}
+
 </script>
 </body>
 </html>

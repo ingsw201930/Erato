@@ -79,7 +79,7 @@ urlpatterns = [
     path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
     path('pay_date/<int:date_id>',date_views.pay_date,name='pay_date'),
     path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),
-    path('rate/<int:date_id>/<int:rate>',date_views.rate,name='rate_date'),
+    path('rate_date/<int:date_id>/<int:rate>',date_views.rate_date,name='rate_date'),
 
 #   Payments
     path('c/charge/<int:date_id>', ts_views.charge, name='charge'),

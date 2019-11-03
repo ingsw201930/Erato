@@ -1,6 +1,6 @@
 <div class="ui grid divided items" style="display:inline-block; width=100%;">
         {% for service in services %}
-          <div class="ui eight wide column card service_hover" style="display:inline-block" onclick="view_service({{service.id}})">
+          <div class="ui eight wide column card service_hover" style="display:inline-block" onclick="window.location.replace('{{BASEURL}}/s/service/{{service.id}}')">
           <div class="ui slide masked reveal image">
           <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thisiscolossal.com%2F2019%2F06%2Ftsubaki-goldfish%2F&psig=AOvVaw31E0seaHFh3agPze-D4Yog&ust=1572837202497000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLC1loGJzeUCFQAAAAAdAAAAABAI" class="visible content">
           <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.123rf.com%2Fphoto_99096066_betta-fish-siamese-fighting-fish-betta-splendens-isolated-on-black-background.html&psig=AOvVaw31E0seaHFh3agPze-D4Yog&ust=1572837202497000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLC1loGJzeUCFQAAAAAdAAAAABAT" class="hidden content">

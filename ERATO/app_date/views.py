@@ -194,6 +194,16 @@ def rate(request, date_id):
     dates=service.date_set.filter(query)
     return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
 
+@SW_my_date_required
+def rate_date(request, date_id, rate):
+    date=Date.objects.get(id=date_id)
+    date.state=Date.RATED
+    client = date.client
+    # Todavía no está definido cuánto valdrá
+    client.rating = (float(client.rating) * 0.8) + (float(rate) * 0.2)
+    client.save()
+    return JsonResponse({'sucess': True})
+
 
 @client_my_date_required
 def pay_date(request,date_id):

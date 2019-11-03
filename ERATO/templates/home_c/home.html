@@ -10,23 +10,6 @@
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
-<div class="ui overlay fullscreen modal">
-    <div class="header">
-        Welcome to the <span class="ui teal text">overlay fullscreen modal</span>
-    </div>
-    <div class="content">
-        <div class="description">
-            <div class="ui header">Even if there is not much content here...</div>
-            ...the overlay fullscreen modal will occupy the entire screen
-        </div>
-    </div>
-    <div class="actions">
-        <div class="ui primary approve button">
-            Proceed
-            <i class="right chevron icon"></i>
-        </div>
-    </div>
-  </div>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 <div class="container">
@@ -82,6 +65,10 @@ function view_service(id){
 	.modal('show')
 	;
 }
+
+$( document ).ready(function() {
+		get_service_list(0);
+});
 </script>
 <script>
 {% include './home.js' %}
