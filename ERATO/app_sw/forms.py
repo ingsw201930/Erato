@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Tag
 
 class UploadFileForm(forms.Form):
     file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadImage(event)'}))
@@ -44,9 +45,9 @@ class SWSignUpForm(UserCreationForm):
     description=forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
     weight =forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
     height =forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
-    eyes = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=EYES)
-    hair = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=HAIR)
-    gender = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=GENDER_CHOICES)
+    # eyes = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=EYES, required=False)
+    # hair = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=HAIR, required=False)
+    # gender = forms.MultipleChoiceField(widget=forms.RadioSelect, choices=GENDER_CHOICES, required=False)
     class Meta:
         model = User
         fields = (

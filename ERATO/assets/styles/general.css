@@ -27,10 +27,6 @@ body {
 	height: 40px;
 }
 
-.subbar *{
-
-}
-
 .container{
 	padding: 50px;
 	width: 100%;
@@ -48,21 +44,21 @@ body {
 	min-width: 300px;
 }
 
-.button{
-	display: inline-block;
-	margin: 300px;
-}
-
-.blur_box{
-	-webkit-box-shadow: 0px 0px 6px 2px rgba(234,234,234,1);
-	-moz-box-shadow: 0px 0px 6px 2px rgba(234,234,234,1);
-	box-shadow: 0px 0px 6px 2px rgba(234,234,234,1);
-}
 footer{
 	width: 100%;
 	background-color: #222;
+	align-content: center;
+	text-align: center;
 }
 
 .b_spaced{
 	margin-bottom: 10px;
+}
+
+.full_margin{
+	margin: 20px;
+}
+
+.tb_margin{
+	margin: 5px;
 }

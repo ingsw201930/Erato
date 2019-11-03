@@ -4,6 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
   <link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 	<title>Erato</title>
@@ -73,7 +74,7 @@
     <div class="main_container" style="margin: 0 auto; width: 100%;">
     <div class="ui middle aligned center aligned grid panel" >
             <div class="centered_login">
-                <form class="ui large form" method="post" onsubmit="login_managing()">
+                <form class="ui large form" method="post">
 									{% csrf_token %}
                     <div class="ui stacked segment">
                         <div class="field">

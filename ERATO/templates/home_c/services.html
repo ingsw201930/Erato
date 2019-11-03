@@ -1,26 +1,22 @@
-<div class="ui divided items">
+<div class="ui grid divided items" style="display:inline-block; width=100%;">
         {% for service in services %}
+          <div class="ui eight wide column card service_hover" style="display:inline-block" onclick="view_service({{service.id}})">
+          <div class="ui slide masked reveal image">
+          <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.thisiscolossal.com%2F2019%2F06%2Ftsubaki-goldfish%2F&psig=AOvVaw31E0seaHFh3agPze-D4Yog&ust=1572837202497000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLC1loGJzeUCFQAAAAAdAAAAABAI" class="visible content">
+          <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.123rf.com%2Fphoto_99096066_betta-fish-siamese-fighting-fish-betta-splendens-isolated-on-black-background.html&psig=AOvVaw31E0seaHFh3agPze-D4Yog&ust=1572837202497000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLC1loGJzeUCFQAAAAAdAAAAABAT" class="hidden content">
+          </div>
+          <div class="content">
+          {{service.name}}
+          <div class="meta">
+          <div class="tb_margin">
+            <span class="date">{{ service.description }}</span>
+          </div>
+          </div>
+          </div>
+          <div class="extra content">
+            ${{service.price}}
+          </div>
         <div class="service service_hover" onclick="window.location.href='{{BASEURL}}/s/service/{{service.id}}'">
-            <div class="service_panel service_panel_hover">
-                <div class="service_image">
-                    <img class="ui small circular image" src="{{service.sw.picture_path}}" alt="Profile image">
-                </div>
-                <div class="service_content">
-                    <div class="service_name">
-                        {{service.name}}
-                    </div>
-                    <div class="service_description">
-                        {{service.description}}
-                    </div>
-                    <div class="service_price">
-                        <b>{{service.price}}</b>$
-                    </div>
-                    <div class="extra">
-                        <div class="ui label">Blowjob</div>
-                        <div class="ui label">Stripteasse</div>
-                        <div class="ui label">Events</div>
-                    </div>
-                </div>
         </div>
     </div>
 {% endfor %}

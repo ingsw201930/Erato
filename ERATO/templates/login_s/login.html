@@ -4,6 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
   <link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 	<title>Erato</title>
@@ -35,6 +36,8 @@
 	}
 
 	function login_managing(){
+		alert("Managing login");
+		console.log("Managing login");
 		var csrftoken = getCookie('csrftoken');
 
 		$.ajaxSetup({
@@ -66,14 +69,24 @@
 				}
       }
     });
+		// $( document ).ajaxComplete(function() {
+		// 	$.post("{{BASEURL}}/authenticate_user",
+		// 	data: {
+		// 		'username': username,
+		// 		'password': password
+		// 	},
+		// 	function(data, status){
+		// 		alert("Data: " + data + "\nStatus: " + status);
+		// 	});
+		// });
+    window.location.replace("{{BASEURL}}/sessions_managing_login");
 	}
 </script>
-
 <div class="container">
     <div class="main_container" style="margin: 0 auto; width: 100%;">
     <div class="ui middle aligned center aligned grid panel" >
             <div class="centered_login">
-                <form class="ui large form" method="post" onsubmit="login_managing()">
+                <form class="ui large form" method="post" onsubmit="return login_managing()">
 									{% csrf_token %}
                     <div class="ui stacked segment">
                         <div class="field">
@@ -88,7 +101,7 @@
                                 {{ form.password }}
                             </div>
                         </div>
-                        <div class="ui fluid large teal submit button" onclick="login_managing()">Login</div>
+                        <button type="submit" class="ui fluid large teal button">Log in</button>
                     </div>
 										<div id="error_messages" class="ui error message">
 												<div class="header">

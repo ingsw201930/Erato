@@ -1,38 +1,7 @@
-.service *{
-	display: inline-block;
-}
-
 service_image{
 	vertical-align:top;
 	width: 20%;
 	display: inline-block;
-}
-
-.service_panel{
-	display: block;
-	padding: 40px 40px;
-	margin-bottom: 20px;
-	margin-right: 10px;
-	background-color: white;
-	border-radius: 10px;
-	vertical-align:top;
-	width: 100%;
-	border-radius: 10px;
-}
-
-.service_panel_hover:hover{
-	background: #f9f9f9;
-}
-
-.interested_people{
-	height: auto;
-	max-width: 25%;
-	margin-top: 5px;
-	vertical-align: top;
-}
-
-.interested_people *{
-	margin: 5px;
 }
 
 .service_content{
@@ -73,7 +42,6 @@ service_image{
 	display: block;
 }
 
-.extra{
-	display: block;
-	margin: 10px 20px 10px 0px;
+.service_hover:hover{
+	background: #fafafa;
 }

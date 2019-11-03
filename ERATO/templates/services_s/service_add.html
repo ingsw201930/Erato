@@ -4,6 +4,11 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/forms/service_add.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
     <title>Erato</title>
     <meta charset="utf-8">
 </head>
@@ -25,7 +30,19 @@
     <label for="amount" class="ui label">$</label>
     {{form.price}}
     </div>
-    <button class="ui button green" type="submit" name="button">Add service</button>
+    <div>
+      <select class="search fluid dropdown" multiple="">
+        <option value='' style="margin: 0px">Tags </option>
+        {% for tag in tags %}
+        <option value="{{tag.id}}" style="margin: 0px"> {{tag.name}} </option>
+        {% endfor %}
+      </select>
+      <button class="ui button fluid green" type="submit" name="button">Add service</button>
+      <!-- onclick="add_service()"
+
+      <div class="ui button fluid green" type="submit" name="button">Add service</div>
+    -->
+    </div>
     </form>
   </div>
 </div>
@@ -33,6 +50,16 @@
 </div>
 
 {% include '../general/footer.html' %}
+<script type="text/javascript">
+  $('.dropdown').dropdown({
+    ignoreDiacritics: true,
+    sortSelect: true,
+    fullTextSearch:'exact'
+  });
 
+  function add_service(){
+// Ajax consult
+  }
+</script>
 </body>
 </html>

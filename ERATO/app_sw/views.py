@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import SW,Service
+from .models import SW,Service,Tag
 from app_date.models import Date
 from .forms import SWSignUpForm
 from .forms import UploadFileForm
@@ -39,7 +39,9 @@ def home_s(request):
 @login_required_SW
 def service_add_form(request):
     form = ServiceAddForm()
-    return render(request, 'services_s/service_add.html', {'form':form})
+    tags = Tag.objects.all()
+    print(tags)
+    return render(request, 'services_s/service_add.html', {'tags':tags,'form':form})
 
 @login_required_SW
 def service_add(request):

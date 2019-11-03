@@ -21,7 +21,7 @@ class SW(models.Model):
     birth_date=models.DateTimeField('date birth')
     about=models.CharField(max_length=500)
     third_email=models.CharField(max_length=50)
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=OTHER)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=OTHER, null=True)
 
 class Appearance(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
@@ -30,6 +30,7 @@ class Appearance(models.Model):
     weight = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
     height = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
 
+# Many to many relations, example: https://docs.djangoproject.com/en/2.2/topics/db/examples/many_to_many/
 class Tag(models.Model):
     name = models.CharField(max_length=10, default='name')
 
@@ -38,5 +39,5 @@ class Service(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=400)
     active = models.BooleanField(default=True)
-    tags = models.ManyToManyField(Tag)
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    # tags = models.ManyToManyField(Tag)

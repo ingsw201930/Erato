@@ -4,17 +4,29 @@
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/home.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service_filer.css">
-
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service_filter.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
-    <script>
-        {% include './home.js' %}
-    </script>
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
-<body onload="get_service_list(0)">
+<div class="ui overlay fullscreen modal">
+    <div class="header">
+        Welcome to the <span class="ui teal text">overlay fullscreen modal</span>
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui header">Even if there is not much content here...</div>
+            ...the overlay fullscreen modal will occupy the entire screen
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui primary approve button">
+            Proceed
+            <i class="right chevron icon"></i>
+        </div>
+    </div>
+  </div>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 <div class="container">
@@ -23,7 +35,7 @@
 		document.getElementById("item_h").setAttribute("class", "active item");
 	</script>
 	<div class="services">
-		<div id="service_container" ><!--services--></div>
+		<div id="service_container"></div>
 
 <div class="ui buttons">
     <button class="ui left attached button grey" style="width: 45%;" onclick="back()" >
@@ -50,18 +62,29 @@
 	<button class="ui button" type="submit"> Filter </button>
 	</form>
 </div>
+
 <script type="text/javascript">
 	$(function() {
     $('.ui.dropdown').dropdown();
 	});
 </script>
-</div>
-</div>
 <div class="requests">
 </div>
 </div>
 
 {% include '../general/footer.html' %}
 
+
+<script type="text/javascript">
+function view_service(id){
+	console.log(id);
+	$('.overlay.fullscreen.modal')
+	.modal('show')
+	;
+}
+</script>
+<script>
+{% include './home.js' %}
+</script>
 </body>
 </html>
