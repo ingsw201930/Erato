@@ -22,6 +22,9 @@ class Appearance(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
 
 
+class Tag(models.Model):
+    name=models.CharField(max_length=100)
+
 class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -29,4 +32,6 @@ class Service(models.Model):
     active = models.BooleanField(default=True)
     #TODO tags=hay que ver como hacer relacion muchos a muchos en django
     price=models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
+    tags=models.ManyToManyField(Tag)
 # Create your models here.
+
