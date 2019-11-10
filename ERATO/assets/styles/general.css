@@ -41,9 +41,14 @@ body {
 	padding-bottom: 100px;
 }
 
+.container * {
+
+	color: white;
+}
+
 .main_container{
 	margin-top: 150px;
-	margin-left: 300px;
+	margin-left: 270px;
 	padding: 10px;
 	display: inline-block;
 	width: 60%;

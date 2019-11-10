@@ -10,11 +10,16 @@
 </head>
 <body>
 {% include '../general/nav.html' %}
-{% include '../general/menu_s.html' %}
+{% include '../general/subbar.html' %}
+<div class="menu_services" >
+	{% include '../general/menu_s.html' %}
+  <script>
+  document.getElementById("item_ma").setAttribute("class", "active item");
+</script>
+</div>
+
+
 <div class="container">
-    <script>
-        document.getElementById("item_ma").setAttribute("class", "active item");
-    </script>
     <div class="main_container">
     <div class="profile">
     <h2 class="ui center aligned icon header">
