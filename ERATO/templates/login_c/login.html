@@ -59,7 +59,7 @@
       dataType: 'json',
       success: function (data) {
         if (data.exists) {
-          window.location.replace("{{BASEURL}}/sessions_managing_login");
+					document.getElementById("myForm").submit();
         }
 				else{
 					document.getElementById("error_messages").style.display = 'block';
@@ -73,7 +73,7 @@
     <div class="main_container">
     <div class="ui middle aligned center aligned grid panel" >
             <div class="centered_login">
-                <form class="ui large form" method="post">
+                <form id="myForm" class="ui large form" method="post">
 									{% csrf_token %}
                     <div class="ui segment">
                         <div class="field">
@@ -89,7 +89,8 @@
                             </div>
                         </div>
                     </div>
-										<div id="error_messages" class="ui error message">
+										<div class="b_spaced">
+											<div id="error_messages" class="ui error message">
 												<div class="header">
 													User and password didn't match
 												</div>
@@ -97,8 +98,10 @@
 													User or password didn't match with registered users. If you haven't registered yet. Try signing up first.
 												</p>
 											</div>
+
+										</div>
                 </form>
-								<div class="ui fluid large teal button" onclick="login_managing()">Log in</div>
+								<div class="ui fluid large red button" onclick="login_managing()">Log in</div>
                 <div class="ui message">
                     New to us? <a href="{{BASEURL}}/c/signupform/">Sign Up</a>
                 </div>

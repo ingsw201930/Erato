@@ -34,7 +34,7 @@ body {
 }
 
 .container{
-	/* position: relative; */
+	position: relative;
 	margin: 0px;
 	top: 120px;
 	padding: 0px;
