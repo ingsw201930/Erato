@@ -20,3 +20,5 @@ class ClientSignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email' )
+class ClientEditForm(forms.Form):
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Email', 'style':'margin-bottom: 10px;'}))

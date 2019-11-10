@@ -30,6 +30,7 @@
     <form class="" action="{{BASEURL}}/s/edit_profile" method="post">
 
 	{% csrf_token %}
+
     <div class="profile">
     <div class="ui center aligned icon header">
       <div class="image_profile">
@@ -187,6 +188,12 @@ var show_inputs = function(event) {
   for (i = 0; i < x.length; i++) {
   x[i].style.display = "block";
   }
+
+  document.getElementById('id_weight').value = "";
+
 };
+
+
 </script>
 </body>
+</html>

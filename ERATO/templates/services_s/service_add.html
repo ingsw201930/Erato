@@ -15,25 +15,27 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
-
-<div class="ui middle aligned center aligned grid">
-  <div class="panel">
-    <form class="" action="service_adding_service/" method="post">
-    {% csrf_token %}
-    <div class="ui input fluid">
-    {{form.name}}
+<div class="main_container">
+  <div class="ui middle aligned center aligned grid">
+    <div class="panel">
+      <form class="" action="service_adding_service/" method="post">
+        {% csrf_token %}
+        <div class="ui input fluid">
+          {{form.name}}
+        </div>
+        <div class="ui input fluid">
+          {{form.description}}
+        </div>
+        <div class="ui labeled input fluid">
+          <label for="amount" class="ui label">$</label>
+          {{form.price}}
+        </div>
+        {{form.tags}}
+        <button class="ui button fluid green" type="submit" name="button">Add service</button>
+      </form>
     </div>
-    <div class="ui input fluid">
-    {{form.description}}
-    </div>
-    <div class="ui labeled input fluid">
-    <label for="amount" class="ui label">$</label>
-    {{form.price}}
-    </div>
-    {{form.tags}}
-    <button class="ui button fluid green" type="submit" name="button">Add service</button>
-    </form>
   </div>
+
 </div>
 
 </div>

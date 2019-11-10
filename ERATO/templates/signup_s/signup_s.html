@@ -11,6 +11,8 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
+	<div class="main_container">
+
 	<form class="ui form" method="post" enctype="multipart/form-data" action="{{BASEURL}}/s/signup/">
 	{% csrf_token %}
 	<div class="b_spaced">
@@ -224,6 +226,7 @@ Please fill the name correctly.
 	<button class="ui fluid button teal" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
 	</div>
 	</form>
+</div>
 </div>
 {% include '../general/footer.html' %}
 </body>

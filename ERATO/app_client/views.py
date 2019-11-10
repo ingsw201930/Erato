@@ -16,7 +16,8 @@ from ERATO.settings import BASE_DIR
 from django.db.models import Q
 # Create your views here.
 # Home for clients
-erato_key= "er"
+image_key= "Uribeparaco"
+mc_key= "Conan"
 
 @login_required_client
 def home_c(request):
@@ -55,9 +56,11 @@ def signup(request):
                 user=user,
                 birth_date=form.cleaned_data.get('birth_date'),
                 email=form.cleaned_data.get('email'),
-                picture_path=BASE_DIR+"/assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
+                picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
+                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
             )
-            handle_uploaded_file(request.FILES['file'], username)
+            handle_uploaded_file(request.FILES['file'], username, "PPC")
+            handle_uploaded_file(request.FILES['file'], username, "MC")
             client.save()
             login(request, user)
             return HttpResponseRedirect('/c/home/')
@@ -65,8 +68,12 @@ def signup(request):
         form = ClientSignUpForm()
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
-def handle_uploaded_file(f, username):
-    file_name = BASE_DIR+"/assets/images/pro_pics/%s.png" % hashlib.md5((username+erato_key).encode()).hexdigest()
+def handle_uploaded_file(f, username, code):
+    file_name=''
+    if code == 'PPC':
+        file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+image_key).encode()).hexdigest()
+    if code == 'MC':
+        file_name =BASE_DIR+ "/assets/mcs/%s" % hashlib.md5((username+mc_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -77,6 +84,19 @@ def my_profile(request):
     user = request.user
     client=Client.objects.get(user=user)
     return render(request, 'client/profile.html', {'client': client})
+
+# Me seeing my own profile
+@login_required_client
+def edit_profile(request):
+    user = request.user
+    client=Client.objects.get(user=user)
+    if request.method == 'POST':
+        form = ClientEditForm(request.POST)
+        if form.is_valid():
+            print("Valid form")
+            # weight = form.cleaned_data['weight']
+    return HttpResponseRedirect('/s/profile/')
+
 
 @login_required_client
 def dates(request):

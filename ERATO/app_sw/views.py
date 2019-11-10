@@ -18,8 +18,8 @@ from ERATO.settings import BASE_DIR
 
 from app_sw.forms import ServiceAddForm
 
-
-erato_key= "er"
+image_key="Conan"
+mc_key="Conan"
 
 # Create your views here.
 # Home for sexworkers
@@ -31,10 +31,9 @@ def home_s(request):
             sw = SW.objects.get(user=user)
         except:
             return HttpResponseRedirect('/')
-        return render(request, 'home_s/home.html', {'sw':sw, 'profile_pic':hash(user.username+erato_key)})
+        return render(request, 'home_s/home.html', {'sw':sw})
     else:
         HttpResponseRedirect('/')
-
 @login_required_SW
 def service_add_form(request):
     form = ServiceAddForm()
@@ -59,7 +58,7 @@ def service_add(request):
 
         return HttpResponseRedirect('/s/home')
     return HttpResponseRedirect('/s/service_add_request/')
-
+    
 @SW_my_service_required
 def service_del(request, service_id):
     Service.objects.filter(id=service_id).delete()
@@ -88,8 +87,8 @@ def signup(request):
                 birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
-                picture_path = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
-                MC_path=BASE_DIR+"/assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
+                picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
+                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
             sw.save()
@@ -109,9 +108,9 @@ def signup(request):
 def handle_uploaded_file(f, username, code):
     file_name=''
     if code == 'PPSW':
-        file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+        file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+image_key).encode()).hexdigest()
     if code == 'MC':
-        file_name =BASE_DIR+ "/assets/mcs/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+        file_name =BASE_DIR+ "/assets/mcs/%s" % hashlib.md5((username+mc_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)

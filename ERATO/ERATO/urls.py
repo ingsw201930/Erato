@@ -64,6 +64,7 @@ urlpatterns = [
     path('c/home/', client_views.home_c , name="home_c"),
     path('c/dates/', client_views.dates , name="dates"),
     path('c/profile/',client_views.my_profile,name="client_public_profile"),
+    path('c/edit_profile/',client_views.edit_profile,name="client_public_profile"),
     path('c/get_service_list/<int:index>',client_views.get_service_list,name="c_get_service_list"),
     path('c/get_date_list/<int:index>',client_views.get_date_list,name="c_get_date_list"),
     path('c/payments/', ts_views.c_payments, name="sw_payments"),

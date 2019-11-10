@@ -3,6 +3,13 @@
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_c.css">
+
+    <script src="/assets/scripts/client/edit_profile.js" charset="utf-8"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+
     <meta charset="UTF-8">
     <title>ERATO</title>
 </head>
@@ -15,17 +22,75 @@ document.getElementById("item_ma").setAttribute("class", "active item");
 </script>
 <div class="container">
     <div class="main_container">
-        <h2 class="ui center aligned icon header">
-          <div class="">
-            <object data="{{BASEURL}}/assets/images/utils/empty.jpg" type="image/png">
-             <img src="{{BASEURL}}{{client.picture_path}}" />
-            </object>
+
+    <form class="" action="{{BASEURL}}/c/edit_profile" method="post">
+      <div class="profile">
+<div class="ui center aligned icon header">
+  <div class="image_profile">
+    <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
+    <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
+    </object>
+  </div>
+  <div class="client_p_panel">
+    {{client.user.username}}
+  </div>
+</div>
+  <div class="margined huge">
+    <div class="more_info">
+      <div class="ui grid">
+
+  <div class="eight wide column">
+    <i class="birthday cake icon"></i>
+    Born date
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      {{client.birth_date}}
+    </div>
+    <div class="showable">
+      <div class="ui fluid input">
+        <input type="text" placeholder="Birth date">
+      </div>
+    </div>
+  </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <div class="margined huge">
+      <div class="profile_buttons">
+        <div class="profile button">
+          <div id="button_edit" class="ui inverted fluid orange button" onclick="show_inputs()">
+            Edit profile
           </div>
-          {{client.user.username}}
-        </h2>
+        </div>
+        <div class="profile button">
+          <button type="submit"
+          id="button_save" style="display: none" class="ui inverted fluid green button"
+          name="button">
+          Save
+        </button>
+      </div>
+      <div class="profile button">
+        <div id="button_delete" class="ui inverted fluid red button">
+          Delete account
+        </div>
+      </div>
+    </div>
+
+    </div>
+    </form>
 
     </div>
 </div>
 {% include '../general/footer.html' %}
+<script type="text/javascript">
+$(document).ready(function () {
+hide_hidable();
+});
+</script>
 </body>
 </html>

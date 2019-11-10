@@ -21,7 +21,7 @@ class ServiceAddForm(forms.Form):
 class SWSignUpForm(UserCreationForm):
     EYES = (
         ("blue", "BLUE"),
-        ("brown", "BOWN"),
+        ("brown", "BROWN"),
         )
     HAIR = (
         ("brown","BROWN"),

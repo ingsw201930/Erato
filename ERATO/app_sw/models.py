@@ -5,7 +5,7 @@ class SW(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
     picture_path=models.CharField(max_length=200)
     album_path = models.CharField(max_length=200, default='path')
-    MC_path=models.CharField(max_length=200)
+    mc_path=models.CharField(max_length=200)
     FEMALE = 'Female'
     MALE = 'Male'
     FTM = 'Ftm'

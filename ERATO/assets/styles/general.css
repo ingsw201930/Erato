@@ -104,3 +104,11 @@ footer *{
 .tb_margin{
 	margin: 5px;
 }
+
+.margined.medium{
+	margin: 40px;
+}
+
+.margined.huge{
+	margin: 60px;
+}
