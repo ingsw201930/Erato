@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import SW,Service,Tag
 from app_date.models import Date
 from .forms import SWSignUpForm
+from .forms import SWEditForm
 from .forms import UploadFileForm
 from .forms import UploadMCForm
 from django.contrib.auth import authenticate
@@ -63,10 +64,6 @@ def service_add(request):
 def service_del(request, service_id):
     Service.objects.filter(id=service_id).delete()
     return HttpResponse("Borrando servicio")
-
-@SW_my_service_required
-def service_edit_form(request, service_id):
-     return HttpResponse("Editando servicio")
 
 def signupform(request):
     form = SWSignUpForm()
@@ -157,10 +154,19 @@ def view_service(request, service_id):
 
 @login_required_SW
 def my_profile(request):
+    form = SWEditForm()
     user = request.user
     sw = SW.objects.get(user=user)
     services = Service.objects.filter(sw_id=sw.user_id)
-    return render(request, 'sw/profile.html', {'sw':sw, 'services':services})
+    return render(request, 'sw/profile.html', {'form':form, 'sw':sw, 'services':services})
+
+@login_required_SW
+def edit_profile(request):
+    if request.method == 'POST':
+        form = SWEditForm(request.POST)
+        if form.is_valid():
+            weight = form.cleaned_data['weight']
+    return HttpResponseRedirect('/s/profile/')
 
 def history(request):
     return render(request, 'sw/history.html', {})

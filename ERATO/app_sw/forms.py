@@ -64,5 +64,9 @@ class SWSignUpForm(UserCreationForm):
         'description'
         )
 
+class SWEditForm(forms.Form):
+    weight =forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
+    height =forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
+
 class ServiceFilterForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
