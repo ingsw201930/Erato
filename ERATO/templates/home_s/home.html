@@ -31,12 +31,12 @@
 							<div class="service_price"><b>{{service.price}}</b>$</div>
 							<div class="tags">
 								{% for tag in service.tags.all %}
-								<div class="ui label" style="background: #3f3f3f; color:#fefefe">{{tag.name}}</div>
+								<div class="ui label" style="background: #d3d3d3;">{{tag.name}}</div>
 								{% endfor %}
 							</div>
 						</div>
 						<div class="service_buttons">
-							<button class="ui icon button" style="background: #2f2f2f;" onclick="delete_service_pop_up({{service.id}})">
+							<button class="ui icon button" style="background: #dedede;" onclick="delete_service_pop_up({{service.id}})">
 								<i class="trash alternate icon" ></i>
 							</button>
 						</div>

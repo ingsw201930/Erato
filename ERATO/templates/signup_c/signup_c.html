@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
   <link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
 	<script src="/assets/scripts/upload_files.js"></script>
 	<title>Erato</title>
@@ -12,46 +11,48 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
-  <form class="ui form" method="post" action="{{BASEURL}}/c/signup/" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.username }}
-	{{ form.email}}
-	{{ form.password1 }}
-	{{ form.password2 }}
-	{{form.birth_date}}
-	<h4 class="ui horizontal divider header">
-  Profile
-	</h4>
-	<div class="ui placeholder segment">
-		<div class="" style="margin: 30px;">
-			<img class="ui medium image" src="/assets/images/utils/vector_profile.jpg" id="output"/>
-		</div>
-	<div class="ui button yellow">
-		<label for="id_file">
-		Upload your picture</label>
-		{{ form_ul.file }}
+	<div class="spaced">
+		<form class="ui form" method="post" action="{{BASEURL}}/c/signup/" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.username }}
+			{{ form.email}}
+			{{ form.password1 }}
+			{{ form.password2 }}
+			{{form.birth_date}}
+			<h4 class="ui horizontal divider header">
+				Profile
+			</h4>
+			<div class="ui placeholder segment">
+				<div class="" style="margin: 30px;">
+					<img class="ui medium image" src="/assets/images/utils/vector_profile.jpg" id="output"/>
+				</div>
+				<div class="ui button yellow">
+					<label for="id_file">
+						Upload your picture</label>
+						{{ form_ul.file }}
+					</div>
+				</div>
+				<h4 class="ui horizontal divider header">
+					Medical certification
+				</h4>
+				<div class="ui placeholder segment">
+					<div id='succesfully_uploaded_file' class="ui positive message" style="display:none">
+						<div class="header">
+							Your file was succesfully uploaded
+						</div>
+						<p>Check out our requirements for MCs here.</p>
+					</div>
+					<div class="ui button yellow">
+						<label for="id_mc">
+							Upload your PDF</label>
+							{{ form_mc.mc }}
+						</div>
+					</div>
+					<div class="button_lr">
+						<button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
+					</div>
+				</form>
 	</div>
-	</div>
-	<h4 class="ui horizontal divider header">
-  Medical certification
-	</h4>
-	<div class="ui placeholder segment">
-	<div id='succesfully_uploaded_file' class="ui positive message" style="display:none">
-  <div class="header">
-    Your file was succesfully uploaded
-  </div>
-  <p>Check out our requirements for MCs here.</p>
-	</div>
-	<div class="ui button yellow">
-		<label for="id_mc">
-		Upload your PDF</label>
-		{{ form_mc.mc }}
-	</div>
-	</div>
-  <div class="button_lr">
-  <button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
-  </div>
-  </form>
 </div>
 {% include '../general/footer.html' %}
 </body>

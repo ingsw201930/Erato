@@ -6,11 +6,11 @@
 
 body {
   margin: 0px;
-	background: #050505;
-    /*background:url("/assets/images/background/blur_3.jpg");*/
-    background-repeat: no-repeat;
-    background-attachment:fixed;
-    background-size: 100% 100%;
+	background: #fdfdfd;
+  /*background:url("/assets/images/background/blur_3.jpg");*/
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-size: 100% 100%;
 }
 
 .bar{
@@ -34,15 +34,14 @@ body {
 }
 
 .container{
+	/* position: relative; */
+	margin: 0px;
 	top: 120px;
 	padding: 0px;
+	min-width: 800px;
 	width: 100%;
 	z-index: -1;
 	padding-bottom: 100px;
-}
-
-.container * {
-	color: #f6f6f6;
 }
 
 .input *{
@@ -69,13 +68,18 @@ body {
 
 footer{
 	width: 100%;
-	background-color: #121212;
+	background: blue;
 	align-content: center;
 	text-align: center;
 }
 
 .b_spaced{
 	margin-bottom: 10px;
+}
+
+.spaced {
+	margin-top: 800px;
+	margin: 40px;
 }
 
 .full_margin{
