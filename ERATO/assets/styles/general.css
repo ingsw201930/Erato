@@ -45,6 +45,10 @@ body {
 	color: #f6f6f6;
 }
 
+.input *{
+	color: #3e3e3e;
+}
+
 .main_container{
 	margin-top: 150px;
 	margin-left: 270px;

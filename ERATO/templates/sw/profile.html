@@ -6,6 +6,11 @@
     <link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_s.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/sw/editable_profile.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+
     <title>Erato</title>
     <meta charset="utf-8">
 </head>
@@ -113,8 +118,12 @@
     <div class="item hidable">
       {{sw.birth_date}}
     </div>
-    <div class="ui input" style="display:none; width: 100%;">
-    <input type="text" placeholder="Gender">
+    <div class="ui calendar" id="standard_calendar">
+    <div class="ui input left icon"
+    >
+    <i class="calendar icon"></i>
+    <input type="text" placeholder="Date/Time">
+    </div>
     </div>
   </div>
 </div>
@@ -152,6 +161,8 @@ var show_inputs = function(event) {
   for (i = 0; i < x.length; i++) {
   x[i].style.display = "none";
   }
+
+  $('#standard_calendar').calendar();
 
   document.getElementById('button_edit').style.display = "none";
   document.getElementById('button_delete').style.display = "none";
