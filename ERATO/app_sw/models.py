@@ -39,8 +39,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-class Tag(models.Model):
-    name=models.CharField(max_length=100)
 
 class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)

@@ -30,9 +30,11 @@ def home_c(request):
 def get_service_list(request,index):
     n=5
     search=request.GET.get("search",None)
+    username=request.GET.get("user",None)
     services=Service.objects.filter(
-        Q(description__icontains=search)|Q(name__icontains=search)
-        )[index*n:(index+1)*n]
+        Q(description__icontains=search)|Q(name__icontains=search),
+        Q(sw__user__username__icontains=username)
+    )[index*n:(index+1)*n]
     return render(request,'home_c/services.html',{'services':services})
 
 def signupform(request):

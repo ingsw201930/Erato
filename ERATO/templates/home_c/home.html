@@ -43,13 +43,24 @@
 				<div class="ui input">
 					<input id="filter_search" type="text" placeholder="Search...">
 				</div>
+				<div class="ui input">
+					<input id="filter_user" type="text" placeholder="User...">
+				</div>
 			</form>
 			<button class="ui active button" onclick="filter()">
 				<i class="filter icon"></i>
 				Filter
 			</button>
 		</div>
-
+		<div class="ui buttons">
+				<button class="ui button" onclick="back()">
+					<i class="angle left icon"></i>
+				</button>
+				<button id="current_index" class="ui button">1</button>
+				<button class="ui button" onclick="next()">
+					<i class="angle right icon"></i>
+				</button>
+		</div>
 	</div>
 
 </div>
