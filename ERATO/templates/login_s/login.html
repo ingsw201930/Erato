@@ -34,7 +34,6 @@
 	}
 
 	function login_managing(){
-		alert("Managing login");
 		console.log("Managing login");
 		var csrftoken = getCookie('csrftoken');
 
@@ -67,17 +66,6 @@
 				}
       }
     });
-		// $( document ).ajaxComplete(function() {
-		// 	$.post("{{BASEURL}}/authenticate_user",
-		// 	data: {
-		// 		'username': username,
-		// 		'password': password
-		// 	},
-		// 	function(data, status){
-		// 		alert("Data: " + data + "\nStatus: " + status);
-		// 	});
-		// });
-    window.location.replace("{{BASEURL}}/sessions_managing_login");
 	}
 </script>
 {% include '../general/nav.html' %}
@@ -85,7 +73,7 @@
     <div class="main_container">
     <div class="ui middle aligned center aligned grid panel" >
             <div class="centered_login">
-                <form class="ui large form" method="post" onsubmit="return login_managing()">
+                <form class="ui large form" method="post">
 									{% csrf_token %}
                     <div class="ui stacked segment">
                         <div class="field">
