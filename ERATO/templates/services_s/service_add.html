@@ -30,19 +30,8 @@
     <label for="amount" class="ui label">$</label>
     {{form.price}}
     </div>
-    <div>
-      <select class="search fluid dropdown" multiple="">
-        <option value='' style="margin: 0px">Tags </option>
-        {% for tag in tags %}
-        <option value="{{tag.id}}" style="margin: 0px"> {{tag.name}} </option>
-        {% endfor %}
-      </select>
-      <button class="ui button fluid green" type="submit" name="button">Add service</button>
-      <!-- onclick="add_service()"
-
-      <div class="ui button fluid green" type="submit" name="button">Add service</div>
-    -->
-    </div>
+    {{form.tags}}
+    <button class="ui button fluid green" type="submit" name="button">Add service</button>
     </form>
   </div>
 </div>

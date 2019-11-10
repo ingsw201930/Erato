@@ -33,11 +33,21 @@ class Appearance(models.Model):
 # Many to many relations, example: https://docs.djangoproject.com/en/2.2/topics/db/examples/many_to_many/
 class Tag(models.Model):
     name = models.CharField(max_length=10, default='name')
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
 
 class Service(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=400)
-    active = models.BooleanField(default=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, default=0.00)
-    # tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name

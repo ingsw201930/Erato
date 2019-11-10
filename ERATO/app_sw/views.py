@@ -25,8 +25,6 @@ erato_key= "er"
 @login_required_SW
 def home_s(request):
     user = request.user
-    print("In users")
-    print(user)
     if user.is_authenticated:
         try:
             sw = SW.objects.get(user=user)
@@ -40,7 +38,6 @@ def home_s(request):
 def service_add_form(request):
     form = ServiceAddForm()
     tags = Tag.objects.all()
-    print(tags)
     return render(request, 'services_s/service_add.html', {'tags':tags,'form':form})
 
 @login_required_SW
@@ -50,10 +47,15 @@ def service_add(request):
         name = form.cleaned_data.get('name')
         description = form.cleaned_data.get('description')
         price = form.cleaned_data.get('price')
+        tags = form.cleaned_data.get('tags')
         user = request.user
         sw = SW.objects.get(user=user)
         service = Service(sw=sw, name=name, description=description, price=price)
         service.save()
+        for tag in tags:
+            service.tags.add(tag)
+            service.save()
+
         return HttpResponseRedirect('/s/home')
     return HttpResponseRedirect('/s/service_add_request/')
 

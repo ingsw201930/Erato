@@ -13,6 +13,10 @@ class ServiceAddForm(forms.Form):
     name = forms.CharField(label='Name', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Name'}))
     description = forms.CharField(label='Description', max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
     price = forms.IntegerField(label='Price',max_value=100000, widget=forms.TextInput(attrs={'placeholder': 'Price'}))
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tags'].widget.attrs.update({'class': 'search fluid dropdown', 'style':'display:block'})
 
 class SWSignUpForm(UserCreationForm):
     EYES = (
