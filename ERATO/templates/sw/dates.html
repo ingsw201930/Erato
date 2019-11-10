@@ -1,5 +1,56 @@
 <!DOCTYPE html>
+
+{{}}
+<div class="ui modal" id="mdata" type="hidden">
+  <i class="close icon"></i>
+  <div class="header">
+    Date information
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+        <img src={{date.client.picture_path}}>
+    </div>
+    <div class="description">
+      <div class="ui header"> Client's information </div>
+      <h4 class="ui sub header">
+          Username : {{date.client.user.name}}
+            <br>
+
+
+
+
+              Start time: {{date.start_time}}
+              <br>
+              End time: {{date.end_time}}
+              <br>
+              Price: {{date.price}}
+            </h4>
+
+    </div>
+  </div>
+  <div class="actions">
+    <div class="right attached ui button red">
+        reject
+    </div>
+    <div class="ui left attached button green">
+        accept
+    </div>
+  </div>
+</div>
+
+<div>
+    <script>
+        <!-- $('ui.modal') -->
+        <!--   .modal('attach events', '.test.button', 'show') -->
+        <!-- ; -->
+        $('.small.modal')
+          .modal('show')
+        ;
+    </script>
+</div>
+
 <html lang="en">
+
 <head>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
   <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
@@ -16,6 +67,7 @@
   <script src="/assets/scripts/dates/pagination.js"></script>
   <script src="/assets/scripts/dates/dates.js"></script>
 </head>
+
 <body id="body" onload="get_date_list(0)">
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
@@ -63,10 +115,14 @@
         </div>
       <div class="ui bottom attached tab" data-tab="pending_dates">
         <div class="margined_content">
+
           {% for date in requested_dates %}
             <div class="ui card" style="width: 100%">
             <div class="content">
+
+
             <div class="header">A date with {{date.client.user.username}}</div>
+
             </div>
             <div class="content">
             <h4 class="ui sub header">
@@ -86,10 +142,29 @@
             </div>
             </div>
             </div>
+
+            <!-- <script> -->
+            <!--     $('.ui.modal') -->
+            <!--     .modal('attach events', '#datamodalg', 'show') -->
+            <!--     ; -->
+            <!-- </script> -->
+             <script type="text/javascript">
+
+             $(document).ready(function(){
+             $('#mdata').click(function(){
+                $('#modalid').modal('show');
+             });
+             });
+
+             </script>
+
+
             <div class="ui buttons">
-            <button id="accept-{{date.id}}" class="ui left attached button green" style="width: 45%;" onclick="accept({{date.id}},'{{BASEURL}}')" > Accept</button>
-            <button id="reject-{{date.id}}" class="right attached ui button red" style="width: 45%;" onclick="reject({{date.id}},'{{BASEURL}}')" > Reject </button>
+                <button id="show_modal_data-{{date.id}}" class="ui left attached button green" onclick="show_modal_data({{date.id}},'{{BASEURL}}')" > Info </button>
+                <!-- <button id="accept-{{date.id}}" class="ui left attached button green" style="width: 45%;" onclick="accept({{date.id}},'{{BASEURL}}')" > Accept</button> -->
+                <!-- <button id="reject-{{date.id}}" class="right attached ui button red" style="width: 45%;" onclick="reject({{date.id}},'{{BASEURL}}')" > Reject </button> -->
             </div>
+
             </div>
         {% endfor %}
         </div>
