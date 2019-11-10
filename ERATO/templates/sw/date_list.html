@@ -1,4 +1,4 @@
-{% for date in dates %}
+{% for date in non_rated_dates %}
 <div class="ui card" style="width: 100%">
 <div class="content">
 <div class="header">A date with {{date.client.user.username}}</div>
@@ -17,8 +17,8 @@
 </div>
 </div>
 <div class="extra content">
-  <div class='ui star rating'></div>
-  <div class="ui rating" data-rating="1" data-max-rating="5"></div>
+  <div class="ui massive star rating" id="rate-{{date.id}}" onclick="set_starts_id({{date.id}});">
+  </div>
 </div>
 </div>
 {% endfor %}

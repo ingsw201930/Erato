@@ -8,13 +8,12 @@
 </head>
 <body>
 {% include '../general/nav.html' %}
-{% include '../general/menu_s.html' %}
-<div class="container">
-    <script>
-        document.getElementById("item_mh").setAttribute("class", "active item");
-    </script>
-    <div class="main_container">
-        History
+{% include '../general/subbar.html' %}
+<div class="container" style="width: 100%; height: 100%">
+    <div class="main_container" style="width: 100%; height: 100%">
+        <div class="ui success massive message">
+        The QR code has been sent.
+        </div>
     </div>
 </div>
 {% include '../general/footer.html' %}

@@ -3,9 +3,10 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import SW,Service
+from .models import SW,Service,Tag
 from app_date.models import Date
 from .forms import SWSignUpForm
+from .forms import SWEditForm
 from .forms import UploadFileForm
 from .forms import UploadMCForm
 from django.contrib.auth import authenticate
@@ -25,8 +26,6 @@ erato_key= "er"
 @login_required_SW
 def home_s(request):
     user = request.user
-    print("In users")
-    print(user)
     if user.is_authenticated:
         try:
             sw = SW.objects.get(user=user)
@@ -39,7 +38,8 @@ def home_s(request):
 @login_required_SW
 def service_add_form(request):
     form = ServiceAddForm()
-    return render(request, 'services_s/service_add.html', {'form':form})
+    tags = Tag.objects.all()
+    return render(request, 'services_s/service_add.html', {'tags':tags,'form':form})
 
 @login_required_SW
 def service_add(request):
@@ -48,10 +48,15 @@ def service_add(request):
         name = form.cleaned_data.get('name')
         description = form.cleaned_data.get('description')
         price = form.cleaned_data.get('price')
+        tags = form.cleaned_data.get('tags')
         user = request.user
         sw = SW.objects.get(user=user)
         service = Service(sw=sw, name=name, description=description, price=price)
         service.save()
+        for tag in tags:
+            service.tags.add(tag)
+            service.save()
+
         return HttpResponseRedirect('/s/home')
     return HttpResponseRedirect('/s/service_add_request/')
 
@@ -59,10 +64,6 @@ def service_add(request):
 def service_del(request, service_id):
     Service.objects.filter(id=service_id).delete()
     return HttpResponse("Borrando servicio")
-
-@SW_my_service_required
-def service_edit_form(request, service_id):
-     return HttpResponse("Editando servicio")
 
 def signupform(request):
     form = SWSignUpForm()
@@ -75,13 +76,13 @@ def signup(request):
         form = SWSignUpForm(request.POST)
         form_ul = UploadFileForm(request.POST, request.FILES)
         form_mc = UploadMCForm(request.POST, request.FILES)
+        print(form.errors)
         if form.is_valid() and request.FILES['file'] and request.FILES['mc']:
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = User.objects.create_user(username, email, raw_password)
             user.save()
-            print("User created")
             sw=SW(
                 user=user,
                 birth_date=form.cleaned_data.get('birth_date'),
@@ -89,6 +90,7 @@ def signup(request):
                 third_email=form.cleaned_data.get('third_email'),
                 picture_path = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest(),
                 MC_path=BASE_DIR+"/assets/mcs/%s" % hashlib.md5((username).encode()).hexdigest(),
+                gender=form.cleaned_data.get('gender'),
             )
             sw.save()
             handle_uploaded_file(request.FILES['file'], username, 'PPSW')
@@ -100,8 +102,8 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return HttpResponseRedirect('/s/home/')
-    else:
-        return HttpResponseRedirect('/')
+        else:
+            return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul, 'form_mc': form_mc})
     return HttpResponseRedirect('/')
 
 def handle_uploaded_file(f, username, code):
@@ -130,16 +132,19 @@ def public_profile(request, sw_id):
 def dates(request):
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
-    current_dates = dates.filter(state=Date.STARTED)
+    non_rated_dates = dates.filter(state=Date.ENDED)
+    current_date = dates.filter(state=Date.STARTED)
     requested_dates = dates.filter(state=Date.REQUESTED)
-    return render(request, 'sw/dates.html', {'current_dates' : current_dates, 'dates': dates, 'requested_dates':requested_dates})
+    all_dates = dates.filter(state=Date.RATED)
+    return render(request, 'sw/dates.html', {'current_dates' : current_date, 'non_rated_dates': non_rated_dates, 'requested_dates' : requested_dates, 'all_dates' : all_dates})
 
 @login_required_SW
 def get_date_list(request,index):
     n=5
     user = request.user
-    dates = Date.objects.filter(service__sw_id=user.id)[index*n:(index+1)*n]
-    return render(request, 'sw/date_list.html',{"dates":dates})
+    dates = Date.objects.filter(service__sw_id=user.id)
+    non_rated_dates = dates.filter(state=Date.ENDED)[index*n:(index+1)*n]
+    return render(request, 'sw/date_list.html',{'non_rated_dates' : non_rated_dates})
 
 @login_required
 def view_service(request, service_id):
@@ -149,10 +154,19 @@ def view_service(request, service_id):
 
 @login_required_SW
 def my_profile(request):
+    form = SWEditForm()
     user = request.user
     sw = SW.objects.get(user=user)
     services = Service.objects.filter(sw_id=sw.user_id)
-    return render(request, 'sw/profile.html', {'sw':sw, 'services':services})
+    return render(request, 'sw/profile.html', {'form':form, 'sw':sw, 'services':services})
+
+@login_required_SW
+def edit_profile(request):
+    if request.method == 'POST':
+        form = SWEditForm(request.POST)
+        if form.is_valid():
+            weight = form.cleaned_data['weight']
+    return HttpResponseRedirect('/s/profile/')
 
 def history(request):
     return render(request, 'sw/history.html', {})

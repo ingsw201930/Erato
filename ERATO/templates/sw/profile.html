@@ -5,36 +5,174 @@
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_s.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/sw/editable_profile.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+
     <title>Erato</title>
     <meta charset="utf-8">
 </head>
 <body>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
+<div class="menu_services" >
+	{% include '../general/menu_s.html' %}
+  <script>
+  document.getElementById("item_ma").setAttribute("class", "active item");
+</script>
+</div>
+
+
 <div class="container">
-    {% include '../general/menu.html' %}
-    <script>
-        document.getElementById("item_ma").setAttribute("class", "active item");
-    </script>
     <div class="main_container">
+    <form class="" action="{{BASEURL}}/s/edit_profile" method="post">
+
+	{% csrf_token %}
     <div class="profile">
-    <h2 class="ui center aligned icon header">
+    <div class="ui center aligned icon header">
       <div class="image_profile">
         <img class="ui medium circular image" src="{{BASEURL}}/{{sw.picture_path}}">
       </div>
       <div class="sw_p_panel">
         {{sw.user.username}}
       </div>
-  </h2>
+  </div>
+  <div class="more_info">
+  <div class="ui grid">
+  <div class="eight wide column">
+    <i class="user outline icon"></i>
+    Name
+  </div>
+  <div class="eight wide column">
+    <div class="item">
+      SW's name
     </div>
-    <div class="more_info">
-        Id : {{sw.user_id}}
-        <br>
-        Birth date : {{sw.birth_date}}
-        <br>
+  </div>
+  <div class="eight wide column">
+    <i class="venus mars icon"></i>
+    Gender
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      Female
+    </div>
+    <div id="input_gender" class="ui input" style="display:none">
+    <input type="text" placeholder="Gender">
+    </div>
+  </div>
+  <div class="eight wide column">
+    <i class="birthday cake icon"></i>
+    Born date
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      {{sw.birth_date}}
+    </div>
+    <div class="ui input" style="display:none">
+    <input type="text" placeholder="Gender">
+    </div>
+  </div>
+  <div class="eight wide column">
+    <i class="weight icon"></i>
+    Weight
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      54 kg
+    </div>
+    <div class="ui input" style="display:none">
+    {{form.weight}}
+    </div>
+  </div>
+  <div class="eight wide column">
+    <i class="building outline icon"></i>
+    Height
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      1,68 m
+    </div>
+    <div class="ui input" style="display:none">
+    {{form.height}}
+    </div>
+  </div>
+  <div class="eight wide column">
+    <i class="eye icon"></i>
+    Eyes
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      Blue
+    </div>
+    <div class="ui input" style="display:none">
+    <input type="text" placeholder="Gender">
+    </div>
+  </div>
+  <div class="eight wide column">
+    <i class="cut icon"></i>
+    Hair
+  </div>
+  <div class="eight wide column">
+    <div class="item hidable">
+      {{sw.birth_date}}
+    </div>
+    <div class="ui calendar" id="standard_calendar">
+    <div class="ui input left icon"
+    >
+    <i class="calendar icon"></i>
+    <input type="text" placeholder="Date/Time">
     </div>
     </div>
+  </div>
+</div>
+  </div>
     </div>
+    <div class="profile_buttons">
+      <div class="profile_button">
+        <div id="button_edit" class="ui inverted fluid orange button" onclick="show_inputs()">
+          Edit profile
+        </div>
+      </div>
+      <div class="profile_button">
+        <button type="submit"
+        id="button_save" style="display: none" class="ui inverted fluid green button"
+        name="button">
+          Save
+      </button>
+      </div>
+      <div class="profile_button">
+        <div id="button_delete" class="ui inverted fluid red button">
+          Delete account
+        </div>
+      </div>
+    </div>
+  </form>
+    </div>
+  </div>
 </div>
 {% include '../general/footer.html' %}
+<script type="text/javascript">
+// Load a file and show a message.
+var show_inputs = function(event) {
+  var x = document.getElementsByClassName("hidable");
+  var i;
+  for (i = 0; i < x.length; i++) {
+  x[i].style.display = "none";
+  }
+
+  $('#standard_calendar').calendar();
+
+  document.getElementById('button_edit').style.display = "none";
+  document.getElementById('button_delete').style.display = "none";
+  document.getElementById('button_save').style.display = "block";
+
+  var x = document.getElementsByClassName("input");
+  var i;
+  for (i = 0; i < x.length; i++) {
+  x[i].style.display = "block";
+  }
+};
+</script>
 </body>

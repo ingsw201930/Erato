@@ -1,7 +1,4 @@
-
 var current_index=0
-
-
 
 function get_service_list(index){
     $.ajax({

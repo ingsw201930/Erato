@@ -4,12 +4,33 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/main/main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <title>Erato</title>
     <meta charset="utf-8">
 </head>
 <body>
 {% include '../general/nav.html' %}
   <div class="container">
+    <div class="ui modal">
+  <div class="header red">
+    ENTER ONLY IF YOU ARE OVER 18
+  </div>
+  <div class="image content">
+    <div class="description">
+      <div class="ui header">This site contains sexually explicit material.</div>
+      <p>Enter only if you are over 18</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      I'm over 18.
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
     <div class="ui placeholder segment">
       <div class="ui two column very relaxed stackable grid">
       <div class="column">
@@ -23,7 +44,11 @@
       Or
       </div>
     </div>
+
   </div>
     {% include '../general/footer.html' %}
+    <script type="text/javascript">
+      $('.ui.modal').modal('show');
+    </script>
 </body>
 </html>

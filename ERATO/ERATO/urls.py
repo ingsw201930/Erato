@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,10 +31,13 @@ urlpatterns = [
 
 #   SESSIONS
     path('',session_views.main_,name='main'),
+    re_path(r'^accounts/login/\?next\=/sessions\_managing\_login/$', session_views.login_managing),
+    path('accounts/login/?next=/sessions_managing_login/',session_views.login_managing,name='login'),
     path('sessions_managing_login/',session_views.login_managing,name='login'),
     path('c/login/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
     path('s/login/', auth_views.LoginView.as_view(template_name='login_s/login.html') , name="login_s"),
     path('logout/', session_views.logout_managing),
+    path('authenticate_user/', session_views.authenticate_user),
     path('s/signupform/',sw_views.signupform,name="signup_s"),
     path('c/signupform/',client_views.signupform,name="signup_c"),
     path('s/signup/',sw_views.signup,name="signup_s"),
@@ -45,7 +48,7 @@ urlpatterns = [
     path('s/service_add_request/', sw_views.service_add_form , name="service_add"),
     path('s/service_add_request/service_adding_service/', sw_views.service_add , name="service_add"),
     path('s/service_del/<int:service_id>', sw_views.service_del , name="service_del"),
-    path('s/service_edit/<int:service_id>', sw_views.service_edit_form , name="service_edit"),
+    path('s/edit_profile', sw_views.edit_profile , name="service_del"),
     path('s/service/<int:service_id>', sw_views.view_service , name="service_edit"),
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
@@ -76,7 +79,11 @@ urlpatterns = [
     path('end_date/<int:date_id>',date_views.end_date,name='end_date'),
     path('pay_date/<int:date_id>',date_views.pay_date,name='pay_date'),
     path('pay_date_submit/<int:date_id>',date_views.pay_date_submit,name='pay_date_submit'),
+    path('rate_date/<int:date_id>/<int:rate>',date_views.rate_date,name='rate_date'),
 
 #   Payments
-    path('c/charge/<int:date_id>', ts_views.charge, name='charge')
+    path('c/charge/<int:date_id>', ts_views.charge, name='charge'),
+
+    # Ajax
+    path('ajax/user_exists', session_views.user_exists, name='user_exists'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -143,7 +143,9 @@ STATICFILES_DIRS=(
     os.path.join(BASE_DIR, 'assets'),
 )
 
-LOGOUT_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = 'http://localhost:8000/home'
+LOGIN_REDIRECT_URL = 'http://localhost:8000/sessions_managing_login'
+# LOGIN_URL = '/sessions_managing_login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

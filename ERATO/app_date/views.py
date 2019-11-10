@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from .QR import generateQR,decode,secretkey
 from .models import Date
 from app_emails.utils import send_qr
@@ -11,6 +11,7 @@ import threading
 import random
 from django.db.models import Q
 from app_client.models import Client
+from app_transactions.forms import TransactionForm
 from app_sw.decorators import *
 from .decorators import *
 from datetime import datetime
@@ -38,11 +39,11 @@ def createQR(request,date_id):
         client = Client.objects.get(user_id=date.client_id)
         email= client.email
         print("Sending QR to... %s with the id %d" % (email, client.user_id))
-        send_qr(qr, email)
+        send_qr(date.id, qr, email)
 
     thr = threading.Thread(target=create_and_send)
     thr.start()
-    return HttpResponse("QR sent")
+    return render_to_response('date_states/qr_sent.html')
 
 def checkQR(request,date_id,code):
     try:
@@ -171,12 +172,21 @@ def reject_date(request, date_id):
 @SW_my_date_required
 def end_date(request, date_id):
     date = Date.objects.get(id=date_id)
-    date.state = 'ended'
+    date.state = Date.ENDED
     date.save()
     return HttpResponse("Date ended")
 
+@SW_my_date_required
+def date_by_service(request, date_id, rate):
+    date = Date.objects.get(id=date_id)
+    date.state = Date.RATED
+    ## Después vemos cómo calculamos el rate
+    date.client.rating+=rate*0.2
+    date.save()
+    return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
+
 @SW_my_service_required
-def date_by_service(request, service_id):
+def rate(request, date_id):
     service=Service.objects.get(id=service_id)
     query = Q(state=Date.REQUESTED)
     query.add(Q(state=Date.ACCEPTED), Q.OR)
@@ -184,12 +194,24 @@ def date_by_service(request, service_id):
     dates=service.date_set.filter(query)
     return render(request, 'date_by_service/dates.html', {'service':service,'dates':dates})
 
+@SW_my_date_required
+def rate_date(request, date_id, rate):
+    date=Date.objects.get(id=date_id)
+    date.state=Date.RATED
+    client = date.client
+    # Todavía no está definido cuánto valdrá
+    client.rating = (float(client.rating) * 0.8) + (float(rate) * 0.2)
+    client.save()
+    return JsonResponse({'sucess': True})
+
+
 @client_my_date_required
 def pay_date(request,date_id):
     date=Date.objects.get(id=date_id)
+    form = TransactionForm()
     if date.state!=Date.ACCEPTED:
         return HttpResponse('date invalido')
-    return render(request,'pay_date/pay_date.html',{'date':date})
+    return render(request,'pay_date/pay_date.html', {'date':date, 'form':form})
 
 @client_my_date_required
 def pay_date_submit(request,date_id):

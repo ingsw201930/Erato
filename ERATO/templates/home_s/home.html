@@ -4,19 +4,21 @@
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/home.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/home_s/service.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
 <body>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
+<div class="menu_services" >
+	{% include '../general/menu_s.html' %}
+	<script>
+	document.getElementById("item_ms").setAttribute("class", "active item");
+	</script>
+</div>
 <div class="container" >
-	<div class="menu_services" >
-		{% include '../general/menu.html' %}
-		<script>
-			document.getElementById("item_ms").setAttribute("class", "active item");
-		</script>
-	</div>
 	<div class="main_container">
 		<div class="services">
 			<div class="ui divided items">
@@ -28,20 +30,14 @@
 							<div class="service_description">{{service.description}}</div>
 							<div class="service_price"><b>{{service.price}}</b>$</div>
 							<div class="tags">
-								<div class="ui label">Blowjob</div>
-								<div class="ui label">Stripteasse</div>
-								<div class="ui label">Events</div>
+								{% for tag in service.tags.all %}
+								<div class="ui label" style="background: #3f3f3f; color:#fefefe">{{tag.name}}</div>
+								{% endfor %}
 							</div>
 						</div>
 						<div class="service_buttons">
-							<button class="circular ui icon button" onclick="window.location.href='{{BASEURL}}/s/service_del/{{service.id}}'">
+							<button class="ui icon button" style="background: #2f2f2f;" onclick="delete_service_pop_up({{service.id}})">
 								<i class="trash alternate icon" ></i>
-							</button>
-							<button class="circular ui icon button" onclick="window.location.href='{{BASEURL}}/s/service_edit/{{service.id}}'">
-								<i class="edit outline icon" ></i>
-							</button>
-							<button class="circular ui icon button" onclick="window.location.href='{{BASEURL}}/s/date_by_service/{{service.id}}'">
-								<i class="envelope icon" ></i>
 							</button>
 						</div>
 
@@ -49,7 +45,7 @@
 				</div>
 				{% endfor %}
 			</div>
-			<div class="ui teal fluid labeled icon button" onclick="window.location.replace('/s/service_add_request');">
+			<div class="ui green fluid labeled icon button" onclick="window.location.replace('/s/service_add_request');">
 				Add service
 				<i class="add icon"></i>
 			</div>
@@ -58,5 +54,47 @@
 </div>
 
 {% include '../general/footer.html' %}
+
+<div class="ui basic modal">
+  <div class="ui icon header">
+    <i class="delete icon"></i>
+    Delete service
+  </div>
+  <div class="content">
+    <p>Are you sure you want to delete this service?</p>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div class="ui green ok inverted button" onclick="delete_service()">
+      <i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var service_id_selected = 0;
+
+function delete_service_pop_up(id){
+	service_id_selected = id
+	console.log(service_id_selected)
+	$('.ui.basic.modal')
+	.modal('show')
+	;
+}
+
+function delete_service(){
+	$.ajax({url: "{{BASEURL}}/s/service_del/"+service_id_selected,
+	success: function(result){
+		if(result.state=="failed"){
+			return;
+		}
+		console.log("Deleted")
+	}});
+
+}
+</script>
 </body>
 </html>

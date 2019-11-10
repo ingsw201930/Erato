@@ -22,8 +22,8 @@ class Date(models.Model):
         (REJECTED , 'rejected'),
         (RATED, 'rated')
     ]
-    client=models.ForeignKey(Client,on_delete=models.CASCADE)
-    service=models.ForeignKey(Service,on_delete=models.CASCADE)
+    client = models.ForeignKey(Client,on_delete=models.CASCADE)
+    service = models.ForeignKey(Service,on_delete=models.CASCADE)
     start_time=models.DateTimeField('start time')
     end_time=models.DateTimeField('end time')
     lat = models.DecimalField(max_digits=15, decimal_places=8, default=0.00000000)

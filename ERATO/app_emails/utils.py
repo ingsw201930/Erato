@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from email.utils import make_msgid
 import mimetypes
 from ERATO.settings import BASE_DIR
+from app_date.models import Date
 
 def send_third(username, to):
 
@@ -28,11 +29,12 @@ def send_third(username, to):
     msg.attach(html_part)
     msg.send()
 
-def send_qr(qr, to):
+def send_qr(date_id, qr, to):
 
+    date = Date.objects.get(id=date_id)
     print("Sending qr to "+to)
     print("QR saved in "+qr)
-    html = render_to_string(template_name='emails/qr_code.html',context={})
+    html = render_to_string(template_name='emails/qr_code.html',context={'date' : date})
     subject, from_email= 'QR code', 'eratoservices@gmail.com'
 
     html_part = MIMEMultipart(_subtype='related')
