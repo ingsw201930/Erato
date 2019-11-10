@@ -44,13 +44,11 @@
 	Tags
 
 	<form action="">
-<div class="ui fluid multiple selection dropdown" id="imagelabels" tabindex="0">
-              <input type="hidden" class="noselection" value="">
-              <i class="dropdown icon"></i>
-              <div class="default text">Select some users</div>
-          <div class="menu transition hidden" tabindex="-1"><div class="item" data-value="jenny"><img class="image" src="https://fomantic-ui.com/images/avatar/small/jenny.jpg"><i class="de flag"></i>Jenny</div><div class="item" data-value="elliot"><img class="image" src="https://fomantic-ui.com/images/avatar/small/elliot.jpg"><i class="us flag"></i>Elliot</div><div class="item" data-value="stevie"><img class="image" src="https://fomantic-ui.com/images/avatar/small/stevie.jpg"><i class="fr flag"></i>Stevie</div></div></div>
+        <div class="ui input">
+			<input id="filter_search" type="text" placeholder="Search...">
+		</div>
 	</form>
-	<button class="ui active button">
+	<button class="ui active button" onclick="filter()">
 	  <i class="filter icon"></i>
 	  Filter
 	</button>
