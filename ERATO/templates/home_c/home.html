@@ -4,12 +4,19 @@
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/home.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
-	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service_filter.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service_filer.css">
+
+	<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/fomantic-ui@2.7.8/dist/semantic.min.css">
+	<script src="https://unpkg.com/fomantic-ui@2.7.8/dist/semantic.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        {% include './home.js' %}
+    </script>
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
+<body onload="get_service_list(0)">
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 <div class="container">
@@ -18,7 +25,7 @@
 		document.getElementById("item_h").setAttribute("class", "active item");
 	</script>
 	<div class="services">
-		<div id="service_container"></div>
+		<div id="service_container" ><!--services--></div>
 
 <div class="ui buttons">
     <button class="ui left attached button grey" style="width: 45%;" onclick="back()" >
@@ -31,47 +38,30 @@
 </div>
 </div>
 <div class="service_filter">
-	<form>
-<div class="ui selection dropdown">
-    <input type="hidden" name="gender">
-    <i class="dropdown icon"></i>
-    <div class="default text">Select Gender</div>
-    <div class="menu">
-        <div class="item" data-value="0">Male</div>
-        <div class="item" data-value="1">Female</div>
-        <div class="item" data-value="2">Other</div>
-    </div>
-</div>
-	<button class="ui button" type="submit"> Filter </button>
+
+	Filtro por :
+	Precio
+	Tags
+
+	<form action="">
+        <div class="ui input">
+			<input id="filter_search" type="text" placeholder="Search...">
+		</div>
 	</form>
+	<button class="ui active button" onclick="filter()">
+	  <i class="filter icon"></i>
+	  Filter
+	</button>
 </div>
 
-<script type="text/javascript">
-	$(function() {
-    $('.ui.dropdown').dropdown();
-	});
-</script>
+
+</div>
+</div>
 <div class="requests">
 </div>
 </div>
 
 {% include '../general/footer.html' %}
 
-
-<script type="text/javascript">
-function view_service(id){
-	console.log(id);
-	$('.overlay.fullscreen.modal')
-	.modal('show')
-	;
-}
-
-$( document ).ready(function() {
-		get_service_list(0);
-});
-</script>
-<script>
-{% include './home.js' %}
-</script>
 </body>
 </html>

@@ -13,6 +13,7 @@ from django.contrib.auth import login
 from .decorators import login_required_client
 import hashlib
 from ERATO.settings import BASE_DIR
+from django.db.models import Q
 # Create your views here.
 # Home for clients
 erato_key= "er"
@@ -27,7 +28,10 @@ def home_c(request):
 @login_required_client
 def get_service_list(request,index):
     n=5
-    services=Service.objects.all()[index*n:(index+1)*n]
+    search=request.GET.get("search",None)
+    services=Service.objects.filter(
+        Q(description__icontains=search)|Q(name__icontains=search)
+        )[index*n:(index+1)*n]
     return render(request,'home_c/services.html',{'services':services})
 
 def signupform(request):
@@ -62,7 +66,7 @@ def signup(request):
     return render(request, 'signup_c/signup_c.html', {'form': form})
 
 def handle_uploaded_file(f, username):
-    file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+erato_key).encode()).hexdigest()
+    file_name = BASE_DIR+"/assets/images/pro_pics/%s.png" % hashlib.md5((username+erato_key).encode()).hexdigest()
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
