@@ -2,7 +2,11 @@
   margin: 20px;
 }
 .profile_button{
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 .editable_icon *{
+}
+.showable{
+  display: none;
+  width: 100%;
 }

@@ -1,3 +1,7 @@
+.main_container * {
+  width: 100%;
+}
+
 .form_panel {
     padding: 50px;
 }

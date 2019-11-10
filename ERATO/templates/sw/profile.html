@@ -33,7 +33,7 @@
     <div class="profile">
     <div class="ui center aligned icon header">
       <div class="image_profile">
-        <img class="ui medium circular image" src="{{BASEURL}}/{{sw.picture_path}}">
+        <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/{{sw.picture_path}}">
       </div>
       <div class="sw_p_panel">
         {{sw.user.username}}
@@ -58,8 +58,10 @@
     <div class="item hidable">
       Female
     </div>
-    <div id="input_gender" class="ui input" style="display:none">
-    <input type="text" placeholder="Gender">
+    <div class="showable">
+      <div class="ui fluid input">
+        <input type="text" placeholder="Gender" value="Hey">
+      </div>
     </div>
   </div>
   <div class="eight wide column">
@@ -70,8 +72,11 @@
     <div class="item hidable">
       {{sw.birth_date}}
     </div>
-    <div class="ui input" style="display:none">
-    <input type="text" placeholder="Gender">
+    <div class="showable">
+      <div class="ui fluid input">
+        <input type="text" placeholder="Gender">
+      </div>
+
     </div>
   </div>
   <div class="eight wide column">
@@ -82,8 +87,11 @@
     <div class="item hidable">
       54 kg
     </div>
-    <div class="ui input" style="display:none">
-    {{form.weight}}
+    <div class="showable">
+      <div class="ui fluid input">
+        {{form.weight}}
+      </div>
+
     </div>
   </div>
   <div class="eight wide column">
@@ -94,8 +102,11 @@
     <div class="item hidable">
       1,68 m
     </div>
-    <div class="ui input" style="display:none">
-    {{form.height}}
+    <div class="showable">
+      <div class="ui fluid input">
+        {{form.height}}
+      </div>
+
     </div>
   </div>
   <div class="eight wide column">
@@ -106,8 +117,10 @@
     <div class="item hidable">
       Blue
     </div>
-    <div class="ui input" style="display:none">
-    <input type="text" placeholder="Gender">
+    <div class="showable">
+      <div class="ui fluid input">
+        <input type="text" placeholder="Gender">
+      </div>
     </div>
   </div>
   <div class="eight wide column">
@@ -118,12 +131,14 @@
     <div class="item hidable">
       {{sw.birth_date}}
     </div>
-    <div class="ui calendar" id="standard_calendar">
-    <div class="ui input left icon"
-    >
-    <i class="calendar icon"></i>
-    <input type="text" placeholder="Date/Time">
-    </div>
+    <div class="showable">
+      <div class="ui calendar" id="standard_calendar">
+        <div class="ui fluid input left icon">
+          <i class="calendar icon"></i>
+          <input type="text" placeholder="Date/Time">
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -147,9 +162,8 @@
           Delete account
         </div>
       </div>
-    </div>
+  </div>
   </form>
-    </div>
   </div>
 </div>
 {% include '../general/footer.html' %}
@@ -168,7 +182,7 @@ var show_inputs = function(event) {
   document.getElementById('button_delete').style.display = "none";
   document.getElementById('button_save').style.display = "block";
 
-  var x = document.getElementsByClassName("input");
+  var x = document.getElementsByClassName("showable");
   var i;
   for (i = 0; i < x.length; i++) {
   x[i].style.display = "block";

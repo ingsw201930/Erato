@@ -3,7 +3,6 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-  <link rel="stylesheet" type="text/css" href="/assets/styles/login/login.css">
 	<script src="/assets/scripts/upload_files.js"></script>
 	<title>Erato</title>
 	<meta charset="utf-8">
@@ -11,6 +10,8 @@
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
+	<div class="main_container">
+
 	<div class="spaced">
 		<form class="ui form" method="post" action="{{BASEURL}}/c/signup/" enctype="multipart/form-data">
 			{% csrf_token %}
@@ -52,6 +53,7 @@
 						<button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
 					</div>
 				</form>
+			</div>
 	</div>
 </div>
 {% include '../general/footer.html' %}

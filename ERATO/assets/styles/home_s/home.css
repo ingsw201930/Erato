@@ -1,23 +1,5 @@
-.container{
-	width: 100%;
-}
-
-.profile{
-	margin: 10px;
-	padding: 50px;
-	display: inline-block;
-	max-width: 22%;
-	background-color: white;
-	border-radius: 10px;
-	vertical-align: top;
-}
-
-.profile_description{
-	margin-top: 30px;
-}
-
 .services {
-	display: inline-block;
+	display: relative;
 	vertical-align: top;
 	width: 100%;
 }

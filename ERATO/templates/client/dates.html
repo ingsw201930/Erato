@@ -13,11 +13,11 @@
 <body onload="get_date_list(0)">
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
+{% include '../general/menu_c.html' %}
+<script>
+document.getElementById("item_md").setAttribute("class", "active item");
+</script>
 <div class="container">
-    {% include '../general/menu_c.html' %}
-    <script>
-        document.getElementById("item_md").setAttribute("class", "active item");
-    </script>
     <div class="main_container">
         <h4 class="ui horizontal divider header">
         <i class="thumbs up outline icon"></i>

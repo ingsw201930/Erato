@@ -16,3 +16,8 @@
 	 width: 60%;
 	 min-width: 300px;
  }
+
+ #error_messages {
+	 margin-top: 20px;
+	 margin-bottom: 20px;
+ }

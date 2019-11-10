@@ -1,80 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+  <link rel="stylesheet" type="text/css" href="/assets/styles/forms/date_request.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/forms/date_request.css">
-
     <title>Erato</title>
     <meta charset="utf-8">
-
-    <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-    <script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
       <meta charset="utf-8">
       <title>JS Bin</title>
-
-        <script>
-        var calendarOpts = {
-            type: 'date',
-            formatter: {
-                date: function (date, settings) {
-                    if (!date) return '';
-                    var day = date.getDate() + '';
-                    if (day.length < 2) {
-                        day = '0' + day;
-                    }
-                    var month = (date.getMonth() + 1) + '';
-                    if (month.length < 2) {
-                        month = '0' + month;
-                    }
-                    var year = date.getFullYear();
-
-                    var hour = date.getHours();
-                    var minute = date.getMinutes();
-                    var seconds = date.getSeconds();
-                    return year + '-' + month + '-' + day;
-                }
-            }
-        };
-        $( function() {
-             $('#start_date').calendar(calendarOpts);
-        } );
-        $( function() {
-            $('#end_date').calendar(calendarOpts);
-        } );
-        $('#start_date_hms')
-            .calendar({
-                type: 'time'
-            })
-        ;
-        $('#end_date_hms')
-            .calendar({
-                type: 'time',
-                ampm: false
-            })
-        ;
-        </script>
-
-
 </head>
 <body>
 
 {% include '../general/nav.html' %}
   <div class="container">
-    <div class=" form_panel blur_box">
+    <div class="main_container">
+
+    <div>
         <div class="ui middle aligned center aligned grid">
         <div class="panel">
             <form class="ui form" action="{{BASEURL}}/generate_date/{{service.id}}" method="post">
 
             {% csrf_token %}
 
-            <div class="ui">
+            <div class="bottom_spaced">
+              <div class="">
                 <div class="ui two column grid">
                     <div class="row">
                         <div class="column">
                             <div class="ui calendar" id="start_date">
-                                <div class="ui input left icon">
+                                <div class="ui fluid input left icon">
                                     <i class="calendar icon"></i>
                                     {{ form.start_time }}
                                 </div>
@@ -82,7 +38,7 @@
                         </div>
                         <div class="column">
                             <div class="ui calendar" id="start_date_hms">
-                                <div class="ui input left icon">
+                                <div class="ui fluid input left icon">
                                     <i class="time icon"></i>
                                     {{form.start_time_hms}}
                                 </div>
@@ -91,7 +47,7 @@
                     </div>
                     <div class="column">
                         <div class="ui calendar" id="end_date">
-                            <div class="ui input left icon">
+                            <div class="ui fluid input left icon">
                                 <i class="calendar icon"></i>
                                 {{ form.end_time }}
                             </div>
@@ -99,7 +55,7 @@
                     </div>
                     <div class="column">
                         <div class="ui calendar" id="end_date_hms">
-                            <div class="ui input left icon">
+                            <div class="ui fluid input left icon">
                                 <i class="time icon"></i>
                                 {{ form.end_time_hms}}
                             </div>
@@ -107,6 +63,7 @@
                     </div>
                 </div>
 
+            </div>
             </div>
 
                 {{ form.lng }}
@@ -167,15 +124,86 @@
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyNHtXfO4MHI3brArw5Ni4WGVgUs1xA8o&callback=myMap"></script>
 
             </div>
-            <button class="ui button green" type="submit" name="button">Add date</button>
+            <button class="ui fluid button green" type="submit" name="button">Add date</button>
 
 
 
             </form>
         </div>
         </div>
-        </div>
       </div>
+    </div>
+  </div>
 {% include '../general/footer.html' %}
+
+
+        <script>
+        var calendarOpts = {
+            type: 'date',
+            popupOptions: {
+            position: 'bottom right',
+            lastResort: 'bottom right',
+            prefer: 'opposite',
+            hideOnScroll: false
+          },
+            formatter: {
+                date: function (date, settings) {
+                    if (!date) return '';
+                    var day = date.getDate() + '';
+                    if (day.length < 2) {
+                        day = '0' + day;
+                    }
+                    var month = (date.getMonth() + 1) + '';
+                    if (month.length < 2) {
+                        month = '0' + month;
+                    }
+                    var year = date.getFullYear();
+
+                    var hour = date.getHours();
+                    var minute = date.getMinutes();
+                    var seconds = date.getSeconds();
+                    return year + '-' + month + '-' + day;
+                }
+            }
+        };
+        var calendar_time_Opts = {
+            type: 'time',
+            ampm: false,
+            popupOptions: {
+            position: 'bottom right',
+            lastResort: 'bottom right',
+            prefer: 'opposite',
+            hideOnScroll: false
+          },
+            formatter: {
+              time: function (date, settings, forCalendar) {
+                if (!date) return '';
+                var hour = date.getHours();
+                if(hour < 10){
+                  hour = '0'+hour;
+                }
+                var minute = date.getMinutes();
+                if(minute < 10){
+                  minute = '0'+minute;
+                }
+
+                var seconds = date.getSeconds();
+                if(seconds < 10){
+                  seconds = '0'+seconds;
+                }
+                return hour + ':' + minute + ':' + seconds;
+                  //return a formatted string representing the time of 'date'
+                }
+            }
+        };
+        $( document ).ready(function() {
+          $('#start_date').calendar(calendarOpts);
+          $('#end_date').calendar(calendarOpts);
+          $('#start_date_hms').calendar(calendar_time_Opts);
+          $('#end_date_hms').calendar(calendar_time_Opts);
+        });
+
+        </script>
+
     </body>
 </html>

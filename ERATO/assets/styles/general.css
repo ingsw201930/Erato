@@ -11,6 +11,7 @@ body {
   background-repeat: no-repeat;
   background-attachment:fixed;
   background-size: 100% 100%;
+	/* margin-bottom: 0px; */
 }
 
 .bar{
@@ -29,19 +30,21 @@ body {
 	width: 100%;
 	height: 40px;
 	position: fixed;
-	margin-top: 110px;
+	top: 110px;
 	z-index: 3;
 }
 
 .container{
-	position: relative;
+	/* height: 100%; */
 	margin: 0px;
-	top: 120px;
+	margin-top: 120px;
+	margin-left: 230px;
+	margin-bottom: 150px;
 	padding: 0px;
 	min-width: 800px;
 	width: 100%;
 	z-index: -1;
-	padding-bottom: 100px;
+	/* position: relative; */
 }
 
 .input *{
@@ -49,17 +52,20 @@ body {
 }
 
 .main_container{
-	margin-top: 150px;
-	margin-left: 270px;
+	width: 70%;
+	margin-top: 50px;
 	padding: 10px;
 	min-height: 500px;
 	display: inline-block;
-	width: 60%;
+
+	/* position: relative; */
 }
 
 .menu_services{
-	margin-top: 75px;
-	display: inline-block;
+	margin-top: 0px;
+	padding-top: 20px;
+	/* display: inline-block; */
+	top: 150px;
 	width: 220px;
 	height: 100%;
 	position: fixed;
@@ -68,18 +74,27 @@ body {
 
 footer{
 	width: 100%;
-	background: blue;
+	margin-bottom: 0px;
+	/* margin-top: 100px; */
 	align-content: center;
 	text-align: center;
+	/* display: block; */
+	/* position: relative; */
+	bottom: 0;
+	background: #1B1C1D;
+}
+
+footer *{
+	vertical-align: bottom;
+	margin-bottom: 0;
 }
 
 .b_spaced{
-	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
-.spaced {
-	margin-top: 800px;
-	margin: 40px;
+.bottom_spaced {
+	margin-bottom: 40px;
 }
 
 .full_margin{
