@@ -6,6 +6,7 @@ from .models import Client
 from .forms import ClientSignUpForm
 from .forms import UploadFileForm
 from .forms import UploadMCForm
+from .forms import FilterForm
 from app_sw.models import Service
 from app_date.models import Date
 from django.contrib.auth import authenticate
@@ -23,7 +24,8 @@ mc_key= "Conan"
 def home_c(request):
     services=Service.objects.all()[:10]
     client=Client.objects.get(user=request.user)
-    return render(request, 'home_c/home.html', {'client':client,'services':services})
+    form=FilterForm()
+    return render(request, 'home_c/home.html', {'client':client,'services':services,'form':form})
 
 
 @login_required_client
