@@ -34,11 +34,12 @@ def home_s(request):
         return render(request, 'home_s/home.html', {'sw':sw})
     else:
         HttpResponseRedirect('/')
+
 @login_required_SW
 def service_add_form(request):
     form = ServiceAddForm()
     tags = Tag.objects.all()
-    return render(request, 'services_s/service_add.html', {'tags':tags,'form':form})
+    return render(request, 'services_s/service_add.html', {'tags':tags, 'form':form})
 
 @login_required_SW
 def service_add(request):
@@ -58,7 +59,7 @@ def service_add(request):
 
         return HttpResponseRedirect('/s/home')
     return HttpResponseRedirect('/s/service_add_request/')
-    
+
 @SW_my_service_required
 def service_del(request, service_id):
     Service.objects.filter(id=service_id).delete()

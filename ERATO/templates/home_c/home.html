@@ -8,14 +8,15 @@
 	<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/fomantic-ui@2.7.8/dist/semantic.min.css">
 	<script src="https://unpkg.com/fomantic-ui@2.7.8/dist/semantic.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        {% include './home.js' %}
-    </script>
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
 <body onload="get_service_list(0)">
+	<script>
+	{% include './home.js' %}
+</script>
 {% include '../general/nav.html' %}
 {% include '../general/subbar.html' %}
 
@@ -31,6 +32,11 @@
 			<div id="service_container" >
 				<!--services-->
 			</div>
+			<div class="ui buttons">
+		<button class="ui left attached button grey" style="width: 45%;" onclick="back()" > back </button>
+		<button id="current_index" class="ui center attached button grey" style="width: 45%;" onclick="" > 1 </button>
+        <button class="right attached ui button grey" style="width: 45%;" onclick="next()" > next </button>
+        </div>
 		</div>
 
 		<div class="services_filter">
@@ -41,15 +47,20 @@
 
 			<form action="">
 				<div class="ui input">
-					<input id="filter_search" type="text" placeholder="Search...">
+					{{form.search}}
 				</div>
+				<div class="ui input">
+					{{form.user}}
+				</div>
+				{{form.tags}}
+				
 			</form>
+			<br>
 			<button class="ui active button" onclick="filter()">
 				<i class="filter icon"></i>
 				Filter
 			</button>
 		</div>
-
 	</div>
 
 </div>

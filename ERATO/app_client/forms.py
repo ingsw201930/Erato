@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from app_sw.forms import Tag
 
 class UploadFileForm(forms.Form):
     file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadImage(event)'}))
@@ -22,3 +23,15 @@ class ClientSignUpForm(UserCreationForm):
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email' )
 class ClientEditForm(forms.Form):
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Email', 'style':'margin-bottom: 10px;'}))
+
+class FilterForm(forms.Form):
+    search=forms.CharField(
+        max_length=100,
+        widget= forms.TextInput(attrs={'id':'filter_search','placeholder':'Search...'}))
+    user=forms.CharField(
+        max_length=100,
+        widget= forms.TextInput(attrs={'id':'filter_user','placeholder':'User...'}))
+    tags=forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['tags'].widget.attrs.update({'class': 'search fluid dropdown', 'style':'display:block','id':'filter_tags'})

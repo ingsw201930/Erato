@@ -18,7 +18,7 @@
 <div class="main_container">
   <div class="ui middle aligned center aligned grid">
     <div class="panel">
-      <form class="" action="service_adding_service/" method="post">
+      <form class="" method="post" action="{{BASEURL}}/s/service_add_request/service_adding_service/">
         {% csrf_token %}
         <div class="ui input fluid">
           {{form.name}}
@@ -35,7 +35,6 @@
       </form>
     </div>
   </div>
-
 </div>
 
 </div>
