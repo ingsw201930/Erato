@@ -92,8 +92,6 @@
               End time: {{date.end_time}}
               <br>
               Price: {{date.price}}
-              <br>
-              ID: #mdata-{{date.client.user_id}}
             </h4>
             <div class="ui small feed">
             <div class="event">
@@ -125,12 +123,14 @@
                   </div>
                   <div class="image content">
                     <div class="ui medium image">
-                        <img src={{date.client.picture_path}}>
+                        <img src={{date.client.profile_picture}}>
                     </div>
                     <div class="description">
                         <div class="ui header"> Client's information </div>
                         <h4 class="ui sub header">
                             Username : {{date.client.user.username}}
+                            <br>
+                            Description : {{date.client.about}}
                             <br>
                             Start time: {{date.start_time}}
                             <br>
