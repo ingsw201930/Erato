@@ -1,53 +1,12 @@
 <!DOCTYPE html>
 
-{{}}
-<div class="ui modal" id="mdata" type="hidden">
-  <i class="close icon"></i>
-  <div class="header">
-    Date information
-  </div>
-  <div class="image content">
-    <div class="ui medium image">
-        <img src={{date.client.picture_path}}>
-    </div>
-    <div class="description">
-      <div class="ui header"> Client's information </div>
-      <h4 class="ui sub header">
-          Username : {{date.client.user.name}}
-            <br>
-
-
-
-
-              Start time: {{date.start_time}}
-              <br>
-              End time: {{date.end_time}}
-              <br>
-              Price: {{date.price}}
-            </h4>
-
-    </div>
-  </div>
-  <div class="actions">
-    <div class="right attached ui button red">
-        reject
-    </div>
-    <div class="ui left attached button green">
-        accept
-    </div>
-  </div>
-</div>
-
-<div>
-    <script>
-        <!-- $('ui.modal') -->
-        <!--   .modal('attach events', '.test.button', 'show') -->
-        <!-- ; -->
-        $('.small.modal')
-          .modal('show')
-        ;
-    </script>
-</div>
+<!-- <div id=openModal class="ui modal"> -->
+<!--     <div> -->
+<!--         <a href="#close" title="close" class="close">X</a> -->
+<!--         <h2>Modal Box</h2> -->
+<!--         <p> modal de ejemplooo </p> -->
+<!--     </div> -->
+<!-- </div> -->
 
 <html lang="en">
 
@@ -131,6 +90,8 @@
               End time: {{date.end_time}}
               <br>
               Price: {{date.price}}
+              <br>
+              ID: #mdata-{{date.client.user_id}}
             </h4>
             <div class="ui small feed">
             <div class="event">
@@ -143,27 +104,46 @@
             </div>
             </div>
 
-            <!-- <script> -->
-            <!--     $('.ui.modal') -->
-            <!--     .modal('attach events', '#datamodalg', 'show') -->
-            <!--     ; -->
-            <!-- </script> -->
-             <script type="text/javascript">
-
-             $(document).ready(function(){
-             $('#mdata').click(function(){
-                $('#modalid').modal('show');
-             });
-             });
-
-             </script>
-
-
             <div class="ui buttons">
-                <button id="show_modal_data-{{date.id}}" class="ui left attached button green" onclick="show_modal_data({{date.id}},'{{BASEURL}}')" > Info </button>
-                <!-- <button id="accept-{{date.id}}" class="ui left attached button green" style="width: 45%;" onclick="accept({{date.id}},'{{BASEURL}}')" > Accept</button> -->
-                <!-- <button id="reject-{{date.id}}" class="right attached ui button red" style="width: 45%;" onclick="reject({{date.id}},'{{BASEURL}}')" > Reject </button> -->
+                <button id="muestre-#mdata-{{date.client.user_id}}" class="ui left attached button green" onclick="show_modal_data({{date.id}},'{{BASEURL}}')" > Info </button>
             </div>
+
+            <script>
+                function show() {
+                    <!-- $('.ui.modal').modal('show'); -->
+                    $('#mdata-{{date.client.user_id}}').modal('show');
+                }
+                document.getElementById("muestre-#mdata-{{date.client.user_id}}").addEventListener("click", show);
+            </script>
+
+            <div class="ui modal {{date.client.user_username}}" id="mdata-{{date.client.user_id}}" >
+                  <i class="close icon"></i>
+                  <div class="header">
+                    Date information
+                  </div>
+                  <div class="image content">
+                    <div class="ui medium image">
+                        <img src={{date.client.picture_path}}>
+                    </div>
+                    <div class="description">
+                        <div class="ui header"> Client's information </div>
+                        <h4 class="ui sub header">
+                            Username : {{date.client.user.username}}
+                            <br>
+                            Start time: {{date.start_time}}
+                            <br>
+                            End time: {{date.end_time}}
+                            <br>
+                            Price: {{date.price}}
+                        </h4>
+
+                    </div>
+                  </div>
+                    <div class="ui buttons">
+                        <button id="accept-{{date.id}}" class="ui left attached button green" style="width: 45%;" onclick="accept({{date.id}},'{{BASEURL}}')" > Accept</button>
+                        <button id="reject-{{date.id}}" class="right attached ui button red" style="width: 45%;" onclick="reject({{date.id}},'{{BASEURL}}')" > Reject </button>
+                    </div>
+                </div>
 
             </div>
         {% endfor %}
@@ -251,3 +231,4 @@ function set_starts_id(id){
 </script>
 </body>
 </html>
+

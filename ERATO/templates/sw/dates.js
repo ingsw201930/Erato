@@ -1,19 +1,5 @@
 var current_index=0
 
-function show_modal_data(date_id)
-{
-
-    $('.ui.modal')
-    .modal('attach events', '#datamodalg', 'show')
-    ;
-    // $('modal_data')
-    //     .modal('attach_events', 'modalD','show');
-    //
-    //         <ModalModalExample />
-
-}
-
-
 function accept(date_id){
     $.ajax({url: "{{BASEURL}}/accept_date/"+date_id, success: function(result){
         if(result.state=="failed"){
