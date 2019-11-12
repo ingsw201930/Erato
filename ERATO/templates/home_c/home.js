@@ -1,19 +1,17 @@
 var current_index=0
 
 function get_data(){
-    var weight_min,weight_max
-    if(document.getElementById("use_weight").checked){
-        weight_min=document.getElementById("filter_weight_min").value;
-        weight_max=document.getElementById("filter_weight_max").value;
-    }else{
-        weight_min=undefined;
-        weight_max=undefined;
-    }
     data={
         search:document.getElementById("filter_search").value,
         user:document.getElementById("filter_user").value,
-        weight_min:weight_min,
-        weight_max:weight_max
+    }
+    if(document.getElementById("use_weight").checked){
+        data.weight_min=document.getElementById("filter_weight_min").value;
+        data.weight_max=document.getElementById("filter_weight_max").value;
+    }
+    if(document.getElementById("use_height").checked){
+        data.height_min=document.getElementById("filter_height_min").value;
+        data.height_max=document.getElementById("filter_height_max").value;
     }
     return data
 }

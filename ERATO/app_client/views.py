@@ -31,17 +31,27 @@ def home_c(request):
 @login_required_client
 def get_service_list(request,index):
     n=5
+    #name description filtering
     search=request.GET.get("search",None)
-    username=request.GET.get("user",None)
     query=Q(description__icontains=search)
     query|=Q(name__icontains=search)
+    #sw filtering
+    username=request.GET.get("user",None)
     query&=Q(sw__user__username__icontains=username)
+    #weight filtering
     weight_min=request.GET.get("weight_min",None)
     weight_max=request.GET.get("weight_max",None)
     if weight_min!=None and weight_max!=None:
         weight_min=int(weight_min)
         weight_max=int(weight_max)
         query&=Q(sw__appearance__weight__gte=weight_min,sw__appearance__weight__lte=weight_max)
+    #height filtering
+    height_min=request.GET.get("height_min",None)
+    height_max=request.GET.get("height_max",None)
+    if height_min!=None and height_max!=None:
+        height_min=int(height_min)
+        height_max=int(height_max)
+        query&=Q(sw__appearance__height__gte=height_min,sw__appearance__height__lte=height_max)
     services=Service.objects.filter(query)[index*n:(index+1)*n]
     return render(request,'home_c/services.html',{'services':services})
 
