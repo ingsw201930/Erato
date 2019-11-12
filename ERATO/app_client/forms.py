@@ -30,7 +30,7 @@ class FilterForm(forms.Form):
         widget= forms.TextInput(attrs={'id':'filter_search','placeholder':'Search...'}))
     user=forms.CharField(
         max_length=100,
-        widget= forms.TextInput(attrs={'id':'filter_user','placeholder':'User...'}))
+        widget= forms.TextInput(attrs={'id':'filter_user','placeholder':'Worker...'}))
     tags=forms.ModelMultipleChoiceField(queryset=Tag.objects.all())
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

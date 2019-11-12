@@ -30,7 +30,7 @@ def home_c(request):
 
 @login_required_client
 def get_service_list(request,index):
-    n=5
+    n=6
     #name description filtering
     search=request.GET.get("search",None)
     query=Q(description__icontains=search)
@@ -49,8 +49,8 @@ def get_service_list(request,index):
     height_min=request.GET.get("height_min",None)
     height_max=request.GET.get("height_max",None)
     if height_min!=None and height_max!=None:
-        height_min=int(height_min)
-        height_max=int(height_max)
+        height_min=float(height_min)
+        height_max=float(height_max)
         query&=Q(sw__appearance__height__gte=height_min,sw__appearance__height__lte=height_max)
     services=Service.objects.filter(query)[index*n:(index+1)*n]
     return render(request,'home_c/services.html',{'services':services})
