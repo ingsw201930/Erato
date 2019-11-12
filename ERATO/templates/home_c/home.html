@@ -42,8 +42,6 @@
 		<div class="services_filter">
 
 			Filtro por :
-			Precio
-			Tags
 
 			<form action="">
 				<div class="ui input">
@@ -52,7 +50,21 @@
 				<div class="ui input">
 					{{form.user}}
 				</div>
-				{{form.tags}}
+				<!-- {{form.tags}}-->
+				<div class="ui toggle checkbox">
+					<input id="use_weight" type="checkbox" name="public">
+					<label>filter by weight</label>
+				</div>
+				<div id="weight_field" class="rangeslider"> 
+					<p>min: <span id="weight_value_min"></span> Kg</p>
+					<input type="range" min="0" max="100" value="60"
+					class="myslider" id="filter_weight_min"> 
+
+					<p>max: <span id="weight_value_max"></span> Kg</p>
+					<input type="range" min="0" max="100" value="60"
+					class="myslider" id="filter_weight_max"> 
+				</div>
+				
 				
 			</form>
 			<br>
@@ -65,7 +77,36 @@
 
 </div>
 {% include '../general/footer.html' %}
+<script> 
+	var weight_field=document.getElementById("weight_field");
+	var filter_weight_min = document.getElementById("filter_weight_min"); 
+	var weight_value_min = document.getElementById("weight_value_min");
 
+	var filter_weight_max = document.getElementById("filter_weight_max"); 
+	var weight_value_max = document.getElementById("weight_value_max");
+
+	var use_weight=document.getElementById("use_weight");
+
+	weight_value_min.innerHTML = filter_weight_min.value;
+	weight_value_max.innerHTML = filter_weight_max.value; 
+	weight_field.style.display = "none";
+	
+	use_weight.onchange=function(){
+		if(use_weight.checked){
+			weight_field.style.display = "block";
+		}else{
+			weight_field.style.display = "none";
+		}
+	}
+
+	filter_weight_min.oninput = function() { 
+	  weight_value_min.innerHTML = this.value; 
+	}
+
+	filter_weight_max.oninput = function() { 
+	  weight_value_max.innerHTML = this.value; 
+	} 
+</script> 
 
 </body>
 </html>

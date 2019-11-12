@@ -33,10 +33,16 @@ def get_service_list(request,index):
     n=5
     search=request.GET.get("search",None)
     username=request.GET.get("user",None)
-    services=Service.objects.filter(
-        Q(description__icontains=search)|Q(name__icontains=search),
-        Q(sw__user__username__icontains=username)
-    )[index*n:(index+1)*n]
+    query=Q(description__icontains=search)
+    query|=Q(name__icontains=search)
+    query&=Q(sw__user__username__icontains=username)
+    weight_min=request.GET.get("weight_min",None)
+    weight_max=request.GET.get("weight_max",None)
+    if weight_min!=None and weight_max!=None:
+        weight_min=int(weight_min)
+        weight_max=int(weight_max)
+        query&=Q(sw__appearance__weight__gte=weight_min,sw__appearance__weight__lte=weight_max)
+    services=Service.objects.filter(query)[index*n:(index+1)*n]
     return render(request,'home_c/services.html',{'services':services})
 
 def signupform(request):
