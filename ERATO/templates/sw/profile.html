@@ -299,7 +299,7 @@ Please fill the third email correctly.
       <i class="remove icon"></i>
       No
     </div>
-    <div class="ui green ok inverted button" onclick="delete_account()">
+    <div class="ui green ok inverted button" onclick="delete_account({{sw.user_id}})">
       <i class="checkmark icon"></i>
       Yes
 	</div>
@@ -326,15 +326,15 @@ function delete_account_pop_up(){
 	.modal('show');
 }
 
-function delete_account(){
+function delete_account(id){
 	console.log("Deleting account");
-	// $.ajax({url: "{{BASEURL}}/s/service_del/"+service_id_selected,
-	// success: function(result){
-	// 	if(result.state=="failed"){
-	// 		return;
-	// 	}
-	// 	console.log("Deleted")
-	// }});
+	$.ajax({url: "{{BASEURL}}/s/account_del/"+id,
+	success: function(result){
+		if(result.state=="failed"){
+			return;
+		}
+		console.log("Deleted")
+	}});
 
 }
 

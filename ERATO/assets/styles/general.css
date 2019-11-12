@@ -112,3 +112,10 @@ footer *{
 .margined.huge{
 	margin: 60px;
 }
+
+.centered.buttons *{
+	background: olive;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}

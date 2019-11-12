@@ -198,6 +198,7 @@ def rate(request, date_id):
 def rate_date(request, date_id, rate):
     date=Date.objects.get(id=date_id)
     date.state=Date.RATED
+    date.save()
     client = date.client
     # Todavía no está definido cuánto valdrá
     client.rating = (float(client.rating) * 0.8) + (float(rate) * 0.2)

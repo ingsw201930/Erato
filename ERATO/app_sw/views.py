@@ -152,19 +152,20 @@ def public_profile(request, sw_id):
 def dates(request):
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
-    non_rated_dates = dates.filter(state=Date.ENDED)
-    current_date = dates.filter(state=Date.STARTED)
+    current_date = dates.filter(state=Date.STARTED) | dates.filter(state=Date.TIMEDOUT)
     requested_dates = dates.filter(state=Date.REQUESTED)
-    all_dates = dates.filter(state=Date.RATED)
-    return render(request, 'sw/dates.html', {'current_dates' : current_date, 'non_rated_dates': non_rated_dates, 'requested_dates' : requested_dates, 'all_dates' : all_dates})
+    payed_dates = dates.filter(state=Date.PAYED)
+    all_dates = dates.filter(state=Date.RATED) | dates.filter(state=Date.ENDED) | dates.filter(state=Date.REJECTED) | dates.filter(state=Date.ACCEPTED)
+    return render(request, 'sw/dates.html', {'current_dates' : current_date, 'requested_dates' : requested_dates, 'payed_dates' : payed_dates, 'all_dates' : all_dates})
 
 @login_required_SW
-def get_date_list(request,index):
+def get_date_list_more_dates(request, index):
     n=5
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
-    non_rated_dates = dates.filter(state=Date.ENDED)[index*n:(index+1)*n]
-    return render(request, 'sw/date_list.html',{'non_rated_dates' : non_rated_dates})
+    all_dates = dates.filter(state=Date.RATED) | dates.filter(state=Date.ENDED) | dates.filter(state=Date.REJECTED) | dates.filter(state=Date.ACCEPTED)
+    all_dates = all_dates[index*n:(index+1)*n]
+    return render(request, 'sw/date_list.html', {'all_dates' : all_dates})
 
 @login_required
 def view_service(request, service_id):
@@ -181,6 +182,14 @@ def my_profile(request):
     ap = Appearance.objects.get(sw_id=sw.user_id)
     services = Service.objects.filter(sw_id=sw.user_id)
     return render(request, 'sw/profile.html', {'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
+
+@login_required_SW
+def account_del(request, sw_id):
+    user = request.user
+    sw = SW.objects.get(user=user)
+
+    return HttpResponseRedirect('/')
+
 
 @login_required_SW
 def edit_profile(request):

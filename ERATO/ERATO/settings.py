@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+url_base = 'http://192.168.0.7:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -143,8 +144,8 @@ STATICFILES_DIRS=(
     os.path.join(BASE_DIR, 'assets'),
 )
 
-LOGOUT_REDIRECT_URL = 'http://localhost:8000/home'
-LOGIN_REDIRECT_URL = 'http://localhost:8000/sessions_managing_login'
+LOGOUT_REDIRECT_URL = url_base+'/home'
+LOGIN_REDIRECT_URL = url_base+'/sessions_managing_login'
 # LOGIN_URL = '/sessions_managing_login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

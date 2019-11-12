@@ -1,7 +1,17 @@
-{% for date in non_rated_dates %}
+{% if not all_dates %}
+<div class="ui message">
+  <div class="header">
+    You don't have any ended dates.
+  </div>
+  <p>Dates which have been ended or rejected will appear here.</p>
+</div>
+{% endif %}
+
+{% for date in all_dates %}
 <div class="ui card" style="width: 100%">
 <div class="content">
-<div class="header">A date with {{date.client.user.username}}</div>
+<div class="header">
+  A date with {{date.client.user.username}}</div>
 </div>
 <div class="content">
 <h4 class="ui sub header">
@@ -17,7 +27,20 @@
 </div>
 </div>
 <div class="extra content">
-  <div class="ui massive star rating" id="rate-{{date.id}}" onclick="set_starts_id({{date.id}});">
+{% ifequal date.state 'ended'  %}
+<div class="ui massive star rating" id="rate-{{date.id}}" onclick="set_starts_id({{date.id}});">
+{% endifequal %}
+{% ifequal date.state 'accepted'  %}
+This date was accepted and you are waiting the client to pay. When payed, this date will be shown in pending dates.
+{% endifequal %}
+{% ifequal date.state 'rejected'  %}
+You have rejected this date.
+{% endifequal %}
+{% ifequal date.state 'rated'  %}
+You have already rated this date.
+{% endifequal %}
+
+
   </div>
 </div>
 </div>
