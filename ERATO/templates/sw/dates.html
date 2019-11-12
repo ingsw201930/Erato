@@ -40,7 +40,7 @@
 <div class="main_container">
 
   <h4 class="ui horizontal divider header">
-  <i class="tag icon"></i>
+  <i class="clock outline icon"></i>
   Current dates
   </h4>
 
@@ -154,19 +154,6 @@
             </div>
             </div>
 
-            <div class="centered buttons">
-              <div class="ui buttons">
-                <button class="ui button" onclick="back_requested_dates()">
-                  <i class="angle left icon"></i>
-                </button>
-                <button id="current_index_requested_dates" class="ui button">1</button>
-                <button class="ui button" onclick="next_requested_dates()">
-                  <i class="angle right icon"></i>
-                </button>
-              </div>
-            </div>
-
-
 <!-- Modal code -->
             <div class="ui modal {{date.client.user_username}}" id="mdata-{{date.client.user_id}}" >
                   <i class="close icon"></i>
@@ -208,6 +195,17 @@
 <!-- End modal code -->
 
         {% endfor %}
+            <div class="centered buttons">
+              <div class="ui buttons">
+                <button class="ui button" onclick="back_requested_dates()">
+                  <i class="angle left icon"></i>
+                </button>
+                <button id="current_index_requested_dates" class="ui button">1</button>
+                <button class="ui button" onclick="next_requested_dates()">
+                  <i class="angle right icon"></i>
+                </button>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -243,6 +241,14 @@
 
 
 <script type="text/javascript">
+
+$('.hoverable').dimmer(
+  {
+    opacity: 0.05,
+    on: 'hover',
+  }
+);
+
 
 var date_id = 0;
 
