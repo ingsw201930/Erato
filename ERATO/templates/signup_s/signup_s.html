@@ -4,6 +4,12 @@
 	<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 	<link rel="stylesheet" type="text/css" href="/assets/styles/forms/signup.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+
+
 	<script src="/assets/scripts/upload_files.js"></script>
 	<title>Erato</title>
 	<meta charset="utf-8">
@@ -88,113 +94,122 @@
 		<p>{{ form.first_name.errors}}
 		</p>
 		</div>
-		<div class="b_spaced">
-			{{ form.last_name }}
-		</div>
-	<div class="ui negative message" {% if form.last_name.errors %} style="display: block" {% else %} style="display: none" {% endif %}
-		>
-		<div class="header">
-		Please fill the last name correctly.
-		</div>
-		<p>{{ form.last_name.errors}}
-		</p>
-		</div>
-		<div class="b_spaced">
-			{{ form.birth_date }}
-		</div>
-	<div class="ui negative message" {% if form.birth_date.errors %} style="display: block" {% else %} style="display: none" {% endif %}
-		>
-		<div class="header">
-		Please fill the birth date correctly.
-		</div>
-		<p>{{ form.birth_date.errors}}
-		</p>
-		</div>
 
-		<div class="b_spaced">
-			{{form.gender}}
-		</div>
-		<div class="ui negative message" {% if form.gender.errors %} style="display: block" {% else %} style="display: none" {% endif %}
->
-<div class="header">
-Please chose a gender.
+
+<div class="b_spaced">
+{{ form.last_name }}
 </div>
-<p>{{ form.gender.errors}}
+<div class="ui negative message" {% if form.last_name.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">
+Please fill the last name correctly.
+</div>
+<p>{{ form.last_name.errors}}
 </p>
 </div>
 
-		<div class="b_spaced">{{ form.eyes}}</div>
-		<div class="ui negative message" {% if form.eyes.errors %} style="display: block" {% else %} style="display: none" {% endif %}
->
+<div class="b_spaced">
+{{ form.description }}
+</div>
+<div class="ui negative message" {% if form.description.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please chose a color.
+Please fill the description correctly.
 </div>
-<p>{{ form.eyes.errors}}
-</p>
+<p>{{ form.description.errors}}</p>
+</div>
 </div>
 
-		<div class="b_spaced">{{ form.hair}}</div>
-		<div class="ui negative message" {% if form.hair.errors %} style="display: block" {% else %} style="display: none" {% endif %}
->
+
+<div class="b_spaced">
+{{ form.birth_date }}
+</div>
+<div class="ui negative message" {% if form.birth_date.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please chose a hair color
+Please fill the birth date correctly.
 </div>
-<p>{{ form.hair.errors}}
-</p>
+<p>{{ form.birth_date.errors}}</p>
 </div>
 
-		<div class="b_spaced">
+<div class="b_spaced">{{ form.gender }}</div>
+<div class="ui negative message" {% if form.gender.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">Please chose a gender.</div>
+<p>{{ form.gender.errors}}</p>
+</div>
 
-		<div class="ui right labeled input fluid">
-			{{ form.weight}}
-  <div class="ui basic label">
-    kg
-  </div>
+<!-- APPEARANCE -->
+<h4 class="ui horizontal divider header">
+  Appearance
+</h4>
+
+<div class="b_spaced">
+	<label for="">Skin color</label>
+	{{ form_ap.skin}}</div>
+<div class="ui negative message" {% if form.eyes.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">Please choose a skin color.</div>
+<p>{{ form_ap.skin.errors}}</p>
+</div>
+
+<div class="b_spaced">
+	<label for="">Eyes color</label>
+	{{ form_ap.eyes}}</div>
+<div class="ui negative message" {% if form.eyes.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">Please choose a color.</div>
+<p>{{ form_ap.eyes.errors}}</p>
+</div>
+
+<div class="b_spaced">
+	<label for="">Hair color</label>
+	{{ form_ap.hair_color}}</div>
+<div class="ui negative message" {% if form.hair.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">
+Please chose a hair color.
+</div>
+<p>{{ form_ap.hair_color.errors}}</p>
+</div>
+
+<div class="b_spaced">
+	<label for="">Hair style</label>
+	{{ form_ap.hair_style}}</div>
+<div class="ui negative message" {% if form.hair.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">
+Please chose a hair style.
+</div>
+<p>{{ form_ap.hair_style.errors}}</p>
+</div>
+
+<div class="b_spaced">
+	<label for="">Weight</label>
+<div class="ui right labeled input fluid">
+{{ form_ap.weight}}
+<div class="ui basic label">kg</div>
 </div>
 </div>
-<div class="ui negative message" {% if form.weight.errors %} style="display: block" {% else %} style="display: none" {% endif %}
->
+<div class="ui negative message" {% if form.weight.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
 Please fill the name correctly.
 </div>
-<p>{{ form.weight.errors}}
+<p>{{ form_ap.weight.errors}}
 </p>
 </div>
 
-		<div class="b_spaced">
-
-		<div class="ui right labeled input fluid">
-			{{ form.height}}
-  <div class="ui basic label">
-    m
-  </div>
+<div class="b_spaced">
+	<label for="">Height</label>
+<div class="ui right labeled input fluid">
+{{ form_ap.height}}
+<div class="ui basic label">m</div>
 </div>
 </div>
-<div class="ui negative message" {% if form.height.errors %} style="display: block" {% else %} style="display: none" {% endif %}
->
+<div class="ui negative message" {% if form.height.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please fill the name correctly.
+Please fill the height correctly.
 </div>
-<p>{{ form.height.errors}}
-</p>
+<p>{{ form_ap.height.errors}}</p>
 </div>
-
-		<div class="b_spaced">
-			{{ form.description }}
-		</div>
-	<div class="ui negative message" {% if form.description.errors %} style="display: block" {% else %} style="display: none" {% endif %}
-		>
-		<div class="header">
-		Please fill the description correctly.
-		</div>
-		<p>{{ form.description.errors}}
-		</p>
-		</div>
-	</div>
+<!-- END APPEARANCE -->
 
 	<h4 class="ui horizontal divider header">
   Security
-	</h4>
+</h4>
+
 	<div class="profile_form">
 		{{ form.third_email }}
 	</div>
@@ -206,6 +221,8 @@ Please fill the name correctly.
 	<p>{{ form.third_email.errors}}
 	</p>
 	</div>
+
+
 	<h4 class="ui horizontal divider header">
   Medical certification
 	</h4>
@@ -229,5 +246,10 @@ Please fill the name correctly.
 </div>
 </div>
 {% include '../general/footer.html' %}
+
+<script type="text/javascript">
+$('.dropdown').dropdown();
+</script>
+
 </body>
 </html>

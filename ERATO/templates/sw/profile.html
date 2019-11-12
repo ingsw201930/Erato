@@ -2,17 +2,27 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_s.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/home_c/service.css">
-    <link rel="stylesheet" type="text/css" href="/assets/styles/sw/editable_profile.css">
+<link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+<link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_s.css">
+<link rel="stylesheet" type="text/css" href="/assets/styles/sw/editable_profile.css">
+<link rel="stylesheet" type="text/css" href="/assets/styles/utils/gallery.css">
 
+<!-- Galería -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.0/js/swiper.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.0/css/swiper.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+<!-- semantic -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
 
-    <title>Erato</title>
-    <meta charset="utf-8">
+<script src="/assets/scripts/sw/edit_profile.js" charset="utf-8"></script>
+
+<title>Erato</title>
+<meta charset="utf-8">
 </head>
 <body>
 {% include '../general/nav.html' %}
@@ -27,123 +37,227 @@
 
 <div class="container">
     <div class="main_container">
-    <form class="" action="{{BASEURL}}/s/edit_profile" method="post">
 
-	{% csrf_token %}
+      <div class="gallery">
+        <!--Carousel Gallery-->
+        <!-- Stolen from  https://codepen.io/jackcohle/pen/ZxyjwQ -->
+        <div class="carousel-gallery">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <a href="https://images.pexels.com/photos/48794/boy-walking-teddy-bear-child-48794.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-fancybox="gallery">
+                            <div class="image" style="background-image: url(https://images.pexels.com/photos/48794/boy-walking-teddy-bear-child-48794.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+                                <div class="overlay">
+                                    <em class="mdi mdi-magnify-plus"></em>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+      </div>
+
+<div class="margined huge">
+
+  <form class="" action="{{BASEURL}}/s/edit_profile" method="post">
+
+    {% csrf_token %}
 
     <div class="profile">
-    <div class="ui center aligned icon header">
-      <div class="image_profile">
-        <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/{{sw.picture_path}}">
-      </div>
-      <div class="sw_p_panel">
-        {{sw.user.username}}
-      </div>
-  </div>
-  <div class="more_info">
-  <div class="ui grid">
-  <div class="eight wide column">
-    <i class="user outline icon"></i>
-    Name
-  </div>
-  <div class="eight wide column">
-    <div class="item">
-      SW's name
-    </div>
-  </div>
-  <div class="eight wide column">
-    <i class="venus mars icon"></i>
-    Gender
-  </div>
-  <div class="eight wide column">
-    <div class="item hidable">
-      Female
-    </div>
-    <div class="showable">
-      <div class="ui fluid input">
-        <input type="text" placeholder="Gender" value="Hey">
-      </div>
-    </div>
-  </div>
-  <div class="eight wide column">
-    <i class="birthday cake icon"></i>
-    Born date
-  </div>
-  <div class="eight wide column">
-    <div class="item hidable">
-      {{sw.birth_date}}
-    </div>
-    <div class="showable">
-      <div class="ui fluid input">
-        <input type="text" placeholder="Gender">
-      </div>
+      <div class="ui center aligned header">
+        <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
+          <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
+        </object>
 
-    </div>
-  </div>
-  <div class="eight wide column">
-    <i class="weight icon"></i>
-    Weight
-  </div>
-  <div class="eight wide column">
-    <div class="item hidable">
-      54 kg
-    </div>
-    <div class="showable">
-      <div class="ui fluid input">
-        {{form.weight}}
       </div>
+      <div class="ui center aligned icon header">
+        <div class="sw_p_panel">
+          {{sw.user.username}}
+        </div>
+        <div class="b_spaced" style="margin-bottom: 100px; font-weight: normal;">
+          <div class="hidable">
+            {{sw.about}}
+          </div>
+					<div class="showable">
+						<div class="ui fluid input">
+							{{form.about}}
 
-    </div>
-  </div>
-  <div class="eight wide column">
-    <i class="building outline icon"></i>
-    Height
-  </div>
-  <div class="eight wide column">
-    <div class="item hidable">
-      1,68 m
-    </div>
-    <div class="showable">
-      <div class="ui fluid input">
-        {{form.height}}
-      </div>
-
-    </div>
-  </div>
-  <div class="eight wide column">
-    <i class="eye icon"></i>
-    Eyes
-  </div>
-  <div class="eight wide column">
-    <div class="item hidable">
-      Blue
-    </div>
-    <div class="showable">
-      <div class="ui fluid input">
-        <input type="text" placeholder="Gender">
-      </div>
-    </div>
-  </div>
-  <div class="eight wide column">
-    <i class="cut icon"></i>
-    Hair
-  </div>
-  <div class="eight wide column">
-    <div class="item hidable">
-      {{sw.birth_date}}
-    </div>
-    <div class="showable">
-      <div class="ui calendar" id="standard_calendar">
-        <div class="ui fluid input left icon">
-          <i class="calendar icon"></i>
-          <input type="text" placeholder="Date/Time">
+						</div>
+					</div>
         </div>
       </div>
+      <div class="more_info">
+        <div class="ui grid">
+<div class="eight wide column">
+            <i class="user outline icon"></i>
+            Name
+          </div>
+          <div class="eight wide column">
+            <div class="item">
+              {{sw.full_name}}
+            </div>
+          </div>
 
+          <div class="eight wide column">
+            <i class="birthday cake icon"></i>
+            Born date
+          </div>
+          <div class="eight wide column">
+            <div class="item">
+              {{sw.birth_date}}
+            </div>
+          </div>
+
+<h4 class="ui horizontal divider header">
+  How do you look like?
+</h4>
+          <div class="eight wide column">
+            <i class="venus mars icon"></i>
+            Gender
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+              {{sw.gender}}
+            </div>
+            <div class="showable">
+              <div class="ui fluid input">
+                {{form.gender}}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="eight wide column">
+            <i class="eye icon"></i>
+            Eyes
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+              {{ap.eyes}}
+            </div>
+            <div class="showable">
+              <div class="ui fluid input">
+                {{form_ap.eyes}}
+              </div>
+
+            </div>
+          </div>
+
+          <div class="eight wide column">
+            <i class="weight icon"></i>
+            Weight
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+              {{ap.weight}}
+            </div>
+            <div class="showable">
+              <div class="ui fluid input">
+                {{form_ap.weight}}
+              </div>
+
+            </div>
+          </div>
+
+          <div class="eight wide column">
+            <i class="building outline icon"></i>
+            Height
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+              {{ap.height}}
+            </div>
+            <div class="showable">
+              <div class="ui fluid input">
+                {{form_ap.height}}
+              </div>
+            </div>
+          </div>
+
+          <div class="eight wide column">
+            <i class="paint brush icon"></i>
+            Skin
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+							<i class="circle icon" style="color: {{ap.skin}}"></i>
+							</div>
+            <div class="showable">
+              <div class="ui fluid input">
+
+                {{form_ap.skin}}
+              </div>
+            </div>
+          </div>
+
+          <div class="eight wide column">
+            <i class="eye dropper icon"></i>
+            Hair color
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+              {{ap.hair_color}}
+            </div>
+            <div class="showable">
+              <div class="ui fluid input">
+                {{form_ap.hair_color}}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="eight wide column">
+            <i class="eye icon"></i>
+            Hair style
+          </div>
+          <div class="eight wide column">
+            <div class="item hidable">
+              {{ap.hair_style}}
+            </div>
+            <div class="showable">
+              <div class="ui fluid input">
+                {{form_ap.hair_style}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+	<h4 class="ui horizontal divider header">
+  Security
+</h4>
+
+<div class="profile_form">
+  <div class="hidable">
+    <div class="ui grid">
+      <div class="eight wide column">
+        Security email
+      </div>
+      <div class="eight wide column">
+        {{sw.third_email}}
+      </div>
     </div>
   </div>
-</div>
+  <div class="showable">
+		<div class="ui input fluid">
+			{{ form.third_email }}
+		</div>
   </div>
+</div>
+<div class="ui negative message" {% if form.third_email.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+<div class="header">
+Please fill the third email correctly.
+</div>
+<p>{{ form.third_email.errors}}
+</p>
+</div>
+
+
+      </div>
     </div>
     <div class="profile_buttons">
       <div class="profile_button">
@@ -155,45 +269,76 @@
         <button type="submit"
         id="button_save" style="display: none" class="ui inverted fluid green button"
         name="button">
-          Save
+        Save
       </button>
+    </div>
+    <div class="profile_button">
+      <div id="button_delete" class="ui inverted fluid red button" onclick="delete_account_pop_up()">
+        Delete account
       </div>
-      <div class="profile_button">
-        <div id="button_delete" class="ui inverted fluid red button">
-          Delete account
-        </div>
-      </div>
+    </div>
   </div>
-  </form>
+
+</form>
+</div>
+
   </div>
 </div>
 {% include '../general/footer.html' %}
+
+<div class="ui basic modal">
+  <div class="ui icon header">
+    <i class="delete icon"></i>
+    Are you sure you want to delete your account?
+  </div>
+  <div class="content">
+    <p>Some people will miss you!</p>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div class="ui green ok inverted button" onclick="delete_account()">
+      <i class="checkmark icon"></i>
+      Yes
+	</div>
+  </div>
+</div>
+
 <script type="text/javascript">
-// Load a file and show a message.
-var show_inputs = function(event) {
-  var x = document.getElementsByClassName("hidable");
-  var i;
-  for (i = 0; i < x.length; i++) {
-  x[i].style.display = "none";
-  }
+$(document).ready(function () {
+hide_hidable();
+});
 
-  $('#standard_calendar').calendar();
+document.getElementById("id_third_email").value = '{{sw.third_email}}';
+document.getElementById("id_about").value = '{{sw.about}}';
+document.getElementById("id_weight").value = '{{ap.weight}}';
+document.getElementById("id_height").value = '{{ap.height}}';
+$('#id_gender').dropdown('set selected', '{{sw.gender}}');
+$('#id_eyes').dropdown('set selected', '{{ap.eyes}}');
+$('#id_hair_color').dropdown('set selected', '{{ap.hair_color}}');
+$('#id_hair_style').dropdown('set selected', '{{ap.hair_style}}');
 
-  document.getElementById('button_edit').style.display = "none";
-  document.getElementById('button_delete').style.display = "none";
-  document.getElementById('button_save').style.display = "block";
+function delete_account_pop_up(){
+	console.log("Pop up wu");
+	$('.ui.basic.modal')
+	.modal('show');
+}
 
-  var x = document.getElementsByClassName("showable");
-  var i;
-  for (i = 0; i < x.length; i++) {
-  x[i].style.display = "block";
-  }
+function delete_account(){
+	console.log("Deleting account");
+	// $.ajax({url: "{{BASEURL}}/s/service_del/"+service_id_selected,
+	// success: function(result){
+	// 	if(result.state=="failed"){
+	// 		return;
+	// 	}
+	// 	console.log("Deleted")
+	// }});
 
-  document.getElementById('id_weight').value = "";
-
-};
-
+}
 
 </script>
+
 </body>
 </html>

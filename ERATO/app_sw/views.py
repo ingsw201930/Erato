@@ -3,12 +3,16 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import SW,Service,Tag
+from .models import SW,Service,Tag, Appearance
 from app_date.models import Date
+
 from .forms import SWSignUpForm
 from .forms import SWEditForm
 from .forms import UploadFileForm
 from .forms import UploadMCForm
+from .forms import ServiceAddForm
+from .forms import SWAppearanceForm
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .decorators import *
@@ -16,7 +20,6 @@ from app_client.decorators import *
 import hashlib
 from ERATO.settings import BASE_DIR
 
-from app_sw.forms import ServiceAddForm
 
 image_key="Conan"
 mc_key="Conan"
@@ -67,24 +70,27 @@ def service_del(request, service_id):
 
 def signupform(request):
     form = SWSignUpForm()
+    form_appearance = SW
     form_ul = UploadFileForm()
     form_mc = UploadMCForm()
-    return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul, 'form_mc' : form_mc})
+    form_ap = SWAppearanceForm()
+    return render(request, 'signup_s/signup_s.html', {'form_ap':form_ap,  'form': form, 'form_ul': form_ul, 'form_mc' : form_mc})
 
 def signup(request):
     if request.method == 'POST':
         form = SWSignUpForm(request.POST)
         form_ul = UploadFileForm(request.POST, request.FILES)
         form_mc = UploadMCForm(request.POST, request.FILES)
-        print(form.errors)
-        if form.is_valid() and request.FILES['file'] and request.FILES['mc']:
+        form_ap = SWAppearanceForm(request.POST)
+        print(form_ap.errors)
+        if form.is_valid() and form_ap.is_valid() and request.FILES['file'] and request.FILES['mc']:
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = User.objects.create_user(username, email, raw_password)
-            user.save()
             sw=SW(
                 user=user,
+                full_name=form.cleaned_data.get('first_name')+' '+form.cleaned_data.get('last_name'),
                 birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
@@ -92,7 +98,21 @@ def signup(request):
                 mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
+
+            appearance = Appearance(
+                sw=sw,
+                weight=form_ap.cleaned_data.get('weight'),
+                height=form_ap.cleaned_data.get('height'),
+                eyes=form_ap.cleaned_data.get('eyes'),
+                skin=form_ap.cleaned_data.get('skin'),
+                hair_color=form_ap.cleaned_data.get('hair_color'),
+                hair_style=form_ap.cleaned_data.get('hair_style'),
+            )
+
+            user.save()
             sw.save()
+            appearance.save()
+
             handle_uploaded_file(request.FILES['file'], username, 'PPSW')
             print(request.FILES['file'])
             print("Profile picture saved")
@@ -155,17 +175,35 @@ def view_service(request, service_id):
 @login_required_SW
 def my_profile(request):
     form = SWEditForm()
+    form_ap = SWAppearanceForm()
     user = request.user
     sw = SW.objects.get(user=user)
+    ap = Appearance.objects.get(sw_id=sw.user_id)
     services = Service.objects.filter(sw_id=sw.user_id)
-    return render(request, 'sw/profile.html', {'form':form, 'sw':sw, 'services':services})
+    return render(request, 'sw/profile.html', {'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
 
 @login_required_SW
 def edit_profile(request):
     if request.method == 'POST':
+        user = request.user
         form = SWEditForm(request.POST)
-        if form.is_valid():
-            weight = form.cleaned_data['weight']
+        form_ap = SWAppearanceForm(request.POST)
+        if form.is_valid() and form_ap.is_valid():
+            sw = SW.objects.get(user=user)
+            ap = Appearance.objects.get(sw_id=sw.user_id)
+
+            sw.gender = form.cleaned_data['gender']
+            sw.third_email = form.cleaned_data['third_email']
+
+            ap.weight = form_ap.cleaned_data['weight']
+            ap.height = form_ap.cleaned_data['height']
+            ap.eyes = form_ap.cleaned_data['eyes']
+            ap.hair_style = form_ap.cleaned_data['hair_style']
+            ap.hair_color = form_ap.cleaned_data['hair_color']
+
+            sw.save()
+            ap.save()
+
     return HttpResponseRedirect('/s/profile/')
 
 def history(request):
