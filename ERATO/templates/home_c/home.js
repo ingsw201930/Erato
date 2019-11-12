@@ -1,12 +1,25 @@
 var current_index=0
 
+function get_data(){
+    data={
+        search:document.getElementById("filter_search").value,
+        user:document.getElementById("filter_user").value,
+    }
+    if(document.getElementById("use_weight").checked){
+        data.weight_min=document.getElementById("filter_weight_min").value;
+        data.weight_max=document.getElementById("filter_weight_max").value;
+    }
+    if(document.getElementById("use_height").checked){
+        data.height_min=document.getElementById("filter_height_min").value;
+        data.height_max=document.getElementById("filter_height_max").value;
+    }
+    return data
+}
+
 function get_service_list(index){
     $.ajax({
         url: "{{BASEURL}}/c/get_service_list/"+index,
-        data:{
-            search:document.getElementById("filter_search").value,
-            user:document.getElementById("filter_user").value
-        },
+        data:get_data(),
         success: function(result){
         container=document.getElementById("service_container")
         container.innerHTML = result;

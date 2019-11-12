@@ -42,8 +42,6 @@
 		<div class="services_filter">
 
 			Filtro por :
-			Precio
-			Tags
 
 			<form action="">
 				<div class="ui input">
@@ -52,7 +50,35 @@
 				<div class="ui input">
 					{{form.user}}
 				</div>
-				{{form.tags}}
+				<!-- {{form.tags}}-->
+				<div class="ui toggle checkbox">
+					<input id="use_weight" type="checkbox" name="public">
+					<label>filter by weight</label>
+				</div>
+				<div id="weight_field" class="rangeslider"> 
+					<p>min: <span id="weight_value_min"></span> Kg</p>
+					<input type="range" min="0" max="100" value="60"
+					class="myslider" id="filter_weight_min"> 
+
+					<p>max: <span id="weight_value_max"></span> Kg</p>
+					<input type="range" min="0" max="100" value="60"
+					class="myslider" id="filter_weight_max"> 
+				</div>
+				
+
+				<div class="ui toggle checkbox">
+					<input id="use_height" type="checkbox" name="public">
+					<label>filter by height</label>
+				</div>
+				<div id="height_field" class="rangeslider"> 
+					<p>min: <span id="height_value_min"></span> cm</p>
+					<input type="range" min="0" max="2.50" value="1.6" step="0.1"
+					class="myslider" id="filter_height_min"> 
+
+					<p>max: <span id="height_value_max"></span> cm</p>
+					<input type="range" min="0" max="2.50" value="1.6" step="0.1"
+					class="myslider" id="filter_height_max"> 
+				</div>
 				
 			</form>
 			<br>
@@ -65,7 +91,75 @@
 
 </div>
 {% include '../general/footer.html' %}
+<script>
+	//weight elements
+	var weight_field=document.getElementById("weight_field");
+		//min
+	var filter_weight_min = document.getElementById("filter_weight_min"); 
+	var weight_value_min = document.getElementById("weight_value_min");
+		//max
+	var filter_weight_max = document.getElementById("filter_weight_max"); 
+	var weight_value_max = document.getElementById("weight_value_max");
+		//use
+	var use_weight=document.getElementById("use_weight");
 
+	//height elements
+	var height_field=document.getElementById("height_field");
+		//min
+	var filter_height_min = document.getElementById("filter_height_min"); 
+	var height_value_min = document.getElementById("height_value_min");
+		//max
+	var filter_height_max = document.getElementById("filter_height_max"); 
+	var height_value_max = document.getElementById("height_value_max");
+		//use
+	var use_height=document.getElementById("use_height");
+
+	//weight state init
+	weight_value_min.innerHTML = filter_weight_min.value;
+	weight_value_max.innerHTML = filter_weight_max.value; 
+	weight_field.style.display = "none";
+	//height state init
+	height_value_min.innerHTML = filter_height_min.value;
+	height_value_max.innerHTML = filter_height_max.value; 
+	height_field.style.display = "none";
+	
+	//weight functions
+	//slider hides and shows field
+	use_weight.onchange=function(){
+		if(use_weight.checked){
+			weight_field.style.display = "block";
+		}else{
+			weight_field.style.display = "none";
+		}
+	}
+	//set label value min
+	filter_weight_min.oninput = function() { 
+	  weight_value_min.innerHTML = this.value; 
+	}
+	//set label value max
+	filter_weight_max.oninput = function() { 
+	  weight_value_max.innerHTML = this.value; 
+	}
+
+
+	//height functions
+	//slider hides and shows field
+	use_height.onchange=function(){
+		if(use_height.checked){
+			height_field.style.display = "block";
+		}else{
+			height_field.style.display = "none";
+		}
+	}
+	//set label value min
+	filter_height_min.oninput = function() { 
+	  height_value_min.innerHTML = this.value; 
+	}
+	//set label value max
+	filter_height_max.oninput = function() { 
+	  height_value_max.innerHTML = this.value; 
+	} 
+</script> 
 
 </body>
 </html>
