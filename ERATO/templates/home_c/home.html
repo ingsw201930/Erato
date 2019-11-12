@@ -50,7 +50,6 @@
 				<div class="ui input">
 					{{form.user}}
 				</div>
-				<!-- {{form.tags}}-->
 				<div class="ui toggle checkbox">
 					<input id="use_weight" type="checkbox" name="public">
 					<label>filter by weight</label>
@@ -78,6 +77,20 @@
 					<p>max: <span id="height_value_max"></span> cm</p>
 					<input type="range" min="0" max="2.50" value="1.6" step="0.1"
 					class="myslider" id="filter_height_max"> 
+				</div>
+
+				<div class="ui toggle checkbox">
+					<input id="use_price" type="checkbox" name="public">
+					<label>filter by price</label>
+				</div>
+				<div id="price_field" class="rangeslider"> 
+					<p>min: <span id="price_value_min"></span> $</p>
+					<input type="range" min="0" max="1000000" value="20000"
+					class="myslider" id="filter_price_min"> 
+
+					<p>max: <span id="price_value_max"></span> $</p>
+					<input type="range" min="0" max="1000000" value="20000"
+					class="myslider" id="filter_price_max"> 
 				</div>
 				
 			</form>
@@ -114,6 +127,17 @@
 		//use
 	var use_height=document.getElementById("use_height");
 
+	//price elements
+	var price_field=document.getElementById("price_field");
+		//min
+	var filter_price_min = document.getElementById("filter_price_min"); 
+	var price_value_min = document.getElementById("price_value_min");
+		//max
+	var filter_price_max = document.getElementById("filter_price_max"); 
+	var price_value_max = document.getElementById("price_value_max");
+		//use
+	var use_price=document.getElementById("use_price");
+
 	//weight state init
 	weight_value_min.innerHTML = filter_weight_min.value;
 	weight_value_max.innerHTML = filter_weight_max.value; 
@@ -122,6 +146,10 @@
 	height_value_min.innerHTML = filter_height_min.value;
 	height_value_max.innerHTML = filter_height_max.value; 
 	height_field.style.display = "none";
+	//price state init
+	price_value_min.innerHTML = filter_price_min.value;
+	price_value_max.innerHTML = filter_price_max.value; 
+	price_field.style.display = "none";
 	
 	//weight functions
 	//slider hides and shows field
@@ -158,7 +186,25 @@
 	//set label value max
 	filter_height_max.oninput = function() { 
 	  height_value_max.innerHTML = this.value; 
-	} 
+	}
+	
+	//price functions
+	//slider hides and shows field
+	use_price.onchange=function(){
+		if(use_price.checked){
+			price_field.style.display = "block";
+		}else{
+			price_field.style.display = "none";
+		}
+	}
+	//set label value min
+	filter_price_min.oninput = function() { 
+	  price_value_min.innerHTML = this.value; 
+	}
+	//set label value max
+	filter_price_max.oninput = function() { 
+	  price_value_max.innerHTML = this.value; 
+	}
 </script> 
 
 </body>

@@ -52,6 +52,12 @@ def get_service_list(request,index):
         height_min=float(height_min)
         height_max=float(height_max)
         query&=Q(sw__appearance__height__gte=height_min,sw__appearance__height__lte=height_max)
+    price_min=request.GET.get("price_min",None)
+    price_max=request.GET.get("price_max",None)
+    if price_min!=None and price_max!=None:
+        price_min=float(price_min)
+        price_max=float(price_max)
+        query&=Q(price__gte=price_min,price__lte=price_max)
     services=Service.objects.filter(query)[index*n:(index+1)*n]
     return render(request,'home_c/services.html',{'services':services})
 

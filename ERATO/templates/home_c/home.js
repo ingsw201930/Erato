@@ -13,6 +13,10 @@ function get_data(){
         data.height_min=document.getElementById("filter_height_min").value;
         data.height_max=document.getElementById("filter_height_max").value;
     }
+    if(document.getElementById("use_price").checked){
+        data.price_min=document.getElementById("filter_price_min").value;
+        data.price_max=document.getElementById("filter_price_max").value;
+    }
     return data
 }
 
