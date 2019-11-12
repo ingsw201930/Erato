@@ -113,9 +113,8 @@ footer *{
 	margin: 60px;
 }
 
-.centered.buttons *{
-	background: olive;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+.centered.buttons{
+	display: flex;
+  align-items: center;
+  justify-content: center;
 }
