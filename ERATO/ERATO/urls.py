@@ -31,7 +31,6 @@ urlpatterns = [
 
 #   SESSIONS
     path('',session_views.main_,name='main'),
-    re_path(r'^accounts/login/\?next\=/sessions\_managing\_login/$', session_views.login_managing),
     path('accounts/login/?next=/sessions_managing_login/',session_views.login_managing,name='login'),
     path('sessions_managing_login/',session_views.login_managing,name='login'),
     path('c/login/', auth_views.LoginView.as_view(template_name='login_c/login.html') , name="login_c"),
@@ -50,6 +49,7 @@ urlpatterns = [
     path('s/service_del/<int:service_id>', sw_views.service_del , name="service_del"),
     path('s/account_del/<int:sw_id>', sw_views.account_del , name="account_del"),
     path('s/edit_profile', sw_views.edit_profile , name="service_del"),
+    path('s/upload_swpp', sw_views.upload_swpp , name="service_del"),
     path('s/service/<int:service_id>', sw_views.view_service , name="service_edit"),
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),

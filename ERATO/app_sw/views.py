@@ -176,20 +176,20 @@ def view_service(request, service_id):
 @login_required_SW
 def my_profile(request):
     form = SWEditForm()
+    form_ul = UploadFileForm()
+    form_mc = UploadMCForm()
     form_ap = SWAppearanceForm()
     user = request.user
     sw = SW.objects.get(user=user)
     ap = Appearance.objects.get(sw_id=sw.user_id)
     services = Service.objects.filter(sw_id=sw.user_id)
-    return render(request, 'sw/profile.html', {'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
+    return render(request, 'sw/profile.html', {'form_ul': form_ul, 'form_mc': form_mc, 'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
 
 @login_required_SW
 def account_del(request, sw_id):
     user = request.user
     sw = SW.objects.get(user=user)
-
     return HttpResponseRedirect('/')
-
 
 @login_required_SW
 def edit_profile(request):
@@ -198,6 +198,8 @@ def edit_profile(request):
         form = SWEditForm(request.POST)
         form_ap = SWAppearanceForm(request.POST)
         if form.is_valid() and form_ap.is_valid():
+            if request.FILES['file']:
+                print("Hay file")
             sw = SW.objects.get(user=user)
             ap = Appearance.objects.get(sw_id=sw.user_id)
 
@@ -215,8 +217,9 @@ def edit_profile(request):
 
     return HttpResponseRedirect('/s/profile/')
 
-def history(request):
-    return render(request, 'sw/history.html', {})
-
-def payments(request):
-    return render(request, 'sw/pay.html', {})
+def upload_swpp(request):
+    user = request.user
+    username =str(user)
+    if request.FILES['file']:
+        handle_uploaded_file(request.FILES['file'], username, 'PPSW')
+    return HttpResponseRedirect('/s/profile/')

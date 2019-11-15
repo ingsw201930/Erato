@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
 <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
 <link rel="stylesheet" type="text/css" href="/assets/styles/profiles/profile_s.css">
 <link rel="stylesheet" type="text/css" href="/assets/styles/sw/editable_profile.css">
 <link rel="stylesheet" type="text/css" href="/assets/styles/utils/gallery.css">
-
-<!-- Galería -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.0/js/swiper.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" charset="utf-8"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.0/css/swiper.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" />
 
 <!-- semantic -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,6 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
 
 <script src="/assets/scripts/sw/edit_profile.js" charset="utf-8"></script>
+<script src="/assets/scripts/utils/gallery.js" charset="utf-8"></script>
+<script src="/assets/scripts/upload_files.js"></script>
 
 <title>Erato</title>
 <meta charset="utf-8">
@@ -37,46 +32,114 @@
 
 <div class="container">
     <div class="main_container">
-
-      <div class="gallery">
-        <!--Carousel Gallery-->
-        <!-- Stolen from  https://codepen.io/jackcohle/pen/ZxyjwQ -->
-        <div class="carousel-gallery">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="https://images.pexels.com/photos/48794/boy-walking-teddy-bear-child-48794.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" data-fancybox="gallery">
-                            <div class="image" style="background-image: url(https://images.pexels.com/photos/48794/boy-walking-teddy-bear-child-48794.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
-                                <div class="overlay">
-                                    <em class="mdi mdi-magnify-plus"></em>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-
-      </div>
-
-<div class="margined huge">
-
-  <form class="" action="{{BASEURL}}/s/edit_profile" method="post">
-
-    {% csrf_token %}
-
-    <div class="profile">
+      <!-- form -->
       <div class="ui center aligned header">
         <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
-          <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
+          <img id="output" alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
         </object>
-
-      </div>
-      <div class="ui center aligned icon header">
+        <div class="margined small">
+          <form class="" action="{{BASEURL}}/s/upload_swpp" method="post" enctype="multipart/form-data">
+	             {% csrf_token %}
+               <div class="margined small showable">
+                 <div class="ui fluid button yellow">
+                   <label for="id_file">
+                     Upload your picture</label>
+                     {{ form_ul.file }}
+                   </div>
+               </div>
+              <div class="margined small showable">
+                <button class="ui fluid button green" type="submit" name="button">Save</button>
+              </div>
+          </form>
+        </div>
+        <h2>
         <div class="sw_p_panel">
           {{sw.user.username}}
         </div>
+      </h2>
+      </div>
+
+      <!-- Container for the image gallery -->
+<div class="main_container_gallery">
+
+  <!-- Full-width images with number text -->
+  <div class="mySlides show">
+    <div class="numbertext">1 / 6</div>
+      <img src="https://www.w3schools.com/howto/img_woods_wide.jpg">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">2 / 6</div>
+      <img src="https://www.w3schools.com/howto/img_5terre_wide.jpg">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">3 / 6</div>
+      <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">4 / 6</div>
+      <img src="https://www.w3schools.com/howto/img_lights_wide.jpg">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">5 / 6</div>
+      <img src="https://www.w3schools.com/howto/img_nature_wide.jpg">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">6 / 6</div>
+      <img src="https://www.w3schools.com/howto/img_snow_wide.jpg">
+  </div>
+
+<!-- Caption and Arrow Advancers -->
+  <section class="caption-container">
+    <!-- Previous button -->
+    <a class="prev">&#10094;</a>
+    <!-- Image text -->
+    <p id="caption"></p>
+    <!-- Next button -->
+    <a class="next">&#10095;</a>
+  </section>
+
+  <!-- Thumbnail images -->
+  <section id="thumbnail-section" class="row">
+    <div class="thumbnail">
+      <img class="demo cursor active" src="https://www.w3schools.com/howto/img_woods.jpg" alt="">
+    </div>
+    <div class="thumbnail">
+      <img class="demo cursor" src="https://www.w3schools.com/howto/img_5terre.jpg" alt="">
+    </div>
+    <div class="thumbnail">
+      <img class="demo cursor" src="https://www.w3schools.com/howto/img_mountains.jpg" alt="">
+    </div>
+    <div class="thumbnail">
+      <img class="demo cursor" src="https://www.w3schools.com/howto/img_lights.jpg" alt="">
+    </div>
+    <div class="thumbnail">
+      <img class="demo cursor" src="https://www.w3schools.com/howto/img_nature.jpg" alt="">
+    </div>
+    <div class="thumbnail">
+      <img class="demo cursor" src="https://www.w3schools.com/howto/img_snow.jpg" alt="">
+    </div>
+  </section>
+</div>
+
+<form class="" action="{{BASEURL}}/s/edit_profile" method=POST>
+	{% csrf_token %}
+<div class="margined medium">
+  <div class="ui inverted button green showable">
+    Upload a new album path
+  </div>
+</div>
+<div class="margined huge">
+
+    <div class="profile">
+      <div class="ui center aligned header">
+
+      </div>
+      <div class="ui center aligned icon header">
         <div class="b_spaced" style="margin-bottom: 100px; font-weight: normal;">
           <div class="hidable">
             {{sw.about}}
@@ -261,7 +324,7 @@ Please fill the third email correctly.
     </div>
     <div class="profile_buttons">
       <div class="profile_button">
-        <div id="button_edit" class="ui inverted fluid orange button" onclick="show_inputs()">
+        <div id="button_edit" class="ui fluid orange button" onclick="show_inputs()">
           Edit profile
         </div>
       </div>
@@ -273,15 +336,15 @@ Please fill the third email correctly.
       </button>
     </div>
     <div class="profile_button">
-      <div id="button_delete" class="ui inverted fluid red button" onclick="delete_account_pop_up()">
+      <div id="button_delete" class="ui fluid red button" onclick="delete_account_pop_up()">
         Delete account
       </div>
     </div>
   </div>
 
-</form>
 </div>
 
+</form>
   </div>
 </div>
 {% include '../general/footer.html' %}
@@ -337,6 +400,86 @@ function delete_account(id){
 	}});
 
 }
+
+const thumbImgCont = document.getElementById('thumbnail-section');
+const thumbnails = document.getElementsByClassName('thumbnail');
+const fullSizeImgs = document.getElementsByClassName('mySlides');
+const captionCont = document.querySelector('.caption-container');
+const caption = document.getElementById('caption');
+/* Acts as an index to retrieve images from 'thumbnails' and 'fullSizeImgs';
+used with < and > arrow icons */
+let currentImage = 0;
+
+
+// Removes 'show' classes from large images
+// Removes 'active' class from thumbnails
+function reset() {
+  for (let img of fullSizeImgs) {
+    img.classList.remove('show');
+  }
+  for (let thumbs of thumbnails) {
+    thumbs.firstElementChild.classList.remove('active');
+  }
+}
+
+// Show larger image based on thumbnail index clicked
+thumbImgCont.addEventListener('click', (e) => {
+  reset();
+  // Find index of thumbnail clicked
+  const index = [...thumbnails].indexOf(e.target.parentNode);
+  // Use that index to show it's corrolating larger IMG
+  fullSizeImgs[index].classList.add('show');
+  // Set caption using img 'alt' tag
+  caption.textContent = e.target.getAttribute('alt');
+  // Set global variable for currentImage
+  currentImage = index;
+  // Alter the thumbnail to show its selected
+  hiLiteThumbnail();
+})
+
+function hiLiteThumbnail() {
+  let thumbnail = thumbnails[currentImage].firstElementChild;
+  thumbnail.classList.add('active');
+}
+
+// Get Arrow Advancers to work
+function goBack(e) {
+  reset();
+  if (e.target.classList.contains("prev") && currentImage > 0) {
+    currentImage -= 1;
+    fullSizeImgs[currentImage].classList.add('show');
+    caption.textContent = thumbnails[currentImage].firstElementChild.getAttribute('alt');
+    hiLiteThumbnail();
+  } else if (e.target.classList.contains("prev") && currentImage === 0) {
+    currentImage = thumbnails.length-1;
+    fullSizeImgs[currentImage].classList.add('show');
+    caption.textContent = thumbnails[currentImage].firstElementChild.getAttribute('alt');
+    hiLiteThumbnail();
+  }
+}
+
+function goFwd(e) {
+  reset();
+  if (e.target.classList.contains("next") && currentImage < thumbnails.length-1) {
+    currentImage += 1;
+    fullSizeImgs[currentImage].classList.add('show');
+    caption.textContent = thumbnails[currentImage].firstElementChild.getAttribute('alt');
+    hiLiteThumbnail();
+  } else if (e.target.classList.contains("next") && currentImage === thumbnails.length-1) {
+    currentImage = 0;
+    fullSizeImgs[currentImage].classList.add('show');
+    caption.textContent = thumbnails[currentImage].firstElementChild.getAttribute('alt');
+    hiLiteThumbnail();
+  }
+}
+
+// Listen for back and forward arrow clicks
+captionCont.addEventListener('click', (e) => {
+  // Allows only the Arrow icons to trigger event hanlders
+  if (e.target.nodeName !== 'A') return false;
+  // Event Handlers
+  e.target.classList.contains("next") ? goFwd(e) : goBack(e);
+})
 
 </script>
 

@@ -1,168 +1,137 @@
-*{
-  margin: 0;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgba(0, 0, 0, .3);
+}
+
+html {
+  font-size: 16px;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.main_container_gallery {
+  /* position: relative; */
+  width: 100%;
+  margin: 60px;
+  /* box-shadow: 0 0 15px black; */
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+/* Add this class to show the image*/
+.show {
+  display: block;
+  animation: fadeIn .2s linear;
+}
+
+.mySlides img {
+  width: 100%;
   padding: 0;
-  text-decoration: none;
+  margin-bottom: -6px
 }
 
-.title{
-  margin-top: 50px;
-  h1{
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-family: Arial;
-    text-transform: uppercase;
-    color: #d63031;
-
-    span{
-      display: block;
-      color:       	<div class="feature">
-      		<figure class="featured-item image-holder r-3-2 transition"></figure>
-      	</div>
-
-      	<div class="gallery-wrapper">
-      		<div class="gallery">
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 active transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      				<div class="item-wrapper">
-      					<figure class="gallery-item image-holder r-3-2 transition"></figure>
-      				</div>
-      		</div>
-      	</div>
-
-      	<div class="controls">
-      		<button class="move-btn left">&larr;</button>
-      		<button class="move-btn right">&rarr;</button>
-      	</div>darken(#d63031, 40%);
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-  }
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
 }
 
-/*Carousel Gallery*/
-.carousel-gallery{
-	margin: 50px 0;
-  padding: 0 30px;
-	.swiper-slide{
-		a{
-			display: block;
-			width: 100%;
-			height: 200px;
-			border-radius: 4px;
-			overflow: hidden;
-			position: relative;
-
-			-webkit-box-shadow: 3px 2px 20px 0px rgba(0,0,0, .2);
-      -moz-box-shadow: 3px 2px 20px 0px rgba(0,0,0, .2);
-      box-shadow: 3px 2px 20px 0px rgba(0,0,0, .2);
-
-			&:hover{
-				.image{
-					.overlay{opacity: 1}
-				}
-			}
-
-			.image{
-				width: 100%;
-				height: 100%;
-				background-size: cover;
-				background-position: center center;
-				.overlay{
-					width: 100%;
-					height: 100%;
-					background-color: rgba(20,20,20, .8);
-					text-align: center;
-					opacity: 0;
-
-					-webkit-transition: all .2s linear;
-          -o-transition: all .2s linear;
-          transition: all .2s linear;
-
-					em{
-						color: #fff;
-						font-size: 26px;
-						position: relative;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-            -o-transform: translateY(-50%);
-            transform: translateY(-50%);
-            display: inline-block;
-					}
-				}
-			}
-		}
-	}
-	.swiper-pagination{
-		position: relative;
-		bottom: auto;
-		text-align: center;
-		margin-top: 25px;
-
-		.swiper-pagination-bullet{
-			-webkit-transition: all .2s linear;
-      -o-transition: all .2s linear;
-      transition: all .2s linear;
-
-			&:hover{
-				opacity: .7;
-			}
-
-			&.swiper-pagination-bullet-active{
-				background-color: #d63031;
-				transform: scale(1.1, 1.1)
-			}
-		}
-	}
+@keyframes fadeOut {
+  from { opacity: 1 }
+  to { opacity: 0 }
 }
-/*# Carousel Gallery*/
 
-.plugins{
-  text-align: center;
+/* Number text (1/3 etc) */
+.numbertext {
+  animation: fadeOut 3s linear;
+  opacity: 0;
+  font-family: 'Mansalva', cursive;
+  color: #f2f2f2;
+  font-size: 1rem;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
 
-  h3{
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-family: Arial;
-    text-transform: uppercase;
-    color: #111;
-  }
+}
 
-  a{
-    display: inline-block;
-    font-family: Arial;
-    color: #777;
-    font-size: 14px;
-    margin: 10px;
-    transition: all .2s linear;
+/* Container for image text */
+.caption-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 2px 0 0 0;
+  color: white;
+}
 
-    &:hover{color: #d63031}
-  }
+#caption {
+  font-family: 'Muli', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Next & previous arrow icons */
+.prev,
+.next {
+  cursor: pointer;
+  width: auto;
+  padding: 16px;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: .3s all;
+}
+
+.next {
+  border-radius: 10px 0 0 10px;
+}
+.prev {
+  border-radius: 0 10px 10px 0;
+}
+
+/* On hover, add a black background color */
+.prev:hover,
+.next:hover {
+}
+
+/* Thumnbail images */
+.row {
+  display: flex;
+  background-color: white;
+}
+
+.thumbnail {
+  width: 17%;
+}
+
+.thumbnail img {
+  width: 100%;
+  margin: 0;
+}
+
+/* Add a opaque effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+  transition: .5s;
+}
+
+.demo:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1;
+  transform: scale(.8);
+  transition: .3s;
 }

@@ -23,14 +23,16 @@ document.getElementById("item_ma").setAttribute("class", "active item");
 <div class="container">
     <div class="main_container">
 
+
+      <div class="image_profile">
+        <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
+          <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
+        </object>
+      </div>
+
     <form class="" action="{{BASEURL}}/c/edit_profile" method="post">
       <div class="profile">
 <div class="ui center aligned icon header">
-  <div class="image_profile">
-    <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
-    <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
-    </object>
-  </div>
   <div class="client_p_panel">
     {{client.user.username}}
   </div>
@@ -89,7 +91,7 @@ document.getElementById("item_ma").setAttribute("class", "active item");
 {% include '../general/footer.html' %}
 <script type="text/javascript">
 $(document).ready(function () {
-hide_hidable();
+  hide_hidable();
 });
 </script>
 </body>

@@ -105,6 +105,10 @@ footer *{
 	margin: 5px;
 }
 
+.margined.small{
+	margin: 15px;
+}
+
 .margined.medium{
 	margin: 40px;
 }
