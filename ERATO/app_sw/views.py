@@ -3,9 +3,13 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+
+# Models
 from .models import SW,Service,Tag, Appearance
 from app_date.models import Date
+from app_mc.models import MC
 
+# Forms
 from .forms import SWSignUpForm
 from .forms import SWEditForm
 from .forms import UploadFileForm
@@ -13,16 +17,23 @@ from .forms import UploadMCForm
 from .forms import ServiceAddForm
 from .forms import SWAppearanceForm
 
+# Authentication
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+
+# Decorators
 from .decorators import *
 from app_client.decorators import *
-import hashlib
+
 from ERATO.settings import BASE_DIR
 
+import hashlib
+from time import gmtime, strftime
 
 image_key="Conan"
 mc_key="Conan"
+
+fmt = '%Y-%m-%d %H:%M:%S+00:00'
 
 # Create your views here.
 # Home for sexworkers
@@ -88,16 +99,26 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = User.objects.create_user(username, email, raw_password)
+
+            mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
+            mc=MC(
+                file_path=mc_path,
+                last_date=strftime(fmt, gmtime())
+            )
+            mc.save()
+
             sw=SW(
                 user=user,
+                mc=mc,
                 full_name=form.cleaned_data.get('first_name')+' '+form.cleaned_data.get('last_name'),
                 birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
                 picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
-                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
+
+
 
             appearance = Appearance(
                 sw=sw,
@@ -223,3 +244,12 @@ def upload_swpp(request):
     if request.FILES['file']:
         handle_uploaded_file(request.FILES['file'], username, 'PPSW')
     return HttpResponseRedirect('/s/profile/')
+
+@login_required_SW
+def mc_panel(request):
+    form_mc = UploadMCForm()
+    return render(request, 'sw/mc_panel.html', {'form_mc':form_mc})
+
+def update_mc(request):
+    
+    return HttpResponse("Updating")

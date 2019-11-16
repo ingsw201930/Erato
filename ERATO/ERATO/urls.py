@@ -56,6 +56,8 @@ urlpatterns = [
     path('s/dates/', sw_views.dates, name="sw_history"),
     path('s/payments/', ts_views.s_payments, name="sw_payments"),
     path('s/get_date_list_more_dates/<int:index>',sw_views.get_date_list_more_dates,name="s_get_date_list"),
+    path('s/mc_panel/', sw_views.mc_panel, name="s_mc_panel"),
+    path('s/update_mc/', sw_views.update_mc, name="update_mc"),
     #path('about/', da_views.about, name="about"),
 
     path('c/profile/s/<int:sw_id>',sw_views.public_profile,name="sw_public_profile"),
@@ -69,6 +71,7 @@ urlpatterns = [
     path('c/get_service_list/<int:index>',client_views.get_service_list,name="c_get_service_list"),
     path('c/get_date_list/<int:index>',client_views.get_date_list,name="c_get_date_list"),
     path('c/payments/', ts_views.c_payments, name="sw_payments"),
+    path('c/mc_panel/', client_views.mc_panel, name="c_mc_panel"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),

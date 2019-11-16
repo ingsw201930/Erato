@@ -9,16 +9,20 @@ from .forms import UploadMCForm
 from .forms import FilterForm
 from app_sw.models import Service
 from app_date.models import Date
+from app_mc.models import MC
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .decorators import login_required_client
 import hashlib
 from ERATO.settings import BASE_DIR
 from django.db.models import Q
+from time import gmtime, strftime
 # Create your views here.
 # Home for clients
 image_key= "Uribeparaco"
 mc_key= "Conan"
+
+fmt = '%Y-%m-%d %H:%M:%S+00:00'
 
 @login_required_client
 def home_c(request):
@@ -78,13 +82,23 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest()
+            mc=MC(
+                file_path=mc_path,
+                last_date=strftime(fmt, gmtime())
+            )
+            mc.save()
+
             client=Client(
                 user=user,
+                mc=mc,
                 birth_date=form.cleaned_data.get('birth_date'),
                 email=form.cleaned_data.get('email'),
                 picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
-                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
             )
+
+            # Se debería crear una clase MC
+
             handle_uploaded_file(request.FILES['file'], username, "PPC")
             handle_uploaded_file(request.FILES['file'], username, "MC")
             client.save()
@@ -141,3 +155,8 @@ def get_date_list(request,index):
     client=Client.objects.get(user=user)
     dates = Date.objects.filter(client=client)[index*n:(index+1)*n]
     return render(request, 'sw/date_list.html',{"dates":dates})
+
+@login_required_client
+def mc_panel(request):
+    form_mc = UploadMCForm()
+    return render(request, 'client/mc_panel.html', {'form_mc':form_mc})

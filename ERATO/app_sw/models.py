@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from app_mc.models import MC
 
 class SW(models.Model):
     FEMALE = 'Female'
@@ -16,6 +17,7 @@ class SW(models.Model):
     (OTHER, 'Other')
     ]
     user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
+    mc=models.OneToOneField(MC,on_delete = models.CASCADE)
     full_name=models.CharField(max_length=100)
     about=models.CharField(max_length=500)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=OTHER, null=True)
@@ -23,7 +25,6 @@ class SW(models.Model):
     third_email=models.CharField(max_length=50)
     picture_path=models.CharField(max_length=200)
     album_path = models.CharField(max_length=200, default='path')
-    mc_path=models.CharField(max_length=200)
 
 class Appearance(models.Model):
 

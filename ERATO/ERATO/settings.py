@@ -43,13 +43,13 @@ INSTALLED_APPS = [
     'stripe',
 
     #own
-
     'app_client',
     'app_date',
     'app_emails',
     'app_sessions',
     'app_sw',
-    'app_transactions'
+    'app_transactions',
+    'app_mc'
 ]
 
 MIDDLEWARE = [

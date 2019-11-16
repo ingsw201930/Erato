@@ -59,7 +59,8 @@
       </h2>
       </div>
 
-      <!-- Container for the image gallery -->
+<!-- Stolen from https://codepen.io/SixStringsCoder/pen/Vwweyjv -->
+<!-- Container for the image gallery -->
 <div class="main_container_gallery">
 
   <!-- Full-width images with number text -->
@@ -294,29 +295,32 @@
   Security
 </h4>
 
-<div class="profile_form">
-  <div class="hidable">
-    <div class="ui grid">
-      <div class="eight wide column">
-        Security email
-      </div>
-      <div class="eight wide column">
-        {{sw.third_email}}
-      </div>
-    </div>
-  </div>
-  <div class="showable">
-		<div class="ui input fluid">
-			{{ form.third_email }}
+<div class="margined topbottommedium">
+
+	<div class="profile_form">
+		<div class="hidable">
+			<div class="ui grid">
+				<div class="eight wide column">
+					Security email
+				</div>
+				<div class="eight wide column">
+					{{sw.third_email}}
+				</div>
+			</div>
 		</div>
-  </div>
-</div>
-<div class="ui negative message" {% if form.third_email.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
-<div class="header">
-Please fill the third email correctly.
-</div>
-<p>{{ form.third_email.errors}}
-</p>
+		<div class="showable">
+			<div class="ui input fluid">
+				{{ form.third_email }}
+			</div>
+		</div>
+	</div>
+	<div class="ui negative message" {% if form.third_email.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+		<div class="header">
+			Please fill the third email correctly.
+		</div>
+		<p>{{ form.third_email.errors}}
+		</p>
+	</div>
 </div>
 
 
