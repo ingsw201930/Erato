@@ -394,15 +394,7 @@ function delete_account_pop_up(){
 }
 
 function delete_account(id){
-	console.log("Deleting account");
-	$.ajax({url: "{{BASEURL}}/s/account_del/"+id,
-	success: function(result){
-		if(result.state=="failed"){
-			return;
-		}
-		console.log("Deleted")
-	}});
-
+	location.replace("{{BASEURL}}/s/account_del/{{sw.user_id}}");
 }
 
 const thumbImgCont = document.getElementById('thumbnail-section');

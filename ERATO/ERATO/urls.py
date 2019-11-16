@@ -73,6 +73,7 @@ urlpatterns = [
     path('c/payments/', ts_views.c_payments, name="sw_payments"),
     path('c/mc_panel/', client_views.mc_panel, name="c_mc_panel"),
     path('c/upload_cpp', client_views.upload_cpp , name="upload_client_profile_picture"),
+    path('c/account_del/<int:client_id>', client_views.account_del , name="account_del"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),

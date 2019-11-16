@@ -25,19 +25,22 @@ def login_managing(request):
         if Client.objects.filter(user=user):
             render_ = HttpResponseRedirect('/c/home/')
             return render_
-    return render_
+    return HttpResponseRedirect('/')
 
 def user_exists(request):
     exists = False
     username = request.POST['username']
     password = request.POST['password']
-    sw = False
-    client = False
+    is_normal = False
     user = authenticate(username=username, password=password)
     if user is not None:
         exists = True
+    if SW.objects.filter(user=user) or Client.objects.filter(user=user):
+        is_normal = True
+    print(is_normal)
     data = {
         'exists': exists,
+        'is_normal': is_normal
     }
     return JsonResponse(data)
 

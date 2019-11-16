@@ -210,6 +210,8 @@ def my_profile(request):
 def account_del(request, sw_id):
     user = request.user
     sw = SW.objects.get(user=user)
+    sw.delete()
+    user.delete()
     return HttpResponseRedirect('/')
 
 @login_required_SW

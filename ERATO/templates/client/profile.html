@@ -125,7 +125,7 @@ document.getElementById("item_ma").setAttribute("class", "active item");
         </button>
       </div>
       <div class="profile button">
-        <div id="button_delete" class="ui inverted fluid red button">
+      <div id="button_delete" class="ui fluid red button" onclick="delete_account_pop_up()">
           Delete account
         </div>
       </div>
@@ -137,11 +137,42 @@ document.getElementById("item_ma").setAttribute("class", "active item");
     </div>
 </div>
 {% include '../general/footer.html' %}
+
+<div class="ui basic modal">
+  <div class="ui icon header">
+    <i class="delete icon"></i>
+    Are you sure you want to delete your account?
+  </div>
+  <div class="content">
+    <p>Some people will miss you!</p>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div class="ui green ok inverted button" onclick="delete_account({{client.user_id}})">
+      <i class="checkmark icon"></i>
+      Yes
+	</div>
+  </div>
+</div>
+
+
 <script type="text/javascript">
 $(document).ready(function () {
   hide_hidable();
 });
 
+function delete_account(id){
+	location.replace("{{BASEURL}}/c/account_del/{{client.user_id}}");
+}
+
+function delete_account_pop_up(){
+	console.log("Pop up wu");
+	$('.ui.basic.modal')
+	.modal('show');
+}
 document.getElementById("id_about").value = '{{client.about}}';
 document.getElementById("id_email").value = '{{client.email}}';
 

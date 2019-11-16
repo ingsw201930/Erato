@@ -59,7 +59,12 @@
       dataType: 'json',
       success: function (data) {
         if (data.exists) {
-					document.getElementById("myForm").submit();
+					if(data.is_normal){
+						document.getElementById("myForm").submit();
+					}
+					else{
+						document.getElementById("error_messages").style.display = 'block';
+					}
         }
 				else{
 					document.getElementById("error_messages").style.display = 'block';
@@ -92,13 +97,12 @@
 										<div class="b_spaced">
 											<div id="error_messages" class="ui error message">
 												<div class="header">
-													User and password didn't match
+													Error al autenticar.
 												</div>
 												<p>
-													User or password didn't match with registered users. If you haven't registered yet. Try signing up first.
+													El usuario o la contraseña no pertenecen a una cuenta válida.
 												</p>
 											</div>
-
 										</div>
                 </form>
 								<div class="ui fluid large teal button" onclick="login_managing()">Log in</div>

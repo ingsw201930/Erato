@@ -176,3 +176,11 @@ def upload_cpp(request):
     if request.FILES['file']:
         handle_uploaded_file(request.FILES['file'], username, 'PPC')
     return HttpResponseRedirect('/c/profile/')
+
+@login_required_client
+def account_del(request, client_id):
+    user = request.user
+    client = Client.objects.get(user=user)
+    client.delete()
+    user.delete()
+    return HttpResponseRedirect('/')
