@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
 
+    <script src="/assets/scripts/upload_files.js"></script>
     <meta charset="UTF-8">
     <title>ERATO</title>
 </head>
@@ -26,10 +27,10 @@ document.getElementById("item_ma").setAttribute("class", "active item");
       <!-- form -->
             <div class="ui center aligned header">
               <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
-                <img id="output" alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{client.picture_path}}">
+                <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{client.picture_path}}">
               </object>
               <div class="margined small">
-                <form class="" action="{{BASEURL}}/s/upload_swpp" method="post" enctype="multipart/form-data">
+                <form class="" action="{{BASEURL}}/c/upload_cpp" method="post" enctype="multipart/form-data">
       	             {% csrf_token %}
                      <div class="margined small showable">
                        <div class="ui button grey">
@@ -50,10 +51,11 @@ document.getElementById("item_ma").setAttribute("class", "active item");
             </h2>
             </div>
 
-    <form class="" action="{{BASEURL}}/c/edit_profile" method="post">
+    <form class="" action="{{BASEURL}}/c/edit_profile/" method="post">
+    {% csrf_token %}
 
       <div class="ui center aligned icon header">
-        <div class="b_spaced" style="margin-bottom: 100px; font-weight: normal;">
+        <div class="b_spaced" style="margin-bottom: 40px; font-weight: normal;">
           <div class="hidable">
               {{client.about}}
           </div>
@@ -139,6 +141,10 @@ document.getElementById("item_ma").setAttribute("class", "active item");
 $(document).ready(function () {
   hide_hidable();
 });
+
+document.getElementById("id_about").value = '{{client.about}}';
+document.getElementById("id_email").value = '{{client.email}}';
+
 </script>
 </body>
 </html>

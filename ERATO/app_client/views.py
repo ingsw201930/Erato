@@ -125,7 +125,8 @@ def my_profile(request):
     user = request.user
     client=Client.objects.get(user=user)
     form = ClientEditForm()
-    return render(request, 'client/profile.html', {'form':form, 'client': client})
+    form_ul = UploadFileForm()
+    return render(request, 'client/profile.html', {'form_ul':form_ul,  'form':form, 'client': client})
 
 # Me seeing my own profile
 @login_required_client
@@ -135,9 +136,10 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ClientEditForm(request.POST)
         if form.is_valid():
-            print("Valid form")
-            # weight = form.cleaned_data['weight']
-    return HttpResponseRedirect('/s/profile/')
+            client.email=form.cleaned_data.get('email')
+            client.about=form.cleaned_data.get('about')
+            client.save()
+    return HttpResponseRedirect('/c/profile/')
 
 
 @login_required_client
@@ -167,6 +169,7 @@ def mc_panel(request):
     form_mc = UploadMCForm()
     return render(request, 'client/mc_panel.html', {'form_mc':form_mc})
 
+@login_required_client
 def upload_cpp(request):
     user = request.user
     username =str(user)
