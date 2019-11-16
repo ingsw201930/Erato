@@ -219,13 +219,12 @@ def edit_profile(request):
         form = SWEditForm(request.POST)
         form_ap = SWAppearanceForm(request.POST)
         if form.is_valid() and form_ap.is_valid():
-            if request.FILES['file']:
-                print("Hay file")
             sw = SW.objects.get(user=user)
             ap = Appearance.objects.get(sw_id=sw.user_id)
 
             sw.gender = form.cleaned_data['gender']
             sw.third_email = form.cleaned_data['third_email']
+            sw.about = form.cleaned_data['about']
 
             ap.weight = form_ap.cleaned_data['weight']
             ap.height = form_ap.cleaned_data['height']
@@ -251,5 +250,5 @@ def mc_panel(request):
     return render(request, 'sw/mc_panel.html', {'form_mc':form_mc})
 
 def update_mc(request):
-    
+
     return HttpResponse("Updating")

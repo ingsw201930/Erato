@@ -132,3 +132,11 @@ footer *{
 	margin-top: 30px;
 	margin-bottom: 30px;
 }
+.margined.topbottombig{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.margined.topbottomgiant{
+	margin-top: 100px;
+	margin-bottom: 100px;
+}

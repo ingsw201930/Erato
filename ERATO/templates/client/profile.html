@@ -23,38 +23,84 @@ document.getElementById("item_ma").setAttribute("class", "active item");
 <div class="container">
     <div class="main_container">
 
-
-      <div class="image_profile">
-        <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
-          <img alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{sw.picture_path}}">
-        </object>
-      </div>
+      <!-- form -->
+            <div class="ui center aligned header">
+              <object class="ui medium circular image" data="{{BASEURL}}/assets/images/utils/vector_profile.jpg">
+                <img id="output" alt="profile" class="ui medium circular image" src="{{BASEURL}}/assets/images/pro_pics/{{client.picture_path}}">
+              </object>
+              <div class="margined small">
+                <form class="" action="{{BASEURL}}/s/upload_swpp" method="post" enctype="multipart/form-data">
+      	             {% csrf_token %}
+                     <div class="margined small showable">
+                       <div class="ui button grey">
+                         <label for="id_file">
+                           Adjuntar</label>
+                           {{ form_ul.file }}
+                         </div>
+                     </div>
+                    <div class="margined small showable">
+                      <button class="ui button green" type="submit" name="button">Guardar</button>
+                    </div>
+                </form>
+              </div>
+              <h2>
+              <div class="sw_p_panel">
+                {{client.user.username}}
+              </div>
+            </h2>
+            </div>
 
     <form class="" action="{{BASEURL}}/c/edit_profile" method="post">
+
+      <div class="ui center aligned icon header">
+        <div class="b_spaced" style="margin-bottom: 100px; font-weight: normal;">
+          <div class="hidable">
+              {{client.about}}
+          </div>
+					<div class="showable">
+						<div class="ui fluid input">
+							{{form.about}}
+						</div>
+					</div>
+        </div>
+      </div>
+
+
       <div class="profile">
-<div class="ui center aligned icon header">
-  <div class="client_p_panel">
-    {{client.user.username}}
-  </div>
-</div>
   <div class="margined huge">
     <div class="more_info">
       <div class="ui grid">
 
   <div class="eight wide column">
-    <i class="birthday cake icon"></i>
-    Born date
+    <i class="user outline icon"></i>
+      Nombre
   </div>
   <div class="eight wide column">
-    <div class="item hidable">
-      {{client.birth_date}}
+    {{client.full_name}}
+  </div>
+
+  <div class="eight wide column">
+    <i class="birthday cake icon"></i>
+      Fecha de nacimiento
+  </div>
+  <div class="eight wide column">
+    {{client.birth_date}}
+  </div>
+
+  <div class="eight wide column">
+      <i class="at icon"></i>
+        Email
     </div>
-    <div class="showable">
-      <div class="ui fluid input">
-        <input type="text" placeholder="Birth date">
+    <div class="eight wide column">
+      <div class="item hidable">
+        {{client.email}}
+      </div>
+      <div class="showable">
+        <div class="ui fluid input">
+          {{form.email}}
+        </div>
       </div>
     </div>
-  </div>
 
       </div>
     </div>

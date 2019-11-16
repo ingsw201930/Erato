@@ -3,12 +3,19 @@
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/dates/dates.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.7.8/semantic.min.js"></script>
+
     <meta charset="UTF-8">
     <title>ERATO</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        {% include './dates.js' %}
-    </script>
+
+    <script src="/assets/scripts/dates/date_state.js"></script>
+    <script src="/assets/scripts/dates/pagination.js"></script>
+    <script src="/assets/scripts/dates/dates.js"></script>
+
 </head>
 <body onload="get_date_list(0)">
 {% include '../general/nav.html' %}
@@ -19,70 +26,128 @@ document.getElementById("item_md").setAttribute("class", "active item");
 </script>
 <div class="container">
     <div class="main_container">
-        <h4 class="ui horizontal divider header">
-        <i class="thumbs up outline icon"></i>
-        Accepted
-        </h4>
-        <div class="ui cards">
-            {% for date in accepted_dates %}
-              <div class="card" style="width: 100%">
-                <div class="content">
-                  <div class="header">Your date with {{date.service.sw.user.username}}</div>
-                  <div class="description">
-                    Start time: {{date.start_time}}
-                    <br>
-                    End time: {{date.end_time}}
-                    <br>
-                    Price: {{date.price}}
-                  </div>
-                </div>
-                <div class="ui bottom attached button" onclick="window.location.replace('{{BASEURL}}/pay_date/{{date.id}}')">
-                  <i class="credit card icon"></i>
-                  Pay
-                </div>
-              </div>
-            {% endfor %}
-        </div>
-        <h4 class="ui horizontal divider header">
-        <i class="hourglass outline icon"></i>
-        Requested
-        </h4>
-        <div class="ui cards">
-            {% for date in requested_dates %}
-              <div class="card" style="width: 100%">
-                <div class="content">
-                  <div class="header">Your date with {{date.service.sw.user.username}}</div>
-                  <div class="description">
-                    Start time: {{date.start_time}}
-                    <br>
-                    End time: {{date.end_time}}
-                    <br>
-                    Price: {{date.price}}
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-        </div>
-        <h4 class="ui horizontal divider header">
-        <i class="clock outline icon"></i>
-        History
-        </h4>
-        <div class="main_container">
-            <div id="date_list">
 
+
+  {% if not current_dates%}
+  <div class="margined topbottomgiant">
+
+  <div class="ui message">
+    <div class="header">
+      No estás actualmente en una cita
+    </div>
+    <p>Cuando la cita haya empezado, aparecerá aquí.</p>
+  </div>
+</div>
+  {% endif %}
+      <!-- Current date -->
+        {% for date in current_date %}
+        <div class="card" style="width: 100%">
+        <div class="content">
+        <div class="header">You are currently in a date with {{date.service.sw.user.username}}</div>
+        <div class="description">
+        Start time: {{date.start_time}}
+        <br>
+        End time: {{date.end_time}}
+        <br>
+        Price: {{date.price}}
+        </div>
+        </div>
+        </div>
+        {% endfor %}
+
+
+      <div class="ui attached tabular menu">
+        <a class="item" data-tab="payed_dates">Próximas citas</a>
+        <a class="item" data-tab="accepted_dates">Aceptadas</a>
+        <a class="item" data-tab="requested_dates">Solicitudes</a>
+        <a class="item" data-tab="more_dates">Historial</a>
+      </div>
+
+        <div class="ui bottom attached tab" data-tab="payed_dates">
+          <div class="margined topbottomsmall">
+            {% for date in payed_dates %}
+            <div class="ui card" style="width: 100%">
+              <div class="content">
+                <div class="header">Your date with {{date.service.sw.user.username}}</div>
+                <div class="description">
+                  Start time: {{date.start_time}}
+                  <br>
+                  End time: {{date.end_time}}
+                  <br>
+                  Price: {{date.price}}
+                </div>
+              </div>
             </div>
-            <div class="ui buttons">
-                <button class="ui left attached button grey" style="width: 45%;" onclick="back()" >
-                    <i class="arrow left icon"></i>
-                </button>
-                <button id="current_index" class="ui center attached button grey" style="width: 45%;" onclick="" > 1 </button>
-                <button class="right attached ui button grey" style="width: 45%;" onclick="next()" >
-                  <i class="arrow right icon"></i>
-                </button>
+            {% endfor %}
+
           </div>
         </div>
-    </div>
+        <!-- Accepted dates -->
+        <div class="ui bottom attached tab" data-tab="accepted_dates">
+          <div class="margined topbottomsmall">
+            {% for date in accepted_dates %}
+            <div class="ui card" style="width: 100%">
+              <div class="content">
+                <div class="header">Your date with {{date.service.sw.user.username}}</div>
+                <div class="description">
+                  Start time: {{date.start_time}}
+                  <br>
+                  End time: {{date.end_time}}
+                  <br>
+                  Price: {{date.price}}
+                </div>
+              </div>
+              <div class="ui bottom attached button" onclick="window.location.replace('{{BASEURL}}/pay_date/{{date.id}}')">
+                <i class="credit card icon"></i>
+                Pay
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+        <!-- Requested dates -->
+        <div class="ui bottom attached tab" data-tab="requested_dates">
+          <div class="margined topbottomsmall">
+            {% for date in requested_dates %}
+            <div class="ui card" style="width: 100%">
+              <div class="content">
+                <div class="header">Your date with {{date.service.sw.user.username}}</div>
+                <div class="description">
+                  Start time: {{date.start_time}}
+                  <br>
+                  End time: {{date.end_time}}
+                  <br>
+                  Price: {{date.price}}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+        <div class="ui bottom attached tab" data-tab="more_dates">
+          <div class="margined topbottomsmall">
+            {% for date in more_dates %}
+            <div class="card" style="width: 100%">
+              <div class="content">
+                <div class="header">Your date with {{date.service.sw.user.username}}</div>
+                <div class="description">
+                  Start time: {{date.start_time}}
+                  <br>
+                  End time: {{date.end_time}}
+                  <br>
+                  Price: {{date.price}}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
 </div>
 {% include '../general/footer.html' %}
+
 </body>
 </html>

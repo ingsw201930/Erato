@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Client
 from .forms import ClientSignUpForm
+from .forms import ClientEditForm
 from .forms import UploadFileForm
 from .forms import UploadMCForm
 from .forms import FilterForm
@@ -123,7 +124,8 @@ def handle_uploaded_file(f, username, code):
 def my_profile(request):
     user = request.user
     client=Client.objects.get(user=user)
-    return render(request, 'client/profile.html', {'client': client})
+    form = ClientEditForm()
+    return render(request, 'client/profile.html', {'form':form, 'client': client})
 
 # Me seeing my own profile
 @login_required_client
@@ -143,10 +145,14 @@ def dates(request):
     user = request.user
     client=Client.objects.get(user=user)
     dates = Date.objects.all().filter(client_id=client.user_id)
+
+    # Dates are divided in five groups
+    current_date=dates.filter(state=Date.STARTED) | dates.filter(state=Date.TIMEDOUT)
+    payed_dates=dates.filter(state=Date.PAYED)
     accepted_dates=dates.filter(state=Date.ACCEPTED)
     requested_dates=dates.filter(state=Date.REQUESTED)
-    history_dates=dates
-    return render(request, 'client/dates.html', {'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'history_dates':history_dates})
+    more_dates=dates.filter(state=Date.ENDED) | dates.filter(state=Date.RATED) | dates.filter(state=Date.REJECTED)
+    return render(request, 'client/dates.html', {'payed_dates': payed_dates,'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'more_dates':more_dates})
 
 @login_required_client
 def get_date_list(request,index):
@@ -160,3 +166,10 @@ def get_date_list(request,index):
 def mc_panel(request):
     form_mc = UploadMCForm()
     return render(request, 'client/mc_panel.html', {'form_mc':form_mc})
+
+def upload_cpp(request):
+    user = request.user
+    username =str(user)
+    if request.FILES['file']:
+        handle_uploaded_file(request.FILES['file'], username, 'PPC')
+    return HttpResponseRedirect('/c/profile/')
