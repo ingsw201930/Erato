@@ -14,6 +14,7 @@
 	<title>Erato</title>
 	<meta charset="utf-8">
 </head>
+
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
@@ -49,7 +50,7 @@
 	<div class="header">
 	Correct the password field.
 	</div>
-	<p>{{ form.password1.errors}}
+	<p>{{ form.password1.errors }}
 	</p></div>
 	<div class="b_spaced">
 		{{ form.password2 }}
@@ -59,27 +60,36 @@
 	<div class="header">
 	Correct the password field.
 	</div>
-	<p>{{ form.password2.errors}}
+	<p>{{ form.password2.errors }}
 	</p></div>
 	<h4 class="ui horizontal divider header">
   Profile
 	</h4>
+
 	<div class="ui placeholder segment">
 		<div class="" style="margin: 30px;">
 			<img class="ui medium image" src="/assets/images/utils/vector_profile.jpg" id="output"/>
 		</div>
-	<div class="ui button yellow">
-		<label for="id_file">
-		Upload your picture</label>
-		{{ form_ul.file }}
+        <div class="ui button yellow">
+            <label for="id_file">
+            Upload your picture</label>
+            {{ form_ul.file }}
+        </div>
 	</div>
-	</div>
+
+    <!-- <div class="ui button yellow"> -->
+    <!--     <label for="id_files"> -->
+    <!--     Upload more pictures</label> -->
+    <!--     {{ form_ul.files }} -->
+    <!-- </div> -->
+
+
 <div class="ui negative message" {% if form_ul.file.errors %} style="display: block" {% else %} style="display: none" {% endif %}
 		>
 	<div class="header">
 	We couldn't upload your picture.
 	</div>
-	<p>{{ form_ul.file.errors}}
+	<p>{{ form_ul.file.errors }}
 	</p>
 	</div>
 	<div class="profile_form">
@@ -91,7 +101,7 @@
 		<div class="header">
 		Please fill the name correctly.
 		</div>
-		<p>{{ form.first_name.errors}}
+		<p>{{ form.first_name.errors }}
 		</p>
 		</div>
 
@@ -161,7 +171,7 @@ Please fill the birth date correctly.
 	{{ form_ap.hair_color}}</div>
 <div class="ui negative message" {% if form.hair.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please chose a hair color.
+    Please chose a hair color.
 </div>
 <p>{{ form_ap.hair_color.errors}}</p>
 </div>
@@ -171,7 +181,7 @@ Please chose a hair color.
 	{{ form_ap.hair_style}}</div>
 <div class="ui negative message" {% if form.hair.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please chose a hair style.
+    Please chose a hair style.
 </div>
 <p>{{ form_ap.hair_style.errors}}</p>
 </div>
@@ -185,7 +195,7 @@ Please chose a hair style.
 </div>
 <div class="ui negative message" {% if form.weight.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please fill the name correctly.
+    Please fill the name correctly.
 </div>
 <p>{{ form_ap.weight.errors}}
 </p>
@@ -200,7 +210,7 @@ Please fill the name correctly.
 </div>
 <div class="ui negative message" {% if form.height.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
-Please fill the height correctly.
+    Please fill the height correctly.
 </div>
 <p>{{ form_ap.height.errors}}</p>
 </div>
@@ -240,7 +250,7 @@ Please fill the height correctly.
 	</div>
 	</div>
 	<div class="button_lr">
-	<button class="ui fluid button teal" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
+        <button class="ui fluid button teal" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
 	</div>
 	</form>
 </div>
@@ -248,7 +258,7 @@ Please fill the height correctly.
 {% include '../general/footer.html' %}
 
 <script type="text/javascript">
-$('.dropdown').dropdown();
+    $('.dropdown').dropdown();
 </script>
 
 </body>

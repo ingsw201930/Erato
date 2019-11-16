@@ -2,13 +2,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from .models import SW,Service,Tag, Appearance
 from app_date.models import Date
+from .models import SW, Service, Tag, Appearance, AdditionalImage
 
 from .forms import SWSignUpForm
 from .forms import SWEditForm
 from .forms import UploadFileForm
+from .forms import UploadAdditionalImagesForm
 from .forms import UploadMCForm
 from .forms import ServiceAddForm
 from .forms import SWAppearanceForm
@@ -39,13 +39,19 @@ def home_s(request):
         HttpResponseRedirect('/')
 
 @login_required_SW
+def image_add_form(request):
+    form = ServiceAddForm()
+    tags = Tag.objects.all()
+    return render(request, 'services_s/image_add.html', {'tags':tags, 'form':form})
+
+@login_required_SW
 def service_add_form(request):
     form = ServiceAddForm()
     tags = Tag.objects.all()
     return render(request, 'services_s/service_add.html', {'tags':tags, 'form':form})
 
 @login_required_SW
-def service_add(request):
+def image_add(request):
     form = ServiceAddForm(request.POST)
     if form.is_valid():
         name = form.cleaned_data.get('name')
@@ -62,6 +68,18 @@ def service_add(request):
 
         return HttpResponseRedirect('/s/home')
     return HttpResponseRedirect('/s/service_add_request/')
+
+@login_required_SW
+def service_add(request):
+    form = UploadAdditionalImagesForm(request.POST)
+    if form.is_valid():
+        path = form.cleaned_data.get('file')
+        sw = SW.objects.get(user=user)
+        addImg = AdditionalImage(sw=sw, extra_picture_path=path)
+        addImg.save()
+
+        return HttpResponseRedirect('/s/home')
+    return HttpResponseRedirect('/s/image_add_request/')
 
 @SW_my_service_required
 def service_del(request, service_id):
@@ -88,14 +106,15 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = User.objects.create_user(username, email, raw_password)
-            sw=SW(
+            sw = SW(
                 user=user,
                 full_name=form.cleaned_data.get('first_name')+' '+form.cleaned_data.get('last_name'),
                 birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
-                picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
-                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
+                picture_path="%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
+
+                mc_path="%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
 
@@ -142,11 +161,11 @@ def public_profile(request, sw_id):
     services=Service.objects.all()
     print("Showing services")
     print(services)
-    sw=SW.objects.get(user_id=sw_id)
+    sw = SW.objects.get(user_id=sw_id)
     return render(request, 'c/profiles/profile_s.html', {'sw': sw})
 
-    print("Couldn't show public profile.")
-    return None
+    #  print("Couldn't show public profile.")
+    #  return None
 
 @login_required_SW
 def dates(request):
@@ -160,7 +179,7 @@ def dates(request):
 
 @login_required_SW
 def get_date_list_more_dates(request, index):
-    n=5
+    n = 5
     user = request.user
     dates = Date.objects.filter(service__sw_id=user.id)
     all_dates = dates.filter(state=Date.RATED) | dates.filter(state=Date.ENDED) | dates.filter(state=Date.REJECTED) | dates.filter(state=Date.ACCEPTED)
@@ -223,3 +242,4 @@ def upload_swpp(request):
     if request.FILES['file']:
         handle_uploaded_file(request.FILES['file'], username, 'PPSW')
     return HttpResponseRedirect('/s/profile/')
+

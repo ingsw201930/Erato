@@ -9,21 +9,26 @@ class SW(models.Model):
     OTHER = 'Other'
 
     GENDER_CHOICES = [
-    (FEMALE , 'Female'),
-    (MALE , 'Male'),
-    (FTM, 'FTM'),
-    (MTF, 'MTF'),
-    (OTHER, 'Other')
+        (FEMALE, 'Female'),
+        (MALE, 'Male'),
+        (FTM, 'FTM'),
+        (MTF, 'MTF'),
+        (OTHER, 'Other')
     ]
-    user=models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True)
-    full_name=models.CharField(max_length=100)
-    about=models.CharField(max_length=500)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    full_name = models.CharField(max_length=100)
+    about = models.CharField(max_length=500)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=OTHER, null=True)
-    birth_date=models.DateTimeField('date birth')
-    third_email=models.CharField(max_length=50)
-    picture_path=models.CharField(max_length=200)
+    birth_date = models.DateTimeField('date birth')
+    third_email = models.CharField(max_length=50)
+    picture_path = models.CharField(max_length=200)
     album_path = models.CharField(max_length=200, default='path')
-    mc_path=models.CharField(max_length=200)
+    mc_path = models.CharField(max_length=200)
+
+class AdditionalImage(models.Model):
+    sw = models.ForeignKey(SW, on_delete=models.CASCADE)
+    extra_picture_path = models.CharField(max_length=500)
 
 class Appearance(models.Model):
 
@@ -53,35 +58,35 @@ class Appearance(models.Model):
 
     OTHER = 'Other'
 
-    EYES_CHOICES =[
-    (BLUE, 'Blue'),
-    (BROWN, 'Brown'),
-    (GREEN, 'Green'),
-    (HAZEL, 'Hazel'),
-    (GRAY, 'Gray'),
-    (AMBER, 'Amber'),
-    (OTHER, 'Other')
+    EYES_CHOICES = [
+        (BLUE, 'Blue'),
+        (BROWN, 'Brown'),
+        (GREEN, 'Green'),
+        (HAZEL, 'Hazel'),
+        (GRAY, 'Gray'),
+        (AMBER, 'Amber'),
+        (OTHER, 'Other')
     ]
 
-    HAIR_COLOR_CHOICES =[
-    (DARK, 'Dark'),
-    (BLONDE, 'Blonde'),
-    (OTHER, 'Other')
+    HAIR_COLOR_CHOICES = [
+        (DARK, 'Dark'),
+        (BLONDE, 'Blonde'),
+        (OTHER, 'Other')
     ]
 
-    HAIR_STYLES_CHOICES=[
-    (BOB, 'Bob'),
-    (LONG, 'Long'),
-    (OTHER, 'Other')
+    HAIR_STYLES_CHOICES = [
+        (BOB, 'Bob'),
+        (LONG, 'Long'),
+        (OTHER, 'Other')
     ]
 
-    SKIN_CHOICES=[
-    (S_1, '#FFDBAC'),
-    (S_2, '#F1C27D'),
-    # (3, '#E0AC69'),
-    # (4, '#C68642'),
-    # (5, '#8D5524'),
-    # (6, '#260701'),
+    SKIN_CHOICES = [
+        (S_1, '#FFDBAC'),
+        (S_2, '#F1C27D'),
+        # (3, '#E0AC69'),
+        # (4, '#C68642'),
+        # (5, '#8D5524'),
+        # (6, '#260701'),
     ]
 
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
@@ -113,3 +118,4 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+

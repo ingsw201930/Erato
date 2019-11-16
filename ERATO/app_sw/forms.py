@@ -7,6 +7,9 @@ from .models import SW, Appearance
 class UploadFileForm(forms.Form):
     file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadImage(event)'}))
 
+class UploadAdditionalImagesForm(forms.Form):
+    file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadImage(event)'}))
+
 class UploadMCForm(forms.Form):
     mc = forms.FileField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadFile(event)'}))
 
