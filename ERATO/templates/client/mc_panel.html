@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+    <meta charset="UTF-8">
+    <title>ERATO</title>
+</head>
+<body>
+{% include '../general/nav.html' %}
+{% include '../general/subbar.html' %}
+{% include '../general/menu_c.html' %}
+<script>
+document.getElementById("item_mc").setAttribute("class", "active item");
+</script>
+<div class="container">
+    <div class="main_container">
+      <table class="ui fixed table">
+        <thead>
+          <tr><th>Fecha</th>
+          <th>Estado</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td>Date</td>
+            <td>State</td>
+            <!-- <td>{{client.mc.last_date}}</td> -->
+            <!-- <td>{{client.mc.state}}</td> -->
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ui icon message">
+        <i class="calendar alternate outline icon"></i>
+      <div class="content">
+      <div class="header">
+      Tus pruebas de ETS se vencerán en .
+      </div>
+      <ul class="list">
+      <li>
+        Recuerda actualizar tus pruebas trimestrales, o tus servicios no serán mostrados en la página.
+      </li>
+      <li>
+        Las pruebas de ETS están disponibles
+        <a href="https://profamilia.org.co/servicios/its/consulta-medica/">en tu país.</a>
+      </li>
+      </ul>
+
+      </div>
+      </div>
+
+      <div class="ui placeholder segment">
+      <div class="ui icon header">
+      <i class="pdf file outline icon"></i>
+      Adjunta los resultados de tus pruebas.
+      </div>
+      <div class="ui button grey">
+        <label for="id_mc">
+          Upload your PDF</label>
+          {{ form_mc.mc }}
+      </div>
+      </div>
+
+    </div>
+</div>
+{% include '../general/footer.html' %}
+</body>
+</html>

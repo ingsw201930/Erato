@@ -2,9 +2,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+# Models
 from app_date.models import Date
 from .models import SW, Service, Tag, Appearance, AdditionalImage
+from app_mc.models import MC
 
+# Forms
 from .forms import SWSignUpForm
 from .forms import SWEditForm
 from .forms import UploadFileForm
@@ -13,16 +17,23 @@ from .forms import UploadMCForm
 from .forms import ServiceAddForm
 from .forms import SWAppearanceForm
 
+# Authentication
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+
+# Decorators
 from .decorators import *
 from app_client.decorators import *
-import hashlib
+
 from ERATO.settings import BASE_DIR
 
+import hashlib
+from time import gmtime, strftime
 
 image_key="Conan"
 mc_key="Conan"
+
+fmt = '%Y-%m-%d %H:%M:%S+00:00'
 
 # Create your views here.
 # Home for sexworkers
@@ -106,17 +117,27 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             email = form.cleaned_data.get('email')
             user = User.objects.create_user(username, email, raw_password)
-            sw = SW(
+            mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
+            mc=MC(
+                file_path=mc_path,
+                last_date=strftime(fmt, gmtime())
+            )
+            mc.save()
+
+            sw=SW(
                 user=user,
+                mc=mc,
                 full_name=form.cleaned_data.get('first_name')+' '+form.cleaned_data.get('last_name'),
                 birth_date=form.cleaned_data.get('birth_date'),
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
-                picture_path="%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
+                picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
 
-                mc_path="%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
+                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
+
+
 
             appearance = Appearance(
                 sw=sw,
@@ -208,6 +229,8 @@ def my_profile(request):
 def account_del(request, sw_id):
     user = request.user
     sw = SW.objects.get(user=user)
+    sw.delete()
+    user.delete()
     return HttpResponseRedirect('/')
 
 @login_required_SW
@@ -217,13 +240,12 @@ def edit_profile(request):
         form = SWEditForm(request.POST)
         form_ap = SWAppearanceForm(request.POST)
         if form.is_valid() and form_ap.is_valid():
-            if request.FILES['file']:
-                print("Hay file")
             sw = SW.objects.get(user=user)
             ap = Appearance.objects.get(sw_id=sw.user_id)
 
             sw.gender = form.cleaned_data['gender']
             sw.third_email = form.cleaned_data['third_email']
+            sw.about = form.cleaned_data['about']
 
             ap.weight = form_ap.cleaned_data['weight']
             ap.height = form_ap.cleaned_data['height']
@@ -243,3 +265,11 @@ def upload_swpp(request):
         handle_uploaded_file(request.FILES['file'], username, 'PPSW')
     return HttpResponseRedirect('/s/profile/')
 
+@login_required_SW
+def mc_panel(request):
+    form_mc = UploadMCForm()
+    return render(request, 'sw/mc_panel.html', {'form_mc':form_mc})
+
+def update_mc(request):
+
+    return HttpResponse("Updating")

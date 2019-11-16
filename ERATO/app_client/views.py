@@ -4,21 +4,26 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Client
 from .forms import ClientSignUpForm
+from .forms import ClientEditForm
 from .forms import UploadFileForm
 from .forms import UploadMCForm
 from .forms import FilterForm
 from app_sw.models import Service
 from app_date.models import Date
+from app_mc.models import MC
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from .decorators import login_required_client
 import hashlib
 from ERATO.settings import BASE_DIR
 from django.db.models import Q
+from time import gmtime, strftime
 # Create your views here.
 # Home for clients
 image_key= "Uribeparaco"
 mc_key= "Conan"
+
+fmt = '%Y-%m-%d %H:%M:%S+00:00'
 
 @login_required_client
 def home_c(request):
@@ -78,13 +83,23 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
+            mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest()
+            mc=MC(
+                file_path=mc_path,
+                last_date=strftime(fmt, gmtime())
+            )
+            mc.save()
+
             client=Client(
                 user=user,
+                mc=mc,
                 birth_date=form.cleaned_data.get('birth_date'),
                 email=form.cleaned_data.get('email'),
                 picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
-                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
             )
+
+            # Se debería crear una clase MC
+
             handle_uploaded_file(request.FILES['file'], username, "PPC")
             handle_uploaded_file(request.FILES['file'], username, "MC")
             client.save()
@@ -109,7 +124,9 @@ def handle_uploaded_file(f, username, code):
 def my_profile(request):
     user = request.user
     client=Client.objects.get(user=user)
-    return render(request, 'client/profile.html', {'client': client})
+    form = ClientEditForm()
+    form_ul = UploadFileForm()
+    return render(request, 'client/profile.html', {'form_ul':form_ul,  'form':form, 'client': client})
 
 # Me seeing my own profile
 @login_required_client
@@ -119,9 +136,10 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ClientEditForm(request.POST)
         if form.is_valid():
-            print("Valid form")
-            # weight = form.cleaned_data['weight']
-    return HttpResponseRedirect('/s/profile/')
+            client.email=form.cleaned_data.get('email')
+            client.about=form.cleaned_data.get('about')
+            client.save()
+    return HttpResponseRedirect('/c/profile/')
 
 
 @login_required_client
@@ -129,10 +147,14 @@ def dates(request):
     user = request.user
     client=Client.objects.get(user=user)
     dates = Date.objects.all().filter(client_id=client.user_id)
+
+    # Dates are divided in five groups
+    current_date=dates.filter(state=Date.STARTED) | dates.filter(state=Date.TIMEDOUT)
+    payed_dates=dates.filter(state=Date.PAYED)
     accepted_dates=dates.filter(state=Date.ACCEPTED)
     requested_dates=dates.filter(state=Date.REQUESTED)
-    history_dates=dates
-    return render(request, 'client/dates.html', {'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'history_dates':history_dates})
+    more_dates=dates.filter(state=Date.ENDED) | dates.filter(state=Date.RATED) | dates.filter(state=Date.REJECTED)
+    return render(request, 'client/dates.html', {'payed_dates': payed_dates,'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'more_dates':more_dates})
 
 @login_required_client
 def get_date_list(request,index):
@@ -141,3 +163,24 @@ def get_date_list(request,index):
     client=Client.objects.get(user=user)
     dates = Date.objects.filter(client=client)[index*n:(index+1)*n]
     return render(request, 'sw/date_list.html',{"dates":dates})
+
+@login_required_client
+def mc_panel(request):
+    form_mc = UploadMCForm()
+    return render(request, 'client/mc_panel.html', {'form_mc':form_mc})
+
+@login_required_client
+def upload_cpp(request):
+    user = request.user
+    username =str(user)
+    if request.FILES['file']:
+        handle_uploaded_file(request.FILES['file'], username, 'PPC')
+    return HttpResponseRedirect('/c/profile/')
+
+@login_required_client
+def account_del(request, client_id):
+    user = request.user
+    client = Client.objects.get(user=user)
+    client.delete()
+    user.delete()
+    return HttpResponseRedirect('/')

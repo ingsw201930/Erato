@@ -13,16 +13,19 @@ class ClientSignUpForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Username', 'style':'margin-bottom: 10px;'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Type your password', 'style':'margin-bottom: 10px;'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Type again your password', 'style':'margin-bottom: 10px;'}))
+    about = forms.CharField(max_length=280, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Acerca de mí', 'style':'margin-bottom: 10px;'}))
     birth_date=forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
-    #first_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'First name', 'style':'margin-bottom: 10px;'}))
-    #last_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Last name', 'style':'margin-bottom: 10px;'}))
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'First name', 'style':'margin-bottom: 10px;'}))
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Last name', 'style':'margin-bottom: 10px;'}))
     email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Email', 'style':'margin-bottom: 10px;'}))
-    #birth_date=forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email' )
+
 class ClientEditForm(forms.Form):
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Email', 'style':'margin-bottom: 10px;'}))
+    email = forms.EmailField(max_length=80, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Email', 'style':'margin-bottom: 10px;'}))
+    about = forms.CharField(max_length=280, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Acerca de mí', 'style':'margin-bottom: 10px;'}))
+
 
 class FilterForm(forms.Form):
     search=forms.CharField(

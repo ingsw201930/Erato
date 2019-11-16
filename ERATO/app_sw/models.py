@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from app_mc.models import MC
 
 class SW(models.Model):
-    FEMALE = 'Female'
-    MALE = 'Male'
+    FEMALE = 'Femenino'
+    MALE = 'Masculino'
     FTM = 'Ftm'
     MTF = 'Mtf'
-    OTHER = 'Other'
+    OTHER = 'Otro'
 
     GENDER_CHOICES = [
         (FEMALE, 'Female'),
@@ -19,6 +20,7 @@ class SW(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     full_name = models.CharField(max_length=100)
     about = models.CharField(max_length=500)
+    mc = models.OneToOneField(MC,on_delete = models.CASCADE)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default=OTHER, null=True)
     birth_date = models.DateTimeField('date birth')
     third_email = models.CharField(max_length=50)
@@ -33,23 +35,23 @@ class AdditionalImage(models.Model):
 class Appearance(models.Model):
 
     # Eyes
-    BLUE = 'Blue'
-    BROWN = 'Brown'
-    GREEN = 'Green'
+    BLUE = 'Azul'
+    BROWN = 'Café'
+    GREEN = 'Verde'
     HAZEL = 'Hazel'
-    GRAY = 'Gray'
+    GRAY = 'Gris'
     AMBER = 'Amber'
 
     # Hair color
-    DARK = 'Dark'
+    DARK = 'Oscuro'
     CARAMEL = 'Caramel'
-    BLONDE = 'Blonde'
+    BLONDE = 'Rubio'
     WHITE = 'White'
-    COLORFUL = 'Colorful'
+    COLORFUL = 'Colorido'
 
     # Hair style
     BOB = 'Bob'
-    LONG = 'Long'
+    LONG = 'Largo'
 
     # Skin color
     S_1 = "#FFDBAC"
@@ -59,25 +61,25 @@ class Appearance(models.Model):
     OTHER = 'Other'
 
     EYES_CHOICES = [
-        (BLUE, 'Blue'),
-        (BROWN, 'Brown'),
-        (GREEN, 'Green'),
+        (BLUE, 'Azul'),
+        (BROWN, 'Café'),
+        (GREEN, 'Verde'),
         (HAZEL, 'Hazel'),
-        (GRAY, 'Gray'),
+        (GRAY, 'Gris'),
         (AMBER, 'Amber'),
-        (OTHER, 'Other')
+        (OTHER, 'Otro')
     ]
 
     HAIR_COLOR_CHOICES = [
-        (DARK, 'Dark'),
-        (BLONDE, 'Blonde'),
-        (OTHER, 'Other')
+        (DARK, 'Oscuro'),
+        (BLONDE, 'Rubio'),
+        (OTHER, 'Otro')
     ]
 
     HAIR_STYLES_CHOICES = [
         (BOB, 'Bob'),
-        (LONG, 'Long'),
-        (OTHER, 'Other')
+        (LONG, 'Largo'),
+        (OTHER, 'Otro')
     ]
 
     SKIN_CHOICES = [
@@ -99,7 +101,7 @@ class Appearance(models.Model):
 
 # Many to many relations, example: https://docs.djangoproject.com/en/2.2/topics/db/examples/many_to_many/
 class Tag(models.Model):
-    name = models.CharField(max_length=10, default='name')
+    name = models.CharField(max_length=19, default='name')
     class Meta:
         ordering = ['name']
 

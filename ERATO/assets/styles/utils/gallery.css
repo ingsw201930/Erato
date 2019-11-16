@@ -130,7 +130,7 @@ html {
   opacity: 1;
 }
 
-.active {
+.demo.cursor.active {
   opacity: 1;
   transform: scale(.8);
   transition: .3s;

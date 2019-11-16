@@ -43,7 +43,7 @@
                <div class="margined small showable">
                  <div class="ui fluid button yellow">
                    <label for="id_file">
-                     Upload your picture</label>
+                     Adjuntar</label>
                      {{ form_ul.file }}
                    </div>
                </div>
@@ -59,7 +59,8 @@
       </h2>
       </div>
 
-      <!-- Container for the image gallery -->
+<!-- Stolen from https://codepen.io/SixStringsCoder/pen/Vwweyjv -->
+<!-- Container for the image gallery -->
 <div class="main_container_gallery">
 
   <!-- Full-width images with number text -->
@@ -130,7 +131,7 @@
 	{% csrf_token %}
 <div class="margined medium">
   <div class="ui inverted button green showable">
-    Upload a new album path
+    Carga un nuevo álbum
   </div>
 </div>
 <div class="margined huge">
@@ -156,7 +157,7 @@
         <div class="ui grid">
 <div class="eight wide column">
             <i class="user outline icon"></i>
-            Name
+            Nombre
           </div>
           <div class="eight wide column">
             <div class="item">
@@ -166,7 +167,7 @@
 
           <div class="eight wide column">
             <i class="birthday cake icon"></i>
-            Born date
+            Fecha de nacimiento
           </div>
           <div class="eight wide column">
             <div class="item">
@@ -175,11 +176,11 @@
           </div>
 
 <h4 class="ui horizontal divider header">
-  How do you look like?
+  Apariencia
 </h4>
           <div class="eight wide column">
             <i class="venus mars icon"></i>
-            Gender
+            Género
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -195,7 +196,7 @@
 
           <div class="eight wide column">
             <i class="eye icon"></i>
-            Eyes
+            Color de ojos
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -211,7 +212,7 @@
 
           <div class="eight wide column">
             <i class="weight icon"></i>
-            Weight
+            Peso
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -227,7 +228,7 @@
 
           <div class="eight wide column">
             <i class="building outline icon"></i>
-            Height
+            Estatura
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -242,7 +243,7 @@
 
           <div class="eight wide column">
             <i class="paint brush icon"></i>
-            Skin
+            Color de piel
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -258,7 +259,7 @@
 
           <div class="eight wide column">
             <i class="eye dropper icon"></i>
-            Hair color
+            Color de cabello
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -274,7 +275,7 @@
 
           <div class="eight wide column">
             <i class="eye icon"></i>
-            Hair style
+            Estilo
           </div>
           <div class="eight wide column">
             <div class="item hidable">
@@ -291,32 +292,35 @@
 
 
 	<h4 class="ui horizontal divider header">
-  Security
+  Seguridad
 </h4>
 
-<div class="profile_form">
-  <div class="hidable">
-    <div class="ui grid">
-      <div class="eight wide column">
-        Security email
-      </div>
-      <div class="eight wide column">
-        {{sw.third_email}}
-      </div>
-    </div>
-  </div>
-  <div class="showable">
-		<div class="ui input fluid">
-			{{ form.third_email }}
+<div class="margined topbottommedium">
+
+	<div class="profile_form">
+		<div class="hidable">
+			<div class="ui grid">
+				<div class="eight wide column">
+					Email de seguridad
+				</div>
+				<div class="eight wide column">
+					{{sw.third_email}}
+				</div>
+			</div>
 		</div>
-  </div>
-</div>
-<div class="ui negative message" {% if form.third_email.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
-<div class="header">
-Please fill the third email correctly.
-</div>
-<p>{{ form.third_email.errors}}
-</p>
+		<div class="showable">
+			<div class="ui input fluid">
+				{{ form.third_email }}
+			</div>
+		</div>
+	</div>
+	<div class="ui negative message" {% if form.third_email.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+		<div class="header">
+			Please fill the third email correctly.
+		</div>
+		<p>{{ form.third_email.errors}}
+		</p>
+	</div>
 </div>
 
 
@@ -325,19 +329,19 @@ Please fill the third email correctly.
     <div class="profile_buttons">
       <div class="profile_button">
         <div id="button_edit" class="ui fluid orange button" onclick="show_inputs()">
-          Edit profile
+          Editar perfil
         </div>
       </div>
       <div class="profile_button">
         <button type="submit"
         id="button_save" style="display: none" class="ui inverted fluid green button"
         name="button">
-        Save
+        Guardar
       </button>
     </div>
     <div class="profile_button">
       <div id="button_delete" class="ui fluid red button" onclick="delete_account_pop_up()">
-        Delete account
+        Borrar cuenta
       </div>
     </div>
   </div>
@@ -390,15 +394,7 @@ function delete_account_pop_up(){
 }
 
 function delete_account(id){
-	console.log("Deleting account");
-	$.ajax({url: "{{BASEURL}}/s/account_del/"+id,
-	success: function(result){
-		if(result.state=="failed"){
-			return;
-		}
-		console.log("Deleted")
-	}});
-
+	location.replace("{{BASEURL}}/s/account_del/{{sw.user_id}}");
 }
 
 const thumbImgCont = document.getElementById('thumbnail-section');

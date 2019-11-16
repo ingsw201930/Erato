@@ -51,28 +51,34 @@ def checkQR(request,date_id,code):
     except Date.DoesNotExist:
         return HttpResponseForbidden()
     state=date.state
+    # Getting individual date noise
     noise=str(date.noise)
+    # Checking if url is valid with date noise
     code_noise = hashlib.sha256(bytes(str(date_id)+noise,'utf-8')).hexdigest()
     print("Code:"+code)
     print("Code + noise "+code_noise)
     print("noise,id",noise,date_id)
+    # If date is payed and the link is valid
     if state==Date.PAYED and code==code_noise:
- #   if True:
-        date.state=Date.STARTED
-        date.save()
+        # Date state changes to 'started'
         state=Date.STARTED
-
+        date.state=state
+        date.save()
         def date_timer():
             date_start  = datetime.strptime( str(date.start_time), fmt ).timestamp()
             date_end    = datetime.strptime( str(date.end_time)  , fmt ).timestamp()
+            # Getting date duration
             sleep_time =  date_end - date_start
             print("Sleeping %f" % sleep_time)
             time.sleep( sleep_time )
             if date.state != Date.ENDED:
+                # Send email to third
                 send_third( date.service.sw.user.username , date.service.sw.third_email )
                 print( date.service.sw.third_email  )
+                # Date state changes to 'timed out'
                 date.state = Date.TIMEDOUT
                 date.save()
+
 
         thr = threading.Thread( target= date_timer )
         thr.start()
@@ -94,33 +100,26 @@ def generate_date(request, service_id):
     if request.method == 'POST':
         form = DateAddForm( request.POST )
         if form.is_valid():
-            print("Form is valid")
             start_time = form.cleaned_data.get('start_time')
-            print(start_time)
             end_time = form.cleaned_data.get('end_time')
-            print(end_time)
             start_time_hms = form.cleaned_data.get('start_time_hms')
-            print(start_time_hms)
             end_time_hms = form.cleaned_data.get('end_time_hms')
-            print(end_time_hms)
             lng = round(form.cleaned_data.get('lng'),8)
-            print(lng)
             lat = round(form.cleaned_data.get('lat'),8)
-            print(lat)
             user = request.user
             client = Client.objects.get( user = user )
             try:
-
+                # Getting related service
                 service = Service.objects.get(id=service_id)
+                # Formatting time
                 start_time = start_time+' '+start_time_hms+'+00:00'
                 end_time = end_time+' '+end_time_hms+'+00:00'
                 date_start  = datetime.strptime( str(start_time), fmt ).timestamp()
                 date_end    = datetime.strptime( str(end_time)  , fmt ).timestamp()
                 total_duration =  date_end - date_start
                 total_hours = total_duration//3600
-                print(total_hours)
+                # Getting total price of date according to hours
                 price = round(total_hours*float(service.price),2)
-                print(price)
                 date = Date(
                     client = client,
                     service = service,
@@ -130,11 +129,9 @@ def generate_date(request, service_id):
                     lng = lng,
                     price = price
                 )
+                # Saving date in database
                 date.save()
-
-
-                print("Date created")
-
+                print("Generated date")
                 return HttpResponseRedirect('/c/home/')
 
             except Exception as e:
@@ -152,10 +149,13 @@ def date_form( request , service_id ):
 
 @SW_my_date_required
 def accept_date(request, date_id):
+    # Getting date with id
     date=Date.objects.get(id=date_id)
     if date.state!=Date.REQUESTED:
         return JsonResponse({"state":"failed"})
+    # Changing date state
     date.state=Date.ACCEPTED
+    # Saving date in database
     date.save()
     return JsonResponse({"state":"accepted"})
 
@@ -164,17 +164,19 @@ def reject_date(request, date_id):
     date=Date.objects.get(id=date_id)
     if date.state!=Date.REQUESTED:
         return JsonResponse({"state":"failed"})
+    # Date state changes to rejected
     date.state=Date.REJECTED
     date.save()
-    return HttpResponse({"state":"rejected"})
+    return JsonResponse({"state":"rejected"})
 
 
 @SW_my_date_required
 def end_date(request, date_id):
     date = Date.objects.get(id=date_id)
+    # Date state changes to 'ended'
     date.state = Date.ENDED
     date.save()
-    return HttpResponse("Date ended")
+    return JsonResponse({"state":"ended"})
 
 @SW_my_date_required
 def date_by_service(request, date_id, rate):

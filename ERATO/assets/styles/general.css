@@ -122,3 +122,21 @@ footer *{
   align-items: center;
   justify-content: center;
 }
+
+.margined.topbottomsmall{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.margined.topbottommedium{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.margined.topbottombig{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.margined.topbottomgiant{
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
