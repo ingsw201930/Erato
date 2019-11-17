@@ -32,20 +32,20 @@ class SWSignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'First name'}))
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
     third_email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Third email'}))
-    birth_date=forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
-    description=forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    birth_date = forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
+    description = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
 
     class Meta:
         model = User
         fields = (
-        'username',
-        'password1',
-        'password2',
-        'first_name',
-        'last_name',
-        'email',
-        'description'
+            'username',
+            'password1',
+            'password2',
+            'first_name',
+            'last_name',
+            'email',
+            'description'
         )
 
     def __init__(self, *args, **kwargs):
@@ -54,13 +54,13 @@ class SWSignUpForm(UserCreationForm):
 
 
 class SWAppearanceForm(forms.Form):
-    EYES_CHOICES=Appearance.EYES_CHOICES
-    HAIR_COLOR_CHOICES=Appearance.HAIR_COLOR_CHOICES
-    HAIR_STYLES_CHOICES=Appearance.HAIR_STYLES_CHOICES
-    SKIN_CHOICES=Appearance.SKIN_CHOICES
+    EYES_CHOICES = Appearance.EYES_CHOICES
+    HAIR_COLOR_CHOICES = Appearance.HAIR_COLOR_CHOICES
+    HAIR_STYLES_CHOICES = Appearance.HAIR_STYLES_CHOICES
+    SKIN_CHOICES = Appearance.SKIN_CHOICES
 
-    weight =forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
-    height =forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
+    weight = forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
+    height = forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
     skin = forms.ChoiceField(choices=SKIN_CHOICES)
     eyes = forms.ChoiceField(choices=EYES_CHOICES)
     hair_style = forms.ChoiceField(choices=HAIR_STYLES_CHOICES)
@@ -77,7 +77,7 @@ class SWAppearanceForm(forms.Form):
 class SWEditForm(forms.Form):
     GENDER_CHOICES = SW.GENDER_CHOICES
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    about=forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    about = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
     third_email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Third email'}))
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -86,3 +86,5 @@ class SWEditForm(forms.Form):
 
 class ServiceFilterForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+
+
