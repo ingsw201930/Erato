@@ -18,6 +18,13 @@ import hashlib
 from ERATO.settings import BASE_DIR
 from django.db.models import Q
 from time import gmtime, strftime
+import time
+from dateutil.relativedelta import *
+from datetime import datetime
+from datetime import timedelta
+from time import mktime
+
+
 # Create your views here.
 # Home for clients
 image_key= "Uribeparaco"
@@ -167,7 +174,14 @@ def get_date_list(request,index):
 @login_required_client
 def mc_panel(request):
     form_mc = UploadMCForm()
-    return render(request, 'client/mc_panel.html', {'form_mc':form_mc})
+    user = request.user
+    client = Client.objects.get(user=user)
+    mc_date = client.mc.last_date
+    today = strftime(fmt, gmtime())
+    use_date = time.strptime(str(mc_date), fmt)
+    dt = datetime.fromtimestamp(mktime(use_date))
+    dt = dt + relativedelta(months=+5)
+    return render(request, 'client/mc_panel.html', {'dt':dt, 'client':client, 'form_mc':form_mc})
 
 @login_required_client
 def upload_cpp(request):
@@ -184,3 +198,17 @@ def account_del(request, client_id):
     client.delete()
     user.delete()
     return HttpResponseRedirect('/')
+
+@login_required_client
+def update_mc(request):
+    user = request.user
+    client = Client.objects.get(user=user)
+    username =str(user)
+    form_ul = UploadFileForm(request.POST, request.FILES)
+    mc = client.mc
+    mc.last_date = strftime(fmt, gmtime())
+    mc.state = MC.VERIFYING
+    mc.save()
+    if form_ul.is_valid():
+        handle_uploaded_file(request.FILES['file'], username, "MC")
+    return HttpResponseRedirect('/c/mc_panel/')

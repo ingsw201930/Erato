@@ -26,7 +26,6 @@ class SW(models.Model):
     third_email = models.CharField(max_length=50)
     picture_path = models.CharField(max_length=200)
     album_path = models.CharField(max_length=200, default='path')
-    mc_path = models.CharField(max_length=200)
 
 class AdditionalImage(models.Model):
     sw = models.ForeignKey(SW, on_delete=models.CASCADE)
@@ -120,4 +119,3 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
-

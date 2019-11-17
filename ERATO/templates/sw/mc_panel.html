@@ -3,6 +3,9 @@
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link rel="stylesheet" type="text/css" href="/assets/styles/general.css">
+
+    <script src="/assets/scripts/upload_files.js"></script>
+
     <meta charset="UTF-8">
     <title>ERATO</title>
 </head>
@@ -22,10 +25,12 @@ document.getElementById("item_mc").setAttribute("class", "active item");
         </tr></thead>
         <tbody>
           <tr>
-            <td>Date</td>
-            <td>State</td>
+            <td>{{sw.mc.last_date}}</td>
+            <td>{{sw.mc.state}}</td>
             <!-- <td>{{client.mc.last_date}}</td> -->
             <!-- <td>{{client.mc.state}}</td> -->
+
+
           </tr>
         </tbody>
       </table>
@@ -34,11 +39,11 @@ document.getElementById("item_mc").setAttribute("class", "active item");
         <i class="calendar alternate outline icon"></i>
       <div class="content">
       <div class="header">
-      Tus pruebas de ETS se vencerán en .
+      Tus pruebas de ETS se vencerán en {{dt}}
       </div>
       <ul class="list">
       <li>
-        Recuerda actualizar tus pruebas trimestrales, o tus servicios no serán mostrados en la página.
+        Recuerda actualizar tus pruebas cada cinco meses, o tus servicios no serán mostrados en la página.
       </li>
       <li>
         Las pruebas de ETS están disponibles
@@ -49,27 +54,29 @@ document.getElementById("item_mc").setAttribute("class", "active item");
       </div>
       </div>
 
-      <form class="" action="{{BASEURL}}/s/update_mc/" method="post">
-      {% csrf_token %}
       <div class="ui placeholder segment">
-      <div class="ui icon header">
+        <form class="" action="{{BASEURL}}/s/update_mc/" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+      <div style="margin-top:30px;" class="ui icon header">
       <i class="pdf file outline icon"></i>
       Adjunta los resultados de tus pruebas.
       </div>
-      <div class="ui button teal">
+      <div id='succesfully_uploaded_file' class="ui positive message" style="display:none;">
+        <div class="header">
+          Your file is attached.
+        </div>
+        <p>Check out our requirements for MCs here.</p>
+      </div>
+      <div style="width:100%;" class="ui button grey">
         <label for="id_mc">
-          Upload your PDF
-        </label>
+          Adjuntar</label>
           {{ form_mc.mc }}
       </div>
-      </div>
-
-      <div class="showable">
-        <button class="ui fluid green button" type="submit" name="button">
+      <button id="save_button" style="width:100%; margin-top:15px; display:none;" class="ui fluid green button">
         Save
-        </button>
+      </button>
+    </form>
       </div>
-      </form>
 
 
     </div>

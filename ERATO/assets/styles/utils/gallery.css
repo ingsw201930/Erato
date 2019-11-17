@@ -1,19 +1,11 @@
-* {
+.main_container_gallery * {
   box-sizing: border-box;
-}
-
-body {
-  background-color: rgba(0, 0, 0, .3);
-}
-
-html {
-  font-size: 16px;
 }
 
 /* Position the image container (needed to position the left and right arrows) */
 .main_container_gallery {
   /* position: relative; */
-  width: 100%;
+  width: 85%;
   margin: 60px;
   /* box-shadow: 0 0 15px black; */
 }

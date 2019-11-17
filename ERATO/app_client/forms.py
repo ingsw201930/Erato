@@ -4,10 +4,10 @@ from django.contrib.auth.models import User
 from app_sw.forms import Tag
 
 class UploadFileForm(forms.Form):
-    file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadImage(event)'}))
+    file = forms.ImageField(widget=forms.FileInput(attrs={'class': 'ui fluid button', 'style':'display: none', 'onchange':'loadImage(event)'}))
 
 class UploadMCForm(forms.Form):
-    mc = forms.FileField(widget=forms.FileInput(attrs={'class': 'ui primary button', 'style':'display: none', 'onchange':'loadFile(event)'}))
+    mc = forms.FileField(widget=forms.FileInput(attrs={'class': 'ui fluid button', 'style':'display: none', 'onchange':'loadFile(event)'}))
 
 class ClientSignUpForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Username', 'style':'margin-bottom: 10px;'}))

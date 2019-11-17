@@ -29,6 +29,13 @@ from ERATO.settings import BASE_DIR
 
 import hashlib
 from time import gmtime, strftime
+import time
+from dateutil.relativedelta import *
+from datetime import datetime
+from datetime import timedelta
+from time import mktime
+
+
 
 image_key="Conan"
 mc_key="Conan"
@@ -124,8 +131,6 @@ def signup(request):
                 about=form.cleaned_data.get('description'),
                 third_email=form.cleaned_data.get('third_email'),
                 picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
-
-                mc_path = "%s" % hashlib.md5((username+mc_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
 
@@ -203,7 +208,8 @@ def get_date_list_more_dates(request, index):
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)
     sw = service.sw
-    return render(request, 'services_s/service_view.html', {'service':service, 'sw':sw})
+    ap = Appearance.objects.get(sw=sw.user_id)
+    return render(request, 'services_s/service_view.html', {'service':service, 'sw':sw, 'ap':ap})
 
 @login_required_SW
 def my_profile(request):
@@ -261,8 +267,26 @@ def upload_swpp(request):
 @login_required_SW
 def mc_panel(request):
     form_mc = UploadMCForm()
-    return render(request, 'sw/mc_panel.html', {'form_mc':form_mc})
+    user = request.user
+    sw = SW.objects.get(user=user)
+    mc_date = sw.mc.last_date
+    today = strftime(fmt, gmtime())
+    use_date = time.strptime(str(mc_date), fmt)
+    dt = datetime.fromtimestamp(mktime(use_date))
+    dt = dt + relativedelta(months=+5)
+    return render(request, 'sw/mc_panel.html', {'dt':dt, 'sw':sw, 'form_mc':form_mc})
 
+
+@login_required_SW
 def update_mc(request):
-
-    return HttpResponse("Updating")
+    user = request.user
+    sw = SW.objects.get(user=user)
+    username =str(user)
+    form_ul = UploadFileForm(request.POST, request.FILES)
+    mc = sw.mc
+    mc.last_date = strftime(fmt, gmtime())
+    mc.state = MC.VERIFYING
+    mc.save()
+    if form_ul.is_valid():
+        handle_uploaded_file(request.FILES['file'], username, "MC")
+    return HttpResponseRedirect('/s/mc_panel/')
