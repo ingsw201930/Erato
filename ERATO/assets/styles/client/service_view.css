@@ -1,15 +1,10 @@
-.profile {
-  width: 30%;
+.service .card{
+  width: 100%;
+  /* background: white; */
 }
-.images{
-  display: block;
-}
-.images * {
-  display: inline;
-}
-.album {
-  display: inline-block;
-}
-.service{
- width: 60%;
+
+.service_price{
+  margin-right: -30px;
+  float: right;
+  overflow: auto;
 }

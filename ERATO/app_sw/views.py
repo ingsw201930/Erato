@@ -211,7 +211,8 @@ def get_date_list_more_dates(request, index):
 def view_service(request, service_id):
     service = Service.objects.get(id=service_id)
     sw = service.sw
-    return render(request, 'services_s/service_view.html', {'service':service, 'sw':sw})
+    ap = Appearance.objects.get(sw=sw.user_id)
+    return render(request, 'services_s/service_view.html', {'service':service, 'sw':sw, 'ap':ap})
 
 @login_required_SW
 def my_profile(request):
