@@ -128,38 +128,20 @@
   </section>
 </div>
 
-<!-- agregar nuevas imagenes  -->
 
-          <!-- <form class="" action="{{ BASEURL }}/s/image_add" method="post" enctype="multipart/form-data" > -->
-          <!--   {% csrf_token %} -->
-          <!--   <div id="succesfully_uploaded_file" class="ui positive message" style="display:none;" > -->
-          <!--       <div class="header"> -->
-          <!--           Image added. -->
-          <!--       </div> -->
-          <!--   </div> -->
-          <!--   <div style="width:100%;" class="ui button grey"> -->
-          <!--     <label for="id_file"> -->
-          <!--         Add image -->
-          <!--     </label> -->
-          <!--     {{ form_ul.file }} -->
-          <!--   </div> -->
-          <!--   <button id="save_button" style="width:100%; margin-top:15px; display:none;" class="ui fluid green button" > -->
-          <!--     Save -->
-          <!--   </button> -->
-          <!-- </form> -->
 
-<!-- final agregar nuevas imagenes  -->
 
 
 <form class="" action="{{BASEURL}}/s/edit_profile" method=POST>
 	{% csrf_token %}
 <div class="margined medium">
 
+<!-- agregar nuevas imagenes  -->
       <form class="" action="{{ BASEURL }}/s/image_add" method="post" enctype="multipart/form-data" >
         {% csrf_token %}
         <div id="succesfully_uploaded_file" class="ui positive message" style="display:none;" >
             <div class="header">
-                Image added.
+                Imagenes agregadas.
             </div>
         </div>
         <div style="width:100%;" class="ui inverted button green showable">
@@ -172,8 +154,7 @@
           Save
         </button>
       </form>
-
-
+<!-- final agregar nuevas imagenes  -->
 
   <!-- <div for="id_files" class="ui inverted button green showable"> -->
   <!--   Carga un nuevo álbum -->
