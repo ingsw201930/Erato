@@ -12,6 +12,7 @@
     <title>Erato</title>
     <meta charset="utf-8">
 </head>
+
 <body>
 {% include '../general/nav.html' %}
 <div class="container">
@@ -30,8 +31,10 @@
           <label for="amount" class="ui label">$</label>
           {{form.price}}
         </div>
-        {{form.tags}}
-        <button class="ui button fluid green" type="submit" name="button">Add service</button>
+          {{form.tags}}
+        <button class="ui button fluid green" type="submit" name="button">
+            Add service
+        </button>
       </form>
     </div>
   </div>

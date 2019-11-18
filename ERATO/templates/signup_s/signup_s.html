@@ -60,8 +60,10 @@
 	<div class="header">
 	Correct the password field.
 	</div>
-	<p>{{ form.password2.errors }}
-	</p></div>
+	<p>
+        {{ form.password2.errors }}
+	</p>
+    </div>
 	<h4 class="ui horizontal divider header">
   Profile
 	</h4>
@@ -72,7 +74,8 @@
 		</div>
         <div class="ui button yellow">
             <label for="id_file">
-            Upload your picture</label>
+                Upload your picture
+            </label>
             {{ form_ul.file }}
         </div>
 	</div>
@@ -83,50 +86,52 @@
     <!--     {{ form_ul.files }} -->
     <!-- </div> -->
 
-
-<div class="ui negative message" {% if form_ul.file.errors %} style="display: block" {% else %} style="display: none" {% endif %}
-		>
-	<div class="header">
-	We couldn't upload your picture.
-	</div>
-	<p>{{ form_ul.file.errors }}
-	</p>
+    <div class="ui negative message" {% if form_ul.file.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+        <div class="header">
+            We couldn't upload your picture.
+        </div>
+        <p>
+            {{ form_ul.file.errors }}
+        </p>
 	</div>
 	<div class="profile_form">
 		<div class="b_spaced">
-		{{ form.first_name }}
+            {{ form.first_name }}
 		</div>
-		<div class="ui negative message" {% if form.first_name.errors %} style="display: block" {% else %} style="display: none" {% endif %}
-		>
-		<div class="header">
-		Please fill the name correctly.
-		</div>
-		<p>{{ form.first_name.errors }}
-		</p>
+		<div class="ui negative message" {% if form.first_name.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+            <div class="header">
+                Please fill the name correctly.
+            </div>
+            <p>
+                {{ form.first_name.errors }}
+            </p>
 		</div>
 
 
-<div class="b_spaced">
-{{ form.last_name }}
-</div>
-<div class="ui negative message" {% if form.last_name.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
-<div class="header">
-Please fill the last name correctly.
-</div>
-<p>{{ form.last_name.errors}}
-</p>
-</div>
+        <div class="b_spaced">
+            {{ form.last_name }}
+        </div>
+        <div class="ui negative message" {% if form.last_name.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+            <div class="header">
+                Please fill the last name correctly.
+            </div>
+            <p>
+                {{ form.last_name.errors}}
+            </p>
+        </div>
 
-<div class="b_spaced">
-{{ form.description }}
-</div>
-<div class="ui negative message" {% if form.description.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
-<div class="header">
-Please fill the description correctly.
-</div>
-<p>{{ form.description.errors}}</p>
-</div>
-</div>
+        <div class="b_spaced">
+            {{ form.description }}
+        </div>
+        <div class="ui negative message" {% if form.description.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
+            <div class="header">
+                Please fill the description correctly.
+            </div>
+            <p>
+                {{ form.description.errors}}
+            </p>
+        </div>
+    </div>
 
 
 <div class="b_spaced">

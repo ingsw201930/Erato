@@ -1,3 +1,10 @@
+
+
+var add_img = function(){
+    form_addimg.file
+    image_add // esto no se como llamarlo :v
+}
+
 var show_inputs = function(event) {
   console.log("in inputs");
 

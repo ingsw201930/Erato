@@ -105,7 +105,7 @@
     <a class="next">&#10095;</a>
   </section>
 
-  <!-- Thumbnail images -->
+  <!-- Thumbnail images / esto es lo que hay que cambiar, a que se muestren las imagenes del sw -->
   <section id="thumbnail-section" class="row">
     <div class="thumbnail">
       <img class="demo cursor active" src="https://www.w3schools.com/howto/img_woods.jpg" alt="">
@@ -131,7 +131,7 @@
 <form class="" action="{{BASEURL}}/s/edit_profile" method=POST>
 	{% csrf_token %}
 <div class="margined medium">
-  <div class="ui inverted button green showable">
+  <div for="id_files" class="ui inverted button green showable">
     Carga un nuevo álbum
   </div>
 </div>
@@ -328,23 +328,40 @@
       </div>
     </div>
     <div class="profile_buttons">
-      <div class="profile_button">
-        <div id="button_edit" class="ui fluid orange button" onclick="show_inputs()">
-          Editar perfil
+
+        <!-- <div class="profile_button"> -->
+        <!--   <div id="button_add_img" for="id_files" class="ui fluid orange button" onclick="show_inputs()"> -->
+        <!--     Agregar imagenes -->
+        <!--   </div> -->
+        <!-- </div> -->
+
+        <div class="profile_button">
+            <div class="ui fluid orange button" id="button_add_img" onclick="add_img()">
+                Upload pictures
+            </div>
         </div>
-      </div>
-      <div class="profile_button">
-        <button type="submit"
-        id="button_save" style="display: none" class="ui inverted fluid green button"
-        name="button">
-        Guardar
-      </button>
-    </div>
-    <div class="profile_button">
-      <div id="button_delete" class="ui fluid red button" onclick="delete_account_pop_up()">
-        Borrar cuenta
-      </div>
-    </div>
+
+
+        <div class="profile_button">
+          <div id="button_edit" class="ui fluid orange button" onclick="show_inputs()">
+            Editar perfil
+          </div>
+        </div>
+
+        <div class="profile_button">
+          <button type="submit"
+              id="button_save" style="display: none" class="ui inverted fluid green button"
+              name="button">
+              Guardar
+          </button>
+        </div>
+
+        <div class="profile_button">
+          <div id="button_delete" class="ui fluid red button" onclick="delete_account_pop_up()">
+            Borrar cuenta
+          </div>
+        </div>
+
   </div>
 
 </div>

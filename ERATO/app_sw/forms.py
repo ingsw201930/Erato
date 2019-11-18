@@ -39,13 +39,13 @@ class SWSignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = (
-        'username',
-        'password1',
-        'password2',
-        'first_name',
-        'last_name',
-        'email',
-        'description'
+            'username',
+            'password1',
+            'password2',
+            'first_name',
+            'last_name',
+            'email',
+            'description'
         )
 
     def __init__(self, *args, **kwargs):
@@ -54,13 +54,13 @@ class SWSignUpForm(UserCreationForm):
 
 
 class SWAppearanceForm(forms.Form):
-    EYES_CHOICES=Appearance.EYES_CHOICES
-    HAIR_COLOR_CHOICES=Appearance.HAIR_COLOR_CHOICES
-    HAIR_STYLES_CHOICES=Appearance.HAIR_STYLES_CHOICES
-    SKIN_CHOICES=Appearance.SKIN_CHOICES
+    EYES_CHOICES = Appearance.EYES_CHOICES
+    HAIR_COLOR_CHOICES = Appearance.HAIR_COLOR_CHOICES
+    HAIR_STYLES_CHOICES = Appearance.HAIR_STYLES_CHOICES
+    SKIN_CHOICES = Appearance.SKIN_CHOICES
 
-    weight =forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
-    height =forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
+    weight = forms.DecimalField(label='weight', widget=forms.TextInput(attrs={'placeholder': 'Weight'}))
+    height = forms.DecimalField(label='height', widget=forms.TextInput(attrs={'placeholder': 'Height'}))
     skin = forms.ChoiceField(choices=SKIN_CHOICES)
     eyes = forms.ChoiceField(choices=EYES_CHOICES)
     hair_style = forms.ChoiceField(choices=HAIR_STYLES_CHOICES)

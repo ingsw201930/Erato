@@ -57,19 +57,13 @@ def home_s(request):
         HttpResponseRedirect('/')
 
 @login_required_SW
-def image_add_form(request):
-    form = ServiceAddForm()
-    tags = Tag.objects.all()
-    return render(request, 'services_s/image_add.html', {'tags':tags, 'form':form})
-
-@login_required_SW
 def service_add_form(request):
     form = ServiceAddForm()
     tags = Tag.objects.all()
     return render(request, 'services_s/service_add.html', {'tags':tags, 'form':form})
 
 @login_required_SW
-def image_add(request):
+def service_add(request):
     form = ServiceAddForm(request.POST)
     if form.is_valid():
         name = form.cleaned_data.get('name')
@@ -88,16 +82,14 @@ def image_add(request):
     return HttpResponseRedirect('/s/service_add_request/')
 
 @login_required_SW
-def service_add(request):
+def image_add(request):
     form = UploadAdditionalImagesForm(request.POST)
     if form.is_valid():
         path = form.cleaned_data.get('file')
         sw = SW.objects.get(user=user)
         addImg = AdditionalImage(sw=sw, extra_picture_path=path)
         addImg.save()
-
-        return HttpResponseRedirect('/s/home')
-    return HttpResponseRedirect('/s/image_add_request/')
+    return HttpResponseRedirect('/sw/profile')
 
 @SW_my_service_required
 def service_del(request, service_id):
@@ -225,11 +217,12 @@ def my_profile(request):
     form_ul = UploadFileForm()
     form_mc = UploadMCForm()
     form_ap = SWAppearanceForm()
+    form_addimg = UploadAdditionalImagesForm();
     user = request.user
     sw = SW.objects.get(user=user)
     ap = Appearance.objects.get(sw_id=sw.user_id)
     services = Service.objects.filter(sw_id=sw.user_id)
-    return render(request, 'sw/profile.html', {'form_ul': form_ul, 'form_mc': form_mc, 'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
+    return render(request, 'sw/profile.html', {'form_ul': form_ul, 'form_addimg':form_addimg , 'form_mc': form_mc, 'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
 
 @login_required_SW
 def account_del(request, sw_id):
