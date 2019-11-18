@@ -128,13 +128,59 @@
   </section>
 </div>
 
+<!-- agregar nuevas imagenes  -->
+
+          <!-- <form class="" action="{{ BASEURL }}/s/image_add" method="post" enctype="multipart/form-data" > -->
+          <!--   {% csrf_token %} -->
+          <!--   <div id="succesfully_uploaded_file" class="ui positive message" style="display:none;" > -->
+          <!--       <div class="header"> -->
+          <!--           Image added. -->
+          <!--       </div> -->
+          <!--   </div> -->
+          <!--   <div style="width:100%;" class="ui button grey"> -->
+          <!--     <label for="id_file"> -->
+          <!--         Add image -->
+          <!--     </label> -->
+          <!--     {{ form_ul.file }} -->
+          <!--   </div> -->
+          <!--   <button id="save_button" style="width:100%; margin-top:15px; display:none;" class="ui fluid green button" > -->
+          <!--     Save -->
+          <!--   </button> -->
+          <!-- </form> -->
+
+<!-- final agregar nuevas imagenes  -->
+
+
 <form class="" action="{{BASEURL}}/s/edit_profile" method=POST>
 	{% csrf_token %}
 <div class="margined medium">
-  <div for="id_files" class="ui inverted button green showable">
-    Carga un nuevo álbum
-  </div>
+
+      <form class="" action="{{ BASEURL }}/s/image_add" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div id="succesfully_uploaded_file" class="ui positive message" style="display:none;" >
+            <div class="header">
+                Image added.
+            </div>
+        </div>
+        <div style="width:100%;" class="ui inverted button green showable">
+          <label for="id_file">
+            Carga un nuevo álbum
+          </label>
+          {{ form_ul.file }}
+        </div>
+        <button id="save_button" style="width:100%; margin-top:15px; display:none;" class="ui fluid green button" >
+          Save
+        </button>
+      </form>
+
+
+
+  <!-- <div for="id_files" class="ui inverted button green showable"> -->
+  <!--   Carga un nuevo álbum -->
+  <!-- </div> -->
 </div>
+
+
 <div class="margined huge">
 
     <div class="profile">
@@ -329,40 +375,9 @@
     </div>
     <div class="profile_buttons">
 
-        <!-- <div class="profile_button"> -->
-        <!--   <div id="button_add_img" for="id_files" class="ui fluid orange button" onclick="show_inputs()"> -->
-        <!--     Agregar imagenes -->
-        <!--   </div> -->
-        <!-- </div> -->
-
-        <!-- <div class="profile_button"> -->
-            <!-- <div class="ui fluid orange button" id="button_add_img" onclick="{{BASEURL}}/s/image_add"> -->
-            <!--     Upload pictures -->
-            <!-- </div> -->
-        <!-- </div> -->
-
         <!-- inicio prueba  -->
           <!-- {{ form_addimg.file }} -->
 
-          <form class="" action="{{ BASEURL }}/s/image_add" method="post" enctype="multipart/form-data" >
-            {% csrf_token %}
-            <div id="succesfully_uploaded_file" class="ui positive message" style="display:none;" >
-              <div class="header">
-                Image added.
-              </div>
-            </div>
-            <div style="width:100%;" class="ui button grey">
-              <label for="id_file">
-                  Add image
-              </label>
-              {{ form_ul.file }}
-            </div>
-            <button id="save_button" style="width:100%; margin-top:15px; display:none;" class="ui fluid green button" >
-              Save
-            </button>
-          </form>
-        <!-- <form class="" action="{{BASEURL}}/s/image_add" method="post" enctype="multipart/form-data"> -->
-        <!--      {% csrf_token %} -->
         <!--    <div class="margined small showable"> -->
         <!--      <div class="ui fluid button yellow"> -->
         <!--        <label for="id_file"> -->
