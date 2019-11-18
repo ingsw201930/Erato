@@ -52,7 +52,6 @@ class SWSignUpForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['gender'].widget.attrs.update({'class': 'ui fluid dropdown', 'style':'display:block'})
 
-
 class SWAppearanceForm(forms.Form):
     EYES_CHOICES = Appearance.EYES_CHOICES
     HAIR_COLOR_CHOICES = Appearance.HAIR_COLOR_CHOICES

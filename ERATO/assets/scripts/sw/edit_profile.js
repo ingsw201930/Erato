@@ -1,5 +1,4 @@
 
-
 var add_img = function(){
     form_addimg.file
     image_add // esto no se como llamarlo :v
@@ -33,3 +32,4 @@ var hide_hidable = function(){
     x[i].style.display = "none";
   }
 }
+

@@ -83,13 +83,13 @@ def service_add(request):
 
 @login_required_SW
 def image_add(request):
-    form = UploadAdditionalImagesForm(request.POST)
-    if form.is_valid():
-        path = form.cleaned_data.get('file')
-        sw = SW.objects.get(user=user)
-        addImg = AdditionalImage(sw=sw, extra_picture_path=path)
-        addImg.save()
-    return HttpResponseRedirect('/sw/profile')
+    user = request.user
+    username = str(user)
+    #  form_addimg = UploadAdditionalImagesForm(request.POST, request.FILES)
+    form_ul = UploadFileForm(request.POST, request.FILES)
+    if form_ul.is_valid():
+        handle_uploaded_file(request.FILES['file'], username, 'ADDIMG')
+    return HttpResponseRedirect('/s/profile/')
 
 @SW_my_service_required
 def service_del(request, service_id):
@@ -164,11 +164,14 @@ def signup(request):
     return HttpResponseRedirect('/')
 
 def handle_uploaded_file(f, username, code):
-    file_name=''
+    file_name = ''
     if code == 'PPSW':
         file_name = BASE_DIR+"/assets/images/pro_pics/%s" % hashlib.md5((username+image_key).encode()).hexdigest()
     if code == 'MC':
         file_name =BASE_DIR+ "/assets/mcs/%s" % hashlib.md5((username+mc_key).encode()).hexdigest()
+    if code == 'ADDIMG':
+        file_name =BASE_DIR+ "/assets/sw_imgs/%s" % hashlib.md5((username+image_key).encode()).hexdigest()
+
     with open(file_name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -217,12 +220,12 @@ def my_profile(request):
     form_ul = UploadFileForm()
     form_mc = UploadMCForm()
     form_ap = SWAppearanceForm()
-    form_addimg = UploadAdditionalImagesForm();
+    form_addimg = UploadAdditionalImagesForm()
     user = request.user
     sw = SW.objects.get(user=user)
     ap = Appearance.objects.get(sw_id=sw.user_id)
     services = Service.objects.filter(sw_id=sw.user_id)
-    return render(request, 'sw/profile.html', {'form_ul': form_ul, 'form_addimg':form_addimg , 'form_mc': form_mc, 'form_ap':form_ap,  'form':form, 'sw':sw, 'ap':ap, 'services':services})
+    return render(request, 'sw/profile.html', {'form_ul': form_ul, 'form_addimg':form_addimg, 'form_mc': form_mc, 'form_ap':form_ap, 'form':form, 'sw':sw, 'ap':ap, 'services':services})
 
 @login_required_SW
 def account_del(request, sw_id):
@@ -281,7 +284,7 @@ def mc_panel(request):
 def update_mc(request):
     user = request.user
     sw = SW.objects.get(user=user)
-    username =str(user)
+    username = str(user)
     form_ul = UploadFileForm(request.POST, request.FILES)
     mc = sw.mc
     mc.last_date = strftime(fmt, gmtime())

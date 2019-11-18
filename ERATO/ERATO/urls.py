@@ -50,6 +50,7 @@ urlpatterns = [
     path('s/account_del/<int:sw_id>', sw_views.account_del , name="account_del"),
     path('s/edit_profile', sw_views.edit_profile , name="service_del"),
     path('s/upload_swpp', sw_views.upload_swpp , name="service_del"),
+    path('s/image_add', sw_views.image_add, name="sw_add_img"),
     path('s/service/<int:service_id>', sw_views.view_service , name="service_edit"),
     path('s/date_by_service/<int:service_id>',date_views.date_by_service,name="date_by_service"),
     path('s/profile/', sw_views.my_profile, name="sw_my_profile"),
