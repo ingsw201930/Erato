@@ -74,6 +74,7 @@ urlpatterns = [
     path('c/mc_panel/', client_views.mc_panel, name="c_mc_panel"),
     path('c/upload_cpp', client_views.upload_cpp , name="upload_client_profile_picture"),
     path('c/account_del/<int:client_id>', client_views.account_del , name="account_del"),
+    path('c/update_mc/', client_views.update_mc, name="update_mc"),
 
 #   QR
     path('generate_date/<int:service_id>', date_views.generate_date, name="generate_date"),

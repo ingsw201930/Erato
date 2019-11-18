@@ -6,7 +6,9 @@ var loadImage = function(event) {
 
 // Load a file and show a message.
 var loadFile = function(event) {
-  var output = document.getElementById('output');
-  output.chasuccesfully_uploaded_file;
   document.getElementById('succesfully_uploaded_file').style.display = "block";
+  var save_button = document.getElementById('save_button')
+  if (save_button !== null){
+    save_button.style.display= "block";
+  }
 };
