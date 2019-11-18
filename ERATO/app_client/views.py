@@ -154,14 +154,14 @@ def dates(request):
     user = request.user
     client=Client.objects.get(user=user)
     dates = Date.objects.all().filter(client_id=client.user_id)
-
     # Dates are divided in five groups
     current_date=dates.filter(state=Date.STARTED) | dates.filter(state=Date.TIMEDOUT)
     payed_dates=dates.filter(state=Date.PAYED)
+    print(payed_dates)
     accepted_dates=dates.filter(state=Date.ACCEPTED)
     requested_dates=dates.filter(state=Date.REQUESTED)
     more_dates=dates.filter(state=Date.ENDED) | dates.filter(state=Date.RATED) | dates.filter(state=Date.REJECTED)
-    return render(request, 'client/dates.html', {'payed_dates': payed_dates,'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'more_dates':more_dates})
+    return render(request, 'client/dates.html', {'payed_dates': payed_dates, 'accepted_dates':accepted_dates, 'requested_dates':requested_dates, 'more_dates':more_dates})
 
 @login_required_client
 def get_date_list(request,index):

@@ -47,9 +47,12 @@ def charge(request, date_id):
 			transaction.save()
 			print("Transaction saved")
 			print("Creando cargos")
+
+			converted_price = int(price/3500)
+			print("Transaction made, %d charged." % converted_price)
 			stripe.Charge.create(
-			amount = price,
-			currency='cop',
+			amount = converted_price,
+			currency='usd',
 			card="tok_visa",
 			description= str(date.id)+'_'+str(current_time)
 			)

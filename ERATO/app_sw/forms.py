@@ -33,7 +33,7 @@ class SWSignUpForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
     third_email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Third email'}))
     birth_date=forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
-    description=forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description=forms.CharField(max_length=500, widget=forms.Textarea(attrs={'placeholder':'Sobre mí'}))
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
 
     class Meta:
@@ -77,7 +77,7 @@ class SWAppearanceForm(forms.Form):
 class SWEditForm(forms.Form):
     GENDER_CHOICES = SW.GENDER_CHOICES
     gender = forms.ChoiceField(choices=GENDER_CHOICES)
-    about=forms.CharField(max_length=500, widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    about=forms.CharField(max_length=500, widget=forms.Textarea(attrs={'placeholder':'Sobre mí'}))
     third_email = forms.EmailField(max_length=50, help_text='Required. Inform a valid email address.', widget=forms.TextInput(attrs={'placeholder': 'Third email'}))
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

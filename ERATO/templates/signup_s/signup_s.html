@@ -130,7 +130,12 @@ Please fill the description correctly.
 
 
 <div class="b_spaced">
-{{ form.birth_date }}
+	<div class="ui calendar" id="standard_calendar">
+  <div class="ui fluid input left icon">
+    <i class="calendar icon"></i>
+		{{ form.birth_date }}
+  </div>
+</div>
 </div>
 <div class="ui negative message" {% if form.birth_date.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
 <div class="header">
@@ -205,7 +210,7 @@ Please fill the birth date correctly.
 	<label for="">Height</label>
 <div class="ui right labeled input fluid">
 {{ form_ap.height}}
-<div class="ui basic label">m</div>
+<div class="ui basic label">cm</div>
 </div>
 </div>
 <div class="ui negative message" {% if form.height.errors %} style="display: block" {% else %} style="display: none" {% endif %}>
@@ -258,7 +263,51 @@ Please fill the birth date correctly.
 {% include '../general/footer.html' %}
 
 <script type="text/javascript">
-    $('.dropdown').dropdown();
+
+var calendarOpts = {
+		type: 'date',
+		popupOptions: {
+            position: 'bottom left',
+            lastResort: 'bottom left',
+            prefer: 'opposite',
+            hideOnScroll: false
+          },
+		formatter: {
+				date: function (date, settings) {
+						if (!date) return '';
+						var day = date.getDate() + '';
+						if (day.length < 2) {
+								day = '0' + day;
+						}
+						var month = (date.getMonth() + 1) + '';
+						if (month.length < 2) {
+								month = '0' + month;
+						}
+						var year = date.getFullYear();
+
+						var hour = date.getHours();
+						var minute = date.getMinutes();
+						var seconds = date.getSeconds();
+						return year + '-' + month + '-' + day;
+				}
+		}
+};
+
+		var options = document.getElementById("id_skin").getElementsByTagName("option");
+		for (option of options){
+			var color = option.value;
+			console.log(color);
+			option.innerHTML = "";
+			var i = document.createElement('I');
+			i.setAttribute( 'class', 'square icon' );
+			i.style.color = color;
+			option.appendChild(i);
+			console.log(option.innerHTML);
+		}
+		$('.dropdown').dropdown();
+		$('#standard_calendar')
+  		.calendar(calendarOpts);
+
 </script>
 
 </body>
