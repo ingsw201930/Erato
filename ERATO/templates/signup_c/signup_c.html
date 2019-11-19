@@ -16,10 +16,10 @@
 		<form class="ui form" method="post" action="{{BASEURL}}/c/signup/" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ form.username }}
+			{{ form.about }}
 			{{ form.email}}
 			{{ form.password1 }}
 			{{ form.password2 }}
-			{{form.birth_date}}
 			<h4 class="ui horizontal divider header">
 				Profile
 			</h4>
@@ -34,18 +34,36 @@
 					</div>
 				</div>
 				<h4 class="ui horizontal divider header">
-					Medical certification
+					Salud e información privada
 				</h4>
+				<div class="ui message">
+			<div class="header">
+			Escribe tu información real
+			</div>
+			<p>La información a continuación será verificada. No podrá ser cambiada más tarde.</p>
+			</div>
+			{{ form.first_name }}
+			{{ form.last_name }}
+			{{ form.birth_date}}
+			<div class="ui message">
+			<div class="header">
+			Adjunta los resultados det us pruebas de transmisión sexual.
+			</div>
+			<p>Una vez verificados los resultados, tus servicios podrán ser visibles.</p>
+			<p>
+			Las pruebas de ETS están disponibles
+			<a href="https://profamilia.org.co/servicios/its/consulta-medica/">en tu país.</a>
+			</p>
+			</div>
 				<div class="ui placeholder segment">
 					<div id='succesfully_uploaded_file' class="ui positive message" style="display:none">
 						<div class="header">
-							Your file was succesfully uploaded
+							Tu archivo fue cargado exitosamente
 						</div>
-						<p>Check out our requirements for MCs here.</p>
 					</div>
 					<div class="ui button yellow">
 						<label for="id_mc">
-							Upload your PDF</label>
+							Adjuntar</label>
 							{{ form_mc.mc }}
 						</div>
 					</div>
@@ -53,6 +71,19 @@
 						<button class="ui button green" type="submit" style="display: block; margin: 0 auto">Sign Up</button>
 					</div>
 				</form>
+				{% if form.errors %}
+				<div class="errors">
+					<div class="ui error message">
+					  <i class="close icon"></i>
+					  <div class="header">
+					    There were some errors with your submission
+					  </div>
+						<ul class='list'>
+							{{form.errors}}
+						</ul>
+					</div>
+				</div>
+				{% endif %}
 			</div>
 	</div>
 </div>

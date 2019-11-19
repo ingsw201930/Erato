@@ -55,12 +55,12 @@ document.getElementById("item_ma").setAttribute("class", "active item");
     {% csrf_token %}
 
       <div class="ui center aligned icon header">
-        <div class="b_spaced" style="margin-bottom: 40px; font-weight: normal;">
+        <div class="b_spaced">
           <div class="hidable">
               {{client.about}}
           </div>
 					<div class="showable">
-						<div class="ui fluid input">
+						<div>
 							{{form.about}}
 						</div>
 					</div>

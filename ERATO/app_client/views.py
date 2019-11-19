@@ -27,7 +27,7 @@ from time import mktime
 
 # Create your views here.
 # Home for clients
-image_key= "Uribeparaco"
+image_key= "Conani"
 mc_key= "Conan"
 
 fmt = '%Y-%m-%d %H:%M:%S+00:00'
@@ -100,21 +100,19 @@ def signup(request):
             client=Client(
                 user=user,
                 mc=mc,
+                about = form.cleaned_data.get('about'),
                 birth_date=form.cleaned_data.get('birth_date'),
                 email=form.cleaned_data.get('email'),
                 picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
+                full_name = form.cleaned_data.get('first_name') + ' ' + form.cleaned_data.get('last_name'),
             )
 
-            # Se debería crear una clase MC
-
             handle_uploaded_file(request.FILES['file'], username, "PPC")
-            handle_uploaded_file(request.FILES['file'], username, "MC")
+            handle_uploaded_file(request.FILES['mc'], username, "MC")
             client.save()
             login(request, user)
             return HttpResponseRedirect('/c/home/')
-    else:
-        form = ClientSignUpForm()
-    return render(request, 'signup_c/signup_c.html', {'form': form})
+    return HttpResponseRedirect('/c/signupform/')
 
 def handle_uploaded_file(f, username, code):
     file_name=''
@@ -201,14 +199,16 @@ def account_del(request, client_id):
 
 @login_required_client
 def update_mc(request):
-    user = request.user
-    client = Client.objects.get(user=user)
-    username =str(user)
-    form_ul = UploadFileForm(request.POST, request.FILES)
-    mc = client.mc
-    mc.last_date = strftime(fmt, gmtime())
-    mc.state = MC.VERIFYING
-    mc.save()
-    if form_ul.is_valid():
-        handle_uploaded_file(request.FILES['file'], username, "MC")
+    if request.method == 'POST':
+        form = UploadMCForm(request.POST, request.FILES)
+        if form.is_valid():
+            print("Uploading")
+            user = request.user
+            client = Client.objects.get(user=user)
+            username =str(user)
+            handle_uploaded_file(request.FILES['mc'], username, "MC")
+            mc = client.mc
+            mc.last_date = strftime(fmt, gmtime())
+            mc.state = MC.VERIFYING
+            mc.save()
     return HttpResponseRedirect('/c/mc_panel/')

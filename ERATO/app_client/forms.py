@@ -13,7 +13,7 @@ class ClientSignUpForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'validate','placeholder': 'Username', 'style':'margin-bottom: 10px;'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Type your password', 'style':'margin-bottom: 10px;'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Type again your password', 'style':'margin-bottom: 10px;'}))
-    about=forms.CharField(max_length=500, widget=forms.Textarea(attrs={'placeholder':'Sobre mí'}))
+    about=forms.CharField(max_length=500, widget=forms.Textarea(attrs={'placeholder':'Sobre mí', 'style':'margin-bottom: 10px;'}))
     birth_date=forms.DateTimeField(widget=forms.TextInput(attrs={'placeholder': 'Birth date'}))
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'First name', 'style':'margin-bottom: 10px;'}))
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.', widget=forms.TextInput(attrs={'placeholder': 'Last name', 'style':'margin-bottom: 10px;'}))

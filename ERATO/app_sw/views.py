@@ -37,7 +37,7 @@ from time import mktime
 
 
 
-image_key="Conan"
+image_key="Conani"
 mc_key="Conan"
 
 fmt = '%Y-%m-%d %H:%M:%S+00:00'
@@ -98,7 +98,7 @@ def service_del(request, service_id):
 
 def signupform(request):
     form = SWSignUpForm()
-    form_appearance = SW
+    form_ap = SWAppearanceForm()
     form_ul = UploadFileForm()
     form_mc = UploadMCForm()
     form_ap = SWAppearanceForm()
@@ -133,9 +133,6 @@ def signup(request):
                 picture_path = "%s" % hashlib.md5((username+image_key).encode()).hexdigest(),
                 gender=form.cleaned_data.get('gender'),
             )
-
-
-
             appearance = Appearance(
                 sw=sw,
                 weight=form_ap.cleaned_data.get('weight'),
@@ -151,17 +148,14 @@ def signup(request):
             appearance.save()
 
             handle_uploaded_file(request.FILES['file'], username, 'PPSW')
-            print(request.FILES['file'])
-            print("Profile picture saved")
             handle_uploaded_file(request.FILES['mc'], username, 'MC')
-            print(request.FILES['mc'])
-            print("Medical certification saved")
+
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return HttpResponseRedirect('/s/home/')
         else:
-            return render(request, 'signup_s/signup_s.html', {'form': form, 'form_ul': form_ul, 'form_mc': form_mc})
-    return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/s/signupform/')
+    return HttpResponseRedirect('/s/signupform/')
 
 def handle_uploaded_file(f, username, code):
     file_name=''
@@ -279,14 +273,16 @@ def mc_panel(request):
 
 @login_required_SW
 def update_mc(request):
-    user = request.user
-    sw = SW.objects.get(user=user)
-    username =str(user)
-    form_ul = UploadFileForm(request.POST, request.FILES)
-    mc = sw.mc
-    mc.last_date = strftime(fmt, gmtime())
-    mc.state = MC.VERIFYING
-    mc.save()
-    if form_ul.is_valid():
-        handle_uploaded_file(request.FILES['file'], username, "MC")
+    if request.method == 'POST':
+        form = UploadMCForm(request.POST, request.FILES)
+        if form.is_valid():
+            print("Uploading")
+            user = request.user
+            sw = SW.objects.get(user=user)
+            username =str(user)
+            handle_uploaded_file(request.FILES['mc'], username, "MC")
+            mc = sw.mc
+            mc.last_date = strftime(fmt, gmtime())
+            mc.state = MC.VERIFYING
+            mc.save()
     return HttpResponseRedirect('/s/mc_panel/')

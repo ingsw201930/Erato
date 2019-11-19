@@ -55,7 +55,7 @@ document.getElementById("item_mc").setAttribute("class", "active item");
       </div>
 
       <div class="ui placeholder segment">
-        <form class="" action="{{BASEURL}}/s/update_mc/" method="post" enctype="multipart/form-data">
+        <form action="{{BASEURL}}/s/update_mc/" method=POST enctype="multipart/form-data">
           {% csrf_token %}
       <div style="margin-top:30px;" class="ui icon header">
       <i class="pdf file outline icon"></i>
@@ -69,7 +69,8 @@ document.getElementById("item_mc").setAttribute("class", "active item");
       </div>
       <div style="width:100%;" class="ui button grey">
         <label for="id_mc">
-          Adjuntar</label>
+          Adjuntar
+        </label>
           {{ form_mc.mc }}
       </div>
       <button id="save_button" style="width:100%; margin-top:15px; display:none;" class="ui fluid green button">
