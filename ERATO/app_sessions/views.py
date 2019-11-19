@@ -53,3 +53,9 @@ def authenticate_user(request):
 def logout_managing(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def error_404_view(request, exception):
+    return render(request,'error_pages/Error404Page.html')
+
+def error_403_view(request, exception):
+    return render(request,'error_pages/Error403Page.html')

@@ -95,3 +95,5 @@ urlpatterns = [
     # Ajax
     path('ajax/user_exists', session_views.user_exists, name='user_exists'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler404 = 'app_sessions.views.error_404_view'
