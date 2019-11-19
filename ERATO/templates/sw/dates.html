@@ -33,12 +33,12 @@
 
   <h4 class="ui horizontal divider header">
   <i class="clock outline icon"></i>
-  Current dates
+  Cita actual
   </h4>
 
   {% if not current_dates%}
   <div class="ui visible message">
-  <p>You are not in a date.</p>
+  <p>No estás en una cita.</p>
   </div>
   {% endif %}
   <!-- Current date or timed out if exists -->
@@ -46,21 +46,21 @@
     {% for current_date in current_dates %}
     <div class="ui card" style="width: 100%">
       <div class="content">
-        <div class="header">A date with {{current_date.client.user.username}}</div>
+        <div class="header">Cita con {{current_date.client.user.username}}</div>
       </div>
       <div class="content">
         <h4 class="ui sub header">
           Username: {{current_date.client.user.username}}
           <br>
-          Name: {{current_date.client.full_name}}
+          Nombre: {{current_date.client.full_name}}
           <br>
-          Start time: {{current_date.start_time}}
+          Inicio: {{current_date.start_time}}
           <br>
-          End time: {{current_date.end_time}}
+          Fin: {{current_date.end_time}}
           <br>
-          Price: {{current_date.price}}
+          Precio: {{current_date.price}}
           <br>
-          Location:
+          Ubicación:
           <br>
 
             <p>
@@ -75,22 +75,22 @@
           <div class="event">
             <div class="content">
               <div class="summary">
-                Currently you're in a date. Click the button below for confirm ending.
+                Actualmente estás en una cita, cliquea en el botón a continuación para terminarla.
               </div>
             </div>
           </div>
         </div>
       </div>
-      <button class="ui button fluid" onclick="end_date({{current_date.id}}, '{{BASEURL}}')">Confirm date ending</button>
+      <button class="ui button fluid" onclick="end_date({{current_date.id}}, '{{BASEURL}}')">Confirmar fin seguro de la cita.</button>
     </div>
 
     {% endfor %}
   </div>
 
       <div class="ui attached tabular menu">
-        <a class="item" data-tab="payed_dates">Pending dates</a>
-        <a class="item" data-tab="requested_dates">Requests</a>
-        <a class="item" data-tab="more_dates">More dates</a>
+        <a class="item" data-tab="payed_dates">Próximas citas</a>
+        <a class="item" data-tab="requested_dates">Solicitudes</a>
+        <a class="item" data-tab="more_dates">Más citas</a>
       </div>
 
       <!-- Dates in PAYED state. -->
@@ -100,20 +100,20 @@
             {% for date in payed_dates %}
             <div class="ui card hoverable" id="muestre-#mdata-payed-{{date.client.user_id}}-{{date.id}}" onclick="show_modal_data({{date.id}},'{{BASEURL}}')" style="width: 100%">
               <div class="content">
-                <div class="header">A date with {{date.client.user.username}}</div>
+                <div class="header">Cita con {{date.client.user.username}}</div>
               </div>
               <div class="content">
                 <h4 class="ui sub header">
-                  Start time: {{date.start_time}}
+                  Inicio: {{date.start_time}}
                   <br>
-                  End time: {{date.end_time}}
+                  Final: {{date.end_time}}
                   <br>
-                  Price: {{date.price}}
+                  Precio: {{date.price}}
                 </h4>
                 <div class="ui small feed">
                   <div class="event">
                     <div class=" extra content">
-                      {{date.client.user.username}} has payed the date.
+                      {{date.client.user.username}} ha pagado la cita.
                     </div>
                   </div>
                 </div>
@@ -124,7 +124,7 @@
             <div class="ui modal {{date.client.user_username}}" id="mdata-payed-{{date.client.user_id}}-{{date.id}}" >
                 <i class="close icon"></i>
                 <div class="header">
-                    Date information
+                    Información de la cita
                 </div>
                 <div class="content">
                     <div class="ui grid">
@@ -156,11 +156,11 @@
                         <div class="six wide column" style="width:100%; height:100%; display: block; vertical-align:top;">
                           <div style=" padding:"20px;" width:100%; height:100%; display: block; vertical-align:top;">
                             <div class="content">
-                              Start time: {{date.start_time}}
+                              Inicio: {{date.start_time}}
                               <br>
-                              End time: {{date.end_time}}
+                              Final: {{date.end_time}}
                               <br>
-                              Price: {{date.price}}
+                              Precio: {{date.price}}
                             </div>
                           </div>
                         </div>
@@ -206,11 +206,11 @@
                 </div>
                 <div class="content">
                     <h4 class="ui sub header">
-                      Start time: {{date.start_time}}
+                      Inicio: {{date.start_time}}
                       <br>
-                      End time: {{date.end_time}}
+                      Fin: {{date.end_time}}
                       <br>
-                      Price: {{date.price}}
+                      Precio: {{date.price}}
                     </h4>
                     <div class="ui small feed">
                         <div class="event">
@@ -223,7 +223,7 @@
             <div class="ui modal {{date.client.user_username}}" id="mdata-{{date.client.user_id}}-{{date.id}}" >
                 <i class="close icon"></i>
                 <div class="header">
-                    Date information
+                    Información de la cita
                 </div>
                 <div class="image content">
                     <div class="ui medium image">
@@ -234,17 +234,17 @@
                             <h4 class="ui sub header">
                                 Username : {{date.client.user.username}}
                                 <br>
-                                Name : {{date.client.full_name}}
+                                Nombre : {{date.client.full_name}}
                                 <br>
-                                Description : {{date.client.about}}
+                                Descripción : {{date.client.about}}
                                 <br>
-                                Start time: {{date.start_time}}
+                                Inicio: {{date.start_time}}
                                 <br>
-                                End time: {{date.end_time}}
+                                Fin: {{date.end_time}}
                                 <br>
-                                Price: {{date.price}}
+                                Precio: {{date.price}}
                                 <br>
-                                location:
+                                Ubicación:
                                 <br>
 
                                 <p>
